@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f6f3;
+  --foreground: #1a1f1c;
+  --muted: #5c6760;
+  --accent: #2f6b4f;
+  --accent-soft: #d8e8df;
+  --surface: rgba(255, 255, 255, 0.72);
+  --line: rgba(26, 31, 28, 0.12);
+  --glow: rgba(47, 107, 79, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --font-sans: var(--font-ibm-plex-sans-kr);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-hero {
+  animation: fade-in-up 0.7s ease-out both;
+}
+
+.animate-hero-delay {
+  animation: fade-in-up 0.7s ease-out 0.12s both;
+}
+
+.animate-section {
+  animation: fade-in 0.6s ease-out both;
+}
+
+html[data-reduced-motion="true"] .animate-hero,
+html[data-reduced-motion="true"] .animate-hero-delay,
+html[data-reduced-motion="true"] .animate-section {
+  animation: none;
+}
+
+.page-atmosphere {
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, var(--glow), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 95% 20%, rgba(47, 107, 79, 0.08), transparent 50%),
+    linear-gradient(180deg, #f7f9f6 0%, var(--background) 40%, #eef2ef 100%);
+}
+
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
