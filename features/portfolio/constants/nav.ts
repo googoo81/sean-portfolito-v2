@@ -1,9 +1,7 @@
-import type { NavItem } from "@/features/portfolio/types";
+import type { NavLink } from "@/features/portfolio/types";
 
-export const NAV_ITEMS = [
-  { href: "#contact", label: "Contact", sectionId: "contact" },
-  { href: "#skills", label: "Skills", sectionId: "skills" },
-  { href: "#projects", label: "Projects", sectionId: "projects" },
-  { href: "#histories", label: "Histories", sectionId: "histories" },
-  { href: "#education", label: "Education", sectionId: "education" },
-] as const satisfies readonly NavItem[];
+/** Daniel-style primary nav: Works + Story */
+export const NAV_LINKS = [
+  { href: "/", label: "Works" },
+  { href: "/about", label: "Story" },
+] as const satisfies readonly NavLink[];

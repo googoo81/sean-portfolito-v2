@@ -9,7 +9,10 @@ const ibmPlexSansKr = IBM_Plex_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "송현우 | 콘텐츠 마케터",
+  title: {
+    default: "송현우 | 콘텐츠 마케터",
+    template: "%s | 송현우",
+  },
   description:
     "기획한 아이디어를 직접 구현하는 마케터 송현우. 브랜드 분석부터 이미지·영상·카피 제작까지 연결합니다.",
 };

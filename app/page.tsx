@@ -1,7 +1,6 @@
-import { getPortfolio, PortfolioPage } from "@/features/portfolio";
+import { getPortfolio, HomePageView } from "@/features/portfolio";
 
 export default function Home() {
   const portfolio = getPortfolio();
-
-  return <PortfolioPage portfolio={portfolio} />;
+  return <HomePageView portfolio={portfolio} />;
 }

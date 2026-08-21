@@ -32,44 +32,6 @@ html {
   scroll-behavior: smooth;
 }
 
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-hero {
-  animation: fade-in-up 0.7s ease-out both;
-}
-
-.animate-hero-delay {
-  animation: fade-in-up 0.7s ease-out 0.12s both;
-}
-
-.animate-section {
-  animation: fade-in 0.6s ease-out both;
-}
-
-html[data-reduced-motion="true"] .animate-hero,
-html[data-reduced-motion="true"] .animate-hero-delay,
-html[data-reduced-motion="true"] .animate-section {
-  animation: none;
-}
-
 .page-atmosphere {
   background:
     radial-gradient(ellipse 80% 50% at 10% -10%, var(--glow), transparent 55%),

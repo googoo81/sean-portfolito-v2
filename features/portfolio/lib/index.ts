@@ -1,1 +1,6 @@
-export { getPortfolio } from "./get-portfolio";
+export {
+  getPortfolio,
+  getProjectById,
+  getProjectIds,
+  getProjects,
+} from "./get-portfolio";

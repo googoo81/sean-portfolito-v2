@@ -13,7 +13,7 @@ export function Section({ id, title, children, className }: SectionProps) {
     <section
       id={id}
       className={cn(
-        "animate-section scroll-mt-24 border-t border-line py-14 sm:py-16",
+        "scroll-mt-24 border-t border-line py-14 sm:py-16",
         className,
       )}
     >

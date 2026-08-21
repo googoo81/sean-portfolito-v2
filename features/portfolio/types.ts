@@ -8,12 +8,27 @@ export type SkillGroup = {
   items: SkillItem[];
 };
 
+export type ServiceItem = {
+  title: string;
+  body: string;
+};
+
 export type ProjectLink = {
   label: string;
   href: string;
 };
 
+/** Visual slots until real assets land in /public/projects/{id}/ */
+export type ProjectMedia = {
+  coverLabel: string;
+  tags: string[];
+  galleryLabels?: string[];
+  videoPosterLabel?: string;
+};
+
 export type Project = {
+  id: string;
+  shortTitle: string;
   title: string;
   meta: string;
   tools: string;
@@ -21,6 +36,7 @@ export type Project = {
   situation: string;
   actions: string[];
   result: string;
+  media: ProjectMedia;
   links?: ProjectLink[];
 };
 
@@ -42,9 +58,17 @@ export type CertificateItem = {
 };
 
 export type PortfolioIntro = {
+  greeting: string;
   headline: string;
-  lines: string[];
-  closing: string;
+  credibility: string;
+};
+
+export type PortfolioAbout = {
+  headline: string;
+  storyTitle: string;
+  story: string[];
+  stanceTitle: string;
+  stance: string[];
 };
 
 export type PortfolioContact = {
@@ -57,7 +81,11 @@ export type PortfolioContact = {
 
 export type Portfolio = {
   intro: PortfolioIntro;
+  about: PortfolioAbout;
   contact: PortfolioContact;
+  servicesHeadline: string;
+  services: ServiceItem[];
+  companies: string[];
   skills: SkillGroup[];
   projectsIntro: string;
   projects: Project[];
@@ -68,8 +96,7 @@ export type Portfolio = {
   certificates: CertificateItem[];
 };
 
-export type NavItem = {
-  href: `#${string}`;
+export type NavLink = {
+  href: "/" | "/about";
   label: string;
-  sectionId: string;
 };

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePrefersReducedMotion } from "@/features/portfolio/hooks";
+import { useReducedMotion } from "motion/react";
 
 /** Syncs prefers-reduced-motion to a document data attribute for CSS. */
 export function MotionPreference() {
-  const reduced = usePrefersReducedMotion();
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     document.documentElement.dataset.reducedMotion = reduced ? "true" : "false";
