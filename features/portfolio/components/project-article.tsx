@@ -7,7 +7,7 @@ type ProjectArticleProps = {
 
 export function ProjectArticle({ project }: ProjectArticleProps) {
   return (
-    <article className="space-y-6">
+    <article id={`project-${project.slug}`} className="scroll-mt-24 space-y-6">
       <header>
         <h3 className="text-xl font-semibold leading-snug text-foreground sm:text-2xl">
           {project.title}

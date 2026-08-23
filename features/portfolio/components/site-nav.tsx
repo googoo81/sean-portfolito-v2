@@ -14,15 +14,15 @@ export function SiteNav({ brandName }: SiteNavProps) {
   const activeId = useActiveSection(OBSERVED_SECTION_IDS);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-background/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
+    <header className="sticky top-0 z-40 border-b border-line bg-background">
+      <nav className="mx-auto flex w-full max-w-[1600px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12">
         <a
           href="#top"
           className="text-sm font-semibold tracking-tight text-foreground"
         >
           {brandName}
         </a>
-        <ul className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1 text-xs text-muted sm:text-sm">
+        <ul className="flex flex-wrap items-center justify-end gap-x-6 gap-y-1">
           {NAV_ITEMS.map((link) => {
             const isActive = activeId === link.sectionId;
 
@@ -32,8 +32,8 @@ export function SiteNav({ brandName }: SiteNavProps) {
                   href={link.href}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "transition-colors hover:text-accent",
-                    isActive && "font-medium text-accent",
+                    "font-display text-[11px] tracking-[0.22em] text-muted uppercase transition-colors hover:text-foreground",
+                    isActive && "text-foreground",
                   )}
                 >
                   {link.label}

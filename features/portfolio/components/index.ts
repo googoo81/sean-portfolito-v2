@@ -6,6 +6,7 @@ export { HistoriesSection } from "./histories-section";
 export { PortfolioPage } from "./portfolio-page";
 export { ProjectPatternSection } from "./project-pattern-section";
 export { ProjectsSection } from "./projects-section";
+export { SelectedWorkSection } from "./selected-work-section";
 export { SiteFooter } from "./site-footer";
 export { SiteNav } from "./site-nav";
 export { SkillsSection } from "./skills-section";

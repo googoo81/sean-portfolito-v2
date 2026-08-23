@@ -8,6 +8,7 @@ export type {
   PortfolioIntro,
   Project,
   ProjectLink,
+  ProjectTheme,
   SkillGroup,
   SkillItem,
 } from "@/features/portfolio/types";

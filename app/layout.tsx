@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_KR } from "next/font/google";
+import { IBM_Plex_Sans_KR, Syne } from "next/font/google";
 import "./globals.css";
 
 const ibmPlexSansKr = IBM_Plex_Sans_KR({
   variable: "--font-ibm-plex-sans-kr",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -18,10 +24,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ko"
-      className={`${ibmPlexSansKr.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${ibmPlexSansKr.variable} ${syne.variable} h-full antialiased`}
     >
-      <body className="page-atmosphere min-h-full flex flex-col font-sans text-foreground">
-        <div className="noise-overlay" aria-hidden />
+      <body className="min-h-full flex flex-col overflow-x-hidden bg-background font-sans text-foreground">
         {children}
       </body>
     </html>

@@ -13,7 +13,15 @@ export type ProjectLink = {
   href: string;
 };
 
+export type ProjectTheme = "variway" | "meta" | "sparta";
+
 export type Project = {
+  slug: string;
+  number: string;
+  shortName: string;
+  tagline: string;
+  disciplines: string[];
+  theme: ProjectTheme;
   title: string;
   meta: string;
   tools: string;
@@ -43,6 +51,7 @@ export type CertificateItem = {
 
 export type PortfolioIntro = {
   headline: string;
+  headlineLines: [string, string];
   lines: string[];
   closing: string;
 };

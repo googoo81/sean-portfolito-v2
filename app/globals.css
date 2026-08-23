@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f6f3;
-  --foreground: #1a1f1c;
-  --muted: #5c6760;
-  --accent: #2f6b4f;
-  --accent-soft: #d8e8df;
-  --surface: rgba(255, 255, 255, 0.72);
-  --line: rgba(26, 31, 28, 0.12);
-  --glow: rgba(47, 107, 79, 0.12);
+  --background: #f3efe6;
+  --foreground: #141311;
+  --muted: #6a665d;
+  --accent: #141311;
+  --accent-soft: #e6e0d4;
+  --surface: #f7f4ec;
+  --line: rgba(20, 19, 17, 0.14);
+  --cover-variway: #e4cfc0;
+  --cover-meta: #1b1b1b;
+  --cover-sparta: #d8ddd2;
 }
 
 @theme inline {
@@ -19,10 +21,15 @@
   --color-accent-soft: var(--accent-soft);
   --color-surface: var(--surface);
   --color-line: var(--line);
+  --color-cover-variway: var(--cover-variway);
+  --color-cover-meta: var(--cover-meta);
+  --color-cover-sparta: var(--cover-sparta);
   --font-sans: var(--font-ibm-plex-sans-kr);
+  --font-display: var(--font-syne);
 }
 
 body {
+  overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
@@ -32,13 +39,13 @@ html {
   scroll-behavior: smooth;
 }
 
-@keyframes fade-in-up {
+@keyframes text-reveal {
   from {
-    opacity: 0;
-    transform: translateY(12px);
+    clip-path: inset(110% 0 0 0);
+    transform: translateY(18%);
   }
   to {
-    opacity: 1;
+    clip-path: inset(0 0 0 0);
     transform: translateY(0);
   }
 }
@@ -52,36 +59,79 @@ html {
   }
 }
 
-.animate-hero {
-  animation: fade-in-up 0.7s ease-out both;
+.hero-reveal {
+  animation: text-reveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.animate-hero-delay {
-  animation: fade-in-up 0.7s ease-out 0.12s both;
+.hero-fade {
+  animation: fade-in 0.7s ease-out both;
 }
 
-.animate-section {
-  animation: fade-in 0.6s ease-out both;
+.work-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html[data-reduced-motion="true"] .animate-hero,
-html[data-reduced-motion="true"] .animate-hero-delay,
-html[data-reduced-motion="true"] .animate-section {
+.work-reveal.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+.cover-scale {
+  transform: scale(1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .cover-scale,
+.group:focus-visible .cover-scale {
+  transform: scale(1.045);
+}
+
+.work-title {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .work-title,
+.group:focus-visible .work-title {
+  transform: translateX(0.4rem);
+}
+
+html[data-reduced-motion="true"] .hero-reveal,
+html[data-reduced-motion="true"] .hero-fade {
   animation: none;
 }
 
-.page-atmosphere {
-  background:
-    radial-gradient(ellipse 80% 50% at 10% -10%, var(--glow), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 95% 20%, rgba(47, 107, 79, 0.08), transparent 50%),
-    linear-gradient(180deg, #f7f9f6 0%, var(--background) 40%, #eef2ef 100%);
+html[data-reduced-motion="true"] .work-reveal {
+  clip-path: none;
+  transition: none;
 }
 
-.noise-overlay {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+html[data-reduced-motion="true"] .cover-scale,
+html[data-reduced-motion="true"] .work-title {
+  transition: none;
+}
+
+html[data-reduced-motion="true"] .group:hover .cover-scale,
+html[data-reduced-motion="true"] .group:focus-visible .cover-scale,
+html[data-reduced-motion="true"] .group:hover .work-title,
+html[data-reduced-motion="true"] .group:focus-visible .work-title {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-reveal,
+  .hero-fade {
+    animation: none;
+  }
+
+  .work-reveal,
+  .cover-scale,
+  .work-title {
+    clip-path: none;
+    transform: none;
+    transition: none;
+  }
 }
