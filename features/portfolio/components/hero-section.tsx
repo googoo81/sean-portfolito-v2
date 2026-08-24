@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import {
   HERO_BACKGROUND_WORD,
   HERO_FOCUS_AREAS,
+  HERO_YEAR,
 } from "@/features/portfolio/constants";
 import { usePrefersReducedMotion } from "@/features/portfolio/hooks";
 import type { PortfolioIntro } from "@/features/portfolio/types";
@@ -52,10 +53,10 @@ export function HeroSection({ intro }: HeroSectionProps) {
       const first = lineRefs.current[0];
       const second = lineRefs.current[1];
       if (first) {
-        first.style.transform = `translate3d(${-scrollProgress * 56}px, ${-scrollProgress * 18}px, 0)`;
+        first.style.transform = `translate3d(${-scrollProgress * 40}px, 0, 0)`;
       }
       if (second) {
-        second.style.transform = `translate3d(${scrollProgress * 40}px, ${scrollProgress * 12}px, 0)`;
+        second.style.transform = `translate3d(${scrollProgress * 40}px, 0, 0)`;
       }
 
       frame = requestAnimationFrame(tick);
@@ -89,35 +90,42 @@ export function HeroSection({ intro }: HeroSectionProps) {
     <section
       ref={sectionRef}
       id="top"
-      className="relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-between overflow-hidden px-5 py-16 sm:px-8 lg:px-12 lg:py-20"
+      className="relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-between overflow-hidden px-5 py-10 sm:px-8 lg:px-12 lg:py-14"
     >
-      <p
-        className="hero-fade font-display text-xs font-semibold tracking-[0.28em] text-muted uppercase"
-        style={{ animationDelay: "0.05s" }}
-      >
-        Portfolio / Content Marketer
-      </p>
+      <div className="hero-fade relative z-10 flex items-baseline justify-between font-display text-xs tracking-[0.28em] uppercase">
+        <span>Portfolio</span>
+        <span>{HERO_YEAR}</span>
+      </div>
 
-      <h1 className="relative z-10 mt-10 max-w-[16ch] sm:mt-16 lg:max-w-none">
-        {lines.map((line, index) => (
-          <span key={line} className="block overflow-hidden">
-            <span
-              ref={(node) => {
-                lineRefs.current[index] = node;
-              }}
-              className="hero-reveal block text-[clamp(2.35rem,8.4vw,7.4rem)] leading-[0.92] font-semibold tracking-tight will-change-transform"
-              style={{ animationDelay: `${0.12 + index * 0.12}s` }}
-            >
-              {line}
-            </span>
+      <h1 className="relative z-10 w-full py-16 sm:py-20">
+        <span className="block overflow-hidden">
+          <span
+            ref={(node) => {
+              lineRefs.current[0] = node;
+            }}
+            className="hero-reveal block text-[clamp(2.4rem,7.4vw,6.4rem)] leading-[0.94] font-semibold tracking-tight will-change-transform"
+            style={{ animationDelay: "0.12s" }}
+          >
+            {lines[0]}
           </span>
-        ))}
+        </span>
+        <span className="mt-2 block overflow-hidden sm:mt-3">
+          <span
+            ref={(node) => {
+              lineRefs.current[1] = node;
+            }}
+            className="hero-reveal block text-right text-[clamp(2.4rem,7.4vw,6.4rem)] leading-[0.94] font-semibold tracking-tight will-change-transform"
+            style={{ animationDelay: "0.24s" }}
+          >
+            {lines[1]}
+          </span>
+        </span>
       </h1>
 
       <p
         ref={backgroundRef}
         aria-hidden
-        className="pointer-events-none absolute top-[28%] right-[-8%] font-display text-[clamp(5rem,22vw,18rem)] leading-none font-extrabold tracking-tight text-foreground/5 select-none will-change-transform"
+        className="pointer-events-none absolute top-[30%] right-[-6%] font-display text-[clamp(5rem,20vw,16rem)] leading-none font-extrabold tracking-tight text-foreground/5 select-none will-change-transform"
       >
         {HERO_BACKGROUND_WORD}
       </p>
@@ -125,25 +133,20 @@ export function HeroSection({ intro }: HeroSectionProps) {
       <div
         ref={markRef}
         aria-hidden
-        className="pointer-events-none absolute top-[42%] left-[min(72%,calc(100%-4rem))] hidden will-change-transform sm:block"
+        className="pointer-events-none absolute top-[46%] left-[min(70%,calc(100%-4rem))] hidden will-change-transform sm:block"
       >
-        <span className="relative block h-10 w-10 border border-foreground/25">
-          <span className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-foreground/30" />
-          <span className="absolute top-0 left-1/2 h-full w-px -translate-x-1/2 bg-foreground/30" />
+        <span className="relative block h-10 w-10 border border-foreground/20">
+          <span className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-foreground/25" />
+          <span className="absolute top-0 left-1/2 h-full w-px -translate-x-1/2 bg-foreground/25" />
         </span>
       </div>
 
-      <ul className="relative z-10 mt-16 flex flex-wrap gap-x-8 gap-y-2 font-display text-[11px] tracking-[0.22em] text-muted uppercase sm:mt-20 sm:text-xs">
-        {HERO_FOCUS_AREAS.map((area, index) => (
-          <li
-            key={area}
-            className="hero-fade"
-            style={{ animationDelay: `${0.42 + index * 0.08}s` }}
-          >
-            {area}
-          </li>
-        ))}
-      </ul>
+      <p
+        className="hero-fade relative z-10 font-display text-[11px] tracking-[0.22em] text-muted uppercase sm:text-xs"
+        style={{ animationDelay: "0.42s" }}
+      >
+        {HERO_FOCUS_AREAS.join(" / ")}
+      </p>
     </section>
   );
 }

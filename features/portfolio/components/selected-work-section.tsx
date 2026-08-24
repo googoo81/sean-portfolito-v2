@@ -3,38 +3,33 @@ import { sortFeaturedProjects } from "@/features/portfolio/lib";
 import type { Project } from "@/features/portfolio/types";
 
 type SelectedWorkSectionProps = {
-  intro: string;
   projects: Project[];
 };
 
-export function SelectedWorkSection({
-  intro,
-  projects,
-}: SelectedWorkSectionProps) {
+export function SelectedWorkSection({ projects }: SelectedWorkSectionProps) {
   const featured = sortFeaturedProjects(projects);
 
   return (
     <section
       id="work"
-      className="scroll-mt-24 px-5 py-20 sm:px-8 lg:px-12 lg:py-28"
+      className="scroll-mt-24 px-5 pb-24 sm:px-8 lg:px-12 lg:pb-32"
     >
-      <header className="grid grid-cols-12 items-end gap-4 border-t border-line pt-6">
-        <div className="col-span-12 sm:col-span-7">
-          <p className="font-display text-xs tracking-[0.28em] text-muted uppercase">
-            Selected Work
-          </p>
-          <h2 className="font-display mt-3 text-[clamp(2.4rem,5vw,4.8rem)] leading-[0.9] font-bold tracking-tight">
-            Projects 2026
-          </h2>
-        </div>
-        <p className="col-span-12 max-w-md text-sm leading-relaxed text-muted sm:col-span-5 sm:justify-self-end sm:text-right">
-          {intro}
+      <header className="flex items-baseline justify-between gap-4 border-t border-line pt-6">
+        <h2 className="font-display text-xs tracking-[0.28em] uppercase">
+          Selected Work
+        </h2>
+        <p className="font-display text-xs tracking-[0.22em] text-muted uppercase">
+          {String(featured.length).padStart(2, "0")} Projects
         </p>
       </header>
 
-      <div className="mt-16 space-y-24 lg:mt-24 lg:space-y-36">
+      <div className="mt-16 space-y-16 lg:mt-20 lg:space-y-0">
         {featured.map((project, index) => (
-          <WorkItem key={project.slug} project={project} index={index} />
+          <WorkItem
+            key={project.slug}
+            project={project}
+            bordered={index > 0}
+          />
         ))}
       </div>
     </section>

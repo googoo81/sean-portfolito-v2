@@ -15,7 +15,7 @@ export function SiteNav({ brandName }: SiteNavProps) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-background">
-      <nav className="mx-auto flex w-full max-w-[1600px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12">
+      <nav className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12">
         <a
           href="#top"
           className="text-sm font-semibold tracking-tight text-foreground"

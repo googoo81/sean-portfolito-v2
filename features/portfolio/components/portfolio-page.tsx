@@ -22,12 +22,9 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
       <MotionPreference />
       <SiteNav brandName={portfolio.contact.name} />
       <main className="w-full flex-1">
-        <div className="mx-auto w-full max-w-[1600px]">
+        <div className="mx-auto w-full max-w-[1440px]">
           <HeroSection intro={portfolio.intro} />
-          <SelectedWorkSection
-            intro={portfolio.projectsIntro}
-            projects={portfolio.projects}
-          />
+          <SelectedWorkSection projects={portfolio.projects} />
         </div>
         <div className="mx-auto w-full max-w-3xl px-5 pb-24 sm:px-8">
           <SkillsSection intro={portfolio.intro} skills={portfolio.skills} />

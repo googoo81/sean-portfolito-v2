@@ -8,14 +8,13 @@ import { cn } from "@/lib/format";
 
 type WorkItemProps = {
   project: Project;
-  index: number;
+  bordered?: boolean;
 };
 
-export function WorkItem({ project, index }: WorkItemProps) {
+export function WorkItem({ project, bordered = false }: WorkItemProps) {
   const reduced = usePrefersReducedMotion();
   const visualRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
-  const imageLeft = index % 2 === 1;
 
   useEffect(() => {
     const node = visualRef.current;
@@ -45,7 +44,10 @@ export function WorkItem({ project, index }: WorkItemProps) {
   return (
     <a
       href={`#project-${project.slug}`}
-      className="group relative grid grid-cols-12 items-center gap-x-6 gap-y-8"
+      className={cn(
+        "group relative grid grid-cols-12 items-stretch gap-x-8 gap-y-8 lg:py-16",
+        bordered && "border-t border-line pt-16",
+      )}
       onPointerMove={(event) => {
         const preview = previewRef.current;
         if (!preview || reduced) {
@@ -71,32 +73,24 @@ export function WorkItem({ project, index }: WorkItemProps) {
         }
       }}
     >
-      <div
-        className={cn(
-          "col-span-12 lg:col-span-5",
-          imageLeft ? "lg:col-start-8 lg:row-start-1" : "lg:col-start-1",
-        )}
-      >
+      <div className="col-span-12 flex min-h-0 flex-col lg:col-span-4">
         <p className="font-display text-xs tracking-[0.28em] text-muted">
           {project.number}
         </p>
-        <h3 className="work-title font-display mt-4 text-[clamp(2rem,4.6vw,4.4rem)] leading-[0.92] font-bold tracking-tight">
+        <h3 className="work-title font-display mt-4 text-[clamp(2.1rem,4vw,4rem)] leading-[0.92] font-bold tracking-tight">
           {project.shortName}
         </h3>
-        <p className="mt-5 max-w-sm text-base leading-relaxed text-muted sm:text-lg">
+        <p className="mt-8 max-w-[12ch] text-lg leading-snug whitespace-pre-line text-muted lg:mt-auto lg:pt-16">
           {project.tagline}
         </p>
-        <p className="mt-6 font-display text-[11px] tracking-[0.18em] text-foreground/70 uppercase">
+        <p className="mt-6 font-display text-[11px] tracking-[0.18em] text-foreground/60 uppercase">
           {project.disciplines.join(" / ")}
         </p>
       </div>
 
       <div
         ref={visualRef}
-        className={cn(
-          "work-reveal col-span-12 aspect-4/5 sm:aspect-5/4 lg:col-span-7 lg:aspect-4/3",
-          imageLeft ? "lg:col-start-1 lg:row-start-1" : "lg:col-start-6",
-        )}
+        className="work-reveal col-span-12 aspect-4/3 lg:col-span-8 lg:aspect-16/10"
       >
         <WorkCover project={project} className="h-full min-h-0" />
       </div>

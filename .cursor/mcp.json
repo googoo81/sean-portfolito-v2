@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "TalkToFigma": {
+      "command": "/Users/googoo81/.bun/bin/bun",
+      "args": [
+        "/Users/googoo81/Documents/GitHub/cursor-talk-to-figma-mcp/src/talk_to_figma_mcp/server.ts"
+      ]
+    }
+  }
+}

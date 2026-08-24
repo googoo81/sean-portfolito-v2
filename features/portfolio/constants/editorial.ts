@@ -1,6 +1,8 @@
+export const HERO_YEAR = "2026";
+
 export const HERO_FOCUS_AREAS = [
-  "Content Strategy",
-  "Social Content",
+  "Content",
+  "Strategy",
   "Campaign",
   "Creative",
 ] as const;
