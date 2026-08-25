@@ -17,7 +17,8 @@ export const portfolio: Portfolio = {
     github: "https://github.com/googoo81",
     medium: "https://medium.com/@beautiful-tuna",
   },
-  stack: ["Figma", "Notion", "CapCut", "ChatGPT"],
+  stack: ["Figma", "Notion", "Slack", "CapCut", "ChatGPT", "Cursor"],
+  featuredSlug: "sample-brand-launch",
   skills: [
     {
       title: "Content Planning",
@@ -50,23 +51,6 @@ export const portfolio: Portfolio = {
         {
           title: "카피라이팅",
           body: "콘텐츠의 목적과 채널에 맞게 제목, 본문, CTA 문구를 작성합니다. 사용자가 콘텐츠를 본 뒤 어떤 행동을 해야 하는지 명확하게 전달하고자 합니다.",
-        },
-      ],
-    },
-    {
-      title: "Others",
-      items: [
-        {
-          title: "Figma",
-          body: "인스타그램 캐러셀, 광고 소재, 발표 자료와 콘텐츠 레이아웃을 제작할 수 있습니다. 정보의 우선순위와 시선의 흐름을 고려하여 화면을 구성합니다.",
-        },
-        {
-          title: "Notion",
-          body: "시장조사, 콘텐츠 기획안, 프로젝트 진행 상황과 피드백을 정리하여 팀원들과 공유할 수 있습니다. 맡은 작업과 수정 사항을 문서화하며 협업합니다.",
-        },
-        {
-          title: "CapCut",
-          body: "숏폼 영상과 광고 콘텐츠를 직접 편집할 수 있습니다. 컷 구성, 자막, 음악, 전환 효과를 활용하여 기획한 콘텐츠를 영상 결과물로 제작합니다.",
         },
       ],
     },
@@ -134,6 +118,40 @@ export const portfolio: Portfolio = {
       ],
       result:
         "제품과 패션을 연결한 인스타그램 캐러셀과 릴스 소재를 제작하고, 온드미디어와 유료 매체를 연계한 재구매 캠페인 운영안을 완성했습니다. 제품 특징을 직접 나열하기보다 타깃의 관심사 안에서 제품을 새롭게 해석할 때 브랜드만의 콘텐츠 차별점이 만들어진다는 점을 도출했습니다.",
+    },
+    {
+      slug: "sample-brand-launch",
+      shortTitle: "샘플 브랜드 런칭",
+      title: "[임시] 신규 브랜드 런칭 인지 캠페인 기획",
+      meta: "개인 프로젝트 | 담당: 콘텐츠 기획 · 카피 · 디자인 (placeholder)",
+      tools: "Figma · Notion",
+      period: "2026.08",
+      situation:
+        "그리드 레이아웃 확인을 위한 임시 프로젝트입니다. 실제 브랜드 런칭 캠페인 기획안이 들어갈 자리입니다.",
+      actions: [
+        "타깃과 채널에 맞는 메시지 방향 정리 (placeholder)",
+        "SNS용 키 비주얼 및 카피 초안 작성 (placeholder)",
+        "콘텐츠 일정 및 채널별 역할 구분 (placeholder)",
+      ],
+      result:
+        "추후 실제 프로젝트 내용으로 교체 예정입니다. 현재는 2×2 Projects 그리드 채움용 placeholder입니다.",
+    },
+    {
+      slug: "sample-shortform",
+      shortTitle: "샘플 숏폼",
+      title: "[임시] 브랜드 숏폼 콘텐츠 시리즈 기획",
+      meta: "개인 프로젝트 | 담당: 스토리보드 · 편집 · 카피 (placeholder)",
+      tools: "CapCut · Figma",
+      period: "2026.08",
+      situation:
+        "Projects 칸 빈 슬롯을 채우기 위한 임시 항목입니다. 숏폼 시리즈 기획 및 제작 사례가 들어갈 예정입니다.",
+      actions: [
+        "3~5편 분량의 숏폼 콘셉트 및 훅 아이디어 도출 (placeholder)",
+        "장면별 스토리보드와 자막 카피 작성 (placeholder)",
+        "CapCut으로 1편 시안 편집 (placeholder)",
+      ],
+      result:
+        "실제 작업물과 성과 지표로 업데이트할 placeholder 프로젝트입니다. 상세 페이지 구조 확인용으로 사용 중입니다.",
     },
   ],
   projectPattern:

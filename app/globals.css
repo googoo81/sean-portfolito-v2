@@ -75,6 +75,7 @@ html {
   }
 
   .bento-intro,
+  .bento-projects,
   .bento-cta {
     grid-column: span 2;
   }
@@ -83,11 +84,16 @@ html {
 @media (min-width: 1280px) {
   .bento-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: minmax(8rem, 0.92fr) minmax(8rem, 1.08fr) minmax(8rem, 1fr);
+    grid-template-rows:
+      minmax(8rem, 0.9fr)
+      minmax(8rem, 0.9fr)
+      minmax(10rem, 1fr)
+      minmax(8rem, 0.85fr);
     grid-template-areas:
-      "intro intro intro intro work1 work1 work1 work1 work2 work2 social social"
-      "about about about about work1 work1 work1 work1 work2 work2 stack stack"
-      "history history history work3 work3 work3 work3 skills skills skills cta cta";
+      "intro intro intro intro featured featured featured featured featured profile profile profile"
+      "about about about about featured featured featured featured featured social social social"
+      "projects projects projects projects projects projects projects projects projects projects projects projects"
+      "history history history stack stack stack skills skills skills skills cta cta";
     gap: 16px;
     height: 100%;
     min-height: 0;
@@ -95,7 +101,8 @@ html {
 
   .bento-intro,
   .bento-about,
-  .bento-cta {
+  .bento-cta,
+  .bento-projects {
     grid-column: auto;
   }
 
@@ -111,20 +118,20 @@ html {
     grid-area: about;
   }
 
-  .bento-work1 {
-    grid-area: work1;
+  .bento-featured {
+    grid-area: featured;
   }
 
-  .bento-work2 {
-    grid-area: work2;
-  }
-
-  .bento-work3 {
-    grid-area: work3;
+  .bento-profile {
+    grid-area: profile;
   }
 
   .bento-social {
     grid-area: social;
+  }
+
+  .bento-projects {
+    grid-area: projects;
   }
 
   .bento-history {

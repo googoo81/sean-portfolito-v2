@@ -62,6 +62,7 @@ export type Portfolio = {
   contact: PortfolioContact;
   skills: SkillGroup[];
   stack: string[];
+  featuredSlug: string;
   projectsIntro: string;
   projects: Project[];
   projectPattern: string;

@@ -1,7 +1,10 @@
 import { BentoCard, BentoGrid } from "@/components/ui";
+import { getFeaturedProject, getGridProjects } from "@/features/portfolio/lib";
 import { CopyEmailButton } from "./copy-email-button";
 import { MotionPreference } from "./motion-preference";
+import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./project-tile";
+import { ProjectsGridCell } from "./projects-grid-cell";
 import { SocialTile } from "./social-tile";
 import { StackRow } from "./stack-row";
 import type { Portfolio } from "@/features/portfolio/types";
@@ -11,7 +14,8 @@ type PortfolioPageProps = {
 };
 
 export function PortfolioPage({ portfolio }: PortfolioPageProps) {
-  const [first, second, third] = portfolio.projects;
+  const featured = getFeaturedProject();
+  const gridProjects = getGridProjects();
   const skillLabels = portfolio.skills.flatMap((group) =>
     group.items.map((item) => item.title),
   );
@@ -30,12 +34,15 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             </p>
           </BentoCard>
 
-          {first ? (
-            <ProjectTile project={first} className="bento-work1" />
+          {featured ? (
+            <ProjectTile project={featured} className="bento-featured" />
           ) : null}
-          {second ? (
-            <ProjectTile project={second} className="bento-work2" />
-          ) : null}
+
+          <ProfileTile
+            contact={portfolio.contact}
+            headline={portfolio.intro.headline}
+            className="bento-profile"
+          />
 
           <BentoCard className="bento-about justify-between p-6 sm:p-8">
             <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
@@ -46,10 +53,6 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             </p>
           </BentoCard>
 
-          {third ? (
-            <ProjectTile project={third} className="bento-work3" />
-          ) : null}
-
           <BentoCard className="bento-social">
             <SocialTile
               github={portfolio.contact.github}
@@ -58,6 +61,8 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               email={portfolio.contact.email}
             />
           </BentoCard>
+
+          <ProjectsGridCell projects={gridProjects} className="bento-projects" />
 
           <BentoCard className="bento-history justify-between overflow-y-auto p-6 sm:p-7">
             <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
@@ -75,9 +80,13 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             </ul>
           </BentoCard>
 
-          <BentoCard className="bento-stack justify-between p-6 sm:p-7">
-            <p className="text-lg font-medium tracking-tight">Stack I use</p>
-            <StackRow items={portfolio.stack} />
+          <BentoCard className="bento-stack p-6 sm:p-7">
+            <p className="shrink-0 text-lg font-medium tracking-tight">
+              Stack I use
+            </p>
+            <div className="flex min-h-0 flex-1 items-center">
+              <StackRow items={portfolio.stack} />
+            </div>
           </BentoCard>
 
           <BentoCard className="bento-skills justify-between overflow-y-auto p-6 sm:p-7">
