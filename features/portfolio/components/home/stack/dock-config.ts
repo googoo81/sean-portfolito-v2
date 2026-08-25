@@ -1,7 +1,7 @@
-export const DOCK_TILE_SIZE = 76;
-export const DOCK_MAX_SIZE = 116;
-export const DOCK_INFLUENCE = 160;
-export const DOCK_GAP = 12;
+export const DOCK_TILE_SIZE = 64;
+export const DOCK_MAX_SIZE = 96;
+export const DOCK_INFLUENCE = 140;
+export const DOCK_GAP = 10;
 export const DOCK_ICON_RATIO = 0.71;
 
 export const DOCK_SPRING = {
