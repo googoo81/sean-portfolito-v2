@@ -14,12 +14,14 @@ import {
   DOCK_SPRING,
   DOCK_TILE_SIZE,
 } from "./dock-config";
+import type { NotesOrigin } from "./notes-overlay";
 import type { StackItem } from "@/features/portfolio/types";
 
 type DockIconProps = {
   item: StackItem;
   pointerX: MotionValue<number>;
   reducedMotion?: boolean;
+  onSelect?: (origin: NotesOrigin, item: StackItem) => void;
 };
 
 function StackGlyph({ item }: { item: StackItem }) {
@@ -63,8 +65,9 @@ export function DockIcon({
   item,
   pointerX,
   reducedMotion = false,
+  onSelect,
 }: DockIconProps) {
-  const iconRef = useRef<HTMLSpanElement>(null);
+  const iconRef = useRef<HTMLButtonElement>(null);
   const [showLabel, setShowLabel] = useState(false);
   const distance = useTransform(pointerX, (latestPointerX) => {
     const bounds = iconRef.current?.getBoundingClientRect();
@@ -84,24 +87,42 @@ export function DockIcon({
   const size = reducedMotion ? DOCK_TILE_SIZE : animatedSize;
 
   return (
-    <motion.span
+    <motion.button
       ref={iconRef}
+      type="button"
       role="listitem"
       aria-label={item.label}
       style={{ width: size, height: size }}
-      className="glass-chip relative flex shrink-0 items-center justify-center rounded-[1.35rem] will-change-[width,height]"
+      className="glass-chip relative flex shrink-0 origin-bottom cursor-pointer items-center justify-center rounded-[1.35rem] will-change-[width,height]"
       onPointerEnter={() => setShowLabel(true)}
       onPointerLeave={() => setShowLabel(false)}
+      onClick={() => {
+        const bounds = iconRef.current?.getBoundingClientRect();
+        if (!bounds) {
+          return;
+        }
+
+        onSelect?.(
+          {
+            x: bounds.left,
+            y: bounds.top,
+            width: bounds.width,
+            height: bounds.height,
+          },
+          item,
+        );
+      }}
     >
       <span
         aria-hidden="true"
-        className={`glass pointer-events-none absolute bottom-[calc(100%+12px)] left-1/2 z-20 -translate-x-1/2 overflow-hidden rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap text-foreground transition-all duration-100 ${
+        className={`pointer-events-none absolute bottom-[calc(100%+14px)] left-1/2 z-20 -translate-x-1/2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-medium whitespace-nowrap text-foreground transition-all duration-100 ${
           showLabel ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
         }`}
       >
         {item.label}
+        <span className="absolute top-full left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border-r border-b border-line bg-surface" />
       </span>
       <StackGlyph item={item} />
-    </motion.span>
+    </motion.button>
   );
 }

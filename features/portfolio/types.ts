@@ -37,6 +37,7 @@ export type StackItem = {
   label: string;
   icon: string;
   themed: boolean;
+  note: string;
 };
 
 export type PortfolioIntro = {
