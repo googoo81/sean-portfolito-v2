@@ -1,0 +1,98 @@
+:root {
+  --background: #0c0c0d;
+  --foreground: #f7f7f8;
+  --muted: #a8a8ad;
+  --accent: #ffffff;
+  --accent-soft: rgba(255, 255, 255, 0.1);
+  --surface: #161618;
+  --line: rgba(255, 255, 255, 0.08);
+  --soft: rgba(255, 255, 255, 0.06);
+  --soft-hover: rgba(255, 255, 255, 0.1);
+  --faint: rgba(255, 255, 255, 0.2);
+  --stack-icon-themed: #d8d8d8;
+  --theme-toggle-track: #1c1c1e;
+  --theme-toggle-thumb: #2c2c2e;
+  --theme-toggle-icon: #ffffff;
+  --glass-highlight: rgba(255, 255, 255, 0.06);
+  --glass-shadow: rgba(0, 0, 0, 0.18);
+  --glass-blur: 20px;
+  --wallpaper: none;
+  --grain-opacity: 0;
+  --notes-paper: #1c1c1e;
+  --notes-ink: #d4d4d8;
+  --notes-glass: rgba(255, 255, 255, 0.08);
+  --notes-glass-item: rgba(255, 255, 255, 0.12);
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --background: #f2f2f7;
+  --foreground: #1c1c1e;
+  --muted: #6e6e73;
+  --accent: #111111;
+  --accent-soft: rgba(0, 0, 0, 0.04);
+  --surface: #ffffff;
+  --line: rgba(0, 0, 0, 0.08);
+  --soft: rgba(0, 0, 0, 0.04);
+  --soft-hover: rgba(0, 0, 0, 0.07);
+  --faint: rgba(28, 28, 30, 0.22);
+  --stack-icon-themed: #1c1c1e;
+  --theme-toggle-track: #e8e8ed;
+  --theme-toggle-thumb: #ffffff;
+  --theme-toggle-icon: #1c1c1e;
+  --glass-highlight: rgba(255, 255, 255, 0.8);
+  --glass-shadow: transparent;
+  --wallpaper: none;
+  --grain-opacity: 0;
+  --notes-paper: #f7f3e8;
+  --notes-ink: #3a3a3a;
+  --notes-glass: rgba(255, 255, 255, 0.42);
+  --notes-glass-item: rgba(0, 0, 0, 0.08);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-soft: var(--soft);
+  --color-soft-hover: var(--soft-hover);
+  --color-faint: var(--faint);
+  --font-sans: var(--font-ibm-plex-sans-kr);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  background-image: var(--wallpaper);
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  transition:
+    background-color 240ms ease,
+    color 240ms ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+body > main {
+  position: relative;
+  z-index: 1;
+}

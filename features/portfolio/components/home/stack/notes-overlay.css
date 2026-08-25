@@ -1,0 +1,134 @@
+body > main {
+  transition: filter 0.4s ease;
+}
+
+html[data-notes-open] main {
+  filter: blur(4px);
+}
+
+.notes-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notes-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.125);
+}
+
+.notes-overlay__window {
+  position: absolute;
+  z-index: 1;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--notes-paper);
+}
+
+.notes-overlay__titlebar {
+  cursor: grab;
+}
+
+.notes-overlay__titlebar:active {
+  cursor: grabbing;
+}
+
+.notes-overlay__handle {
+  position: absolute;
+  z-index: 4;
+}
+
+.notes-overlay__handle--n,
+.notes-overlay__handle--s {
+  left: 10px;
+  right: 10px;
+  height: 6px;
+  cursor: ns-resize;
+}
+
+.notes-overlay__handle--e,
+.notes-overlay__handle--w {
+  top: 10px;
+  bottom: 10px;
+  width: 6px;
+  cursor: ew-resize;
+}
+
+.notes-overlay__handle--n {
+  top: 0;
+}
+
+.notes-overlay__handle--s {
+  bottom: 0;
+}
+
+.notes-overlay__handle--e {
+  right: 0;
+}
+
+.notes-overlay__handle--w {
+  left: 0;
+}
+
+.notes-overlay__handle--ne,
+.notes-overlay__handle--nw,
+.notes-overlay__handle--se,
+.notes-overlay__handle--sw {
+  width: 12px;
+  height: 12px;
+}
+
+.notes-overlay__handle--ne {
+  top: 0;
+  right: 0;
+  cursor: nesw-resize;
+}
+
+.notes-overlay__handle--nw {
+  top: 0;
+  left: 0;
+  cursor: nwse-resize;
+}
+
+.notes-overlay__handle--se {
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+}
+
+.notes-overlay__handle--sw {
+  bottom: 0;
+  left: 0;
+  cursor: nesw-resize;
+}
+
+.notes-overlay__sidebar-handle {
+  position: absolute;
+  top: 16px;
+  right: -4px;
+  bottom: 16px;
+  z-index: 5;
+  width: 8px;
+  cursor: col-resize;
+}
+
+.notes-overlay__sidebar {
+  background: transparent;
+}
+
+.notes-overlay__glass {
+  background: var(--notes-glass);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 1px 0 var(--glass-highlight) inset;
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+}
+
+html[data-theme="light"] .notes-overlay__glass {
+  border-color: rgba(0, 0, 0, 0.08);
+}

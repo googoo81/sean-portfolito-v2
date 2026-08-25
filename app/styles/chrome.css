@@ -1,0 +1,23 @@
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--glass-highlight) inset;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.glass-chip {
+  background: var(--soft);
+  border: 1px solid var(--line);
+}
+
+.bento-card,
+.glass,
+.glass-chip {
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease,
+    box-shadow 240ms ease,
+    transform 200ms ease;
+}
