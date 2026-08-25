@@ -17,6 +17,7 @@ export const portfolio: Portfolio = {
     github: "https://github.com/googoo81",
     medium: "https://medium.com/@beautiful-tuna",
   },
+  stack: ["Figma", "Notion", "CapCut", "ChatGPT"],
   skills: [
     {
       title: "Content Planning",
@@ -74,6 +75,8 @@ export const portfolio: Portfolio = {
     "내일배움캠프를 수료하며 브랜드 분석, 광고 기획, 이미지 콘텐츠와 숏폼 제작 프로젝트를 진행했습니다. 시장과 타깃을 조사한 뒤 콘텐츠 콘셉트를 기획하고, 이미지·영상·카피를 직접 결과물로 제작했습니다.",
   projects: [
     {
+      slug: "team-sparta",
+      shortTitle: "팀스파르타",
       title: "3개 세그먼트별 메시지를 설계한 팀스파르타 신규 유입 캠페인",
       meta: "팀 프로젝트 | 담당: 브랜드 분석 · 타깃 설정 · 캠페인 전략 및 소재 기획",
       tools: "Notion · Figma",
@@ -90,6 +93,8 @@ export const portfolio: Portfolio = {
         "대학생·직무 전환 직장인·1인 창업자별로 메시지와 KPI를 나눈 신규 유입 캠페인 기획안을 완성했습니다. 다만 세그먼트 설정의 일부 근거가 추정에 머물렀고, 페르소나의 취미와 생활 맥락도 실제 매체·카피 선택에 충분히 사용하지 못했습니다. 이후에는 세그먼트별 주장에 정량 데이터를 붙이고, 페르소나 항목마다 어떤 메시지와 매체 결정에 활용됐는지 함께 정리하고 있습니다.",
     },
     {
+      slug: "meta-comedy",
+      shortTitle: "메타코미디클럽",
       title: "온라인 관심을 공연 예매로 연결한 인스타그램 7장 카드뉴스",
       meta: "팀 프로젝트 | 담당: 브랜드 분석 · 콘텐츠 구조 설계 · 카피 · 디자인",
       tools: "Figma · 생성형 AI",
@@ -112,6 +117,8 @@ export const portfolio: Portfolio = {
       ],
     },
     {
+      slug: "bareway",
+      shortTitle: "배리웨이",
       title: "제품의 맛을 데일리 스타일링으로 재해석한 재구매 콘텐츠 캠페인",
       meta: "팀 프로젝트 | 담당: 콘텐츠 전략 · 캐러셀/릴스 기획 · 디자인",
       tools: "Figma · CapCut · 생성형 AI",

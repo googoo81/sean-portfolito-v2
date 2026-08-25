@@ -1,1 +1,1 @@
-export { getPortfolio } from "./get-portfolio";
+export { getPortfolio, getProjectBySlug } from "./get-portfolio";

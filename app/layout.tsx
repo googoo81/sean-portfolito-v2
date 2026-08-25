@@ -18,10 +18,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ko"
+      data-scroll-behavior="smooth"
       className={`${ibmPlexSansKr.variable} h-full antialiased`}
     >
-      <body className="page-atmosphere min-h-full flex flex-col font-sans text-foreground">
-        <div className="noise-overlay" aria-hidden />
+      <body className="min-h-dvh flex flex-col bg-background font-sans text-foreground">
         {children}
       </body>
     </html>

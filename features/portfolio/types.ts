@@ -14,6 +14,8 @@ export type ProjectLink = {
 };
 
 export type Project = {
+  slug: string;
+  shortTitle: string;
   title: string;
   meta: string;
   tools: string;
@@ -59,6 +61,7 @@ export type Portfolio = {
   intro: PortfolioIntro;
   contact: PortfolioContact;
   skills: SkillGroup[];
+  stack: string[];
   projectsIntro: string;
   projects: Project[];
   projectPattern: string;

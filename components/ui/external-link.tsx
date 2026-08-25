@@ -22,7 +22,7 @@ export function ExternalLink({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "text-foreground transition-colors hover:text-accent",
+        "text-foreground transition-opacity hover:opacity-70",
         className,
       )}
       {...props}
