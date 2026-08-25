@@ -16,8 +16,10 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
   const gridProjects = getGridProjects(portfolio);
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col p-3 sm:p-4 xl:h-dvh xl:min-h-0">
-      <BentoGrid className="min-h-0 flex-1">
+    <div className="bento-scale">
+      <div className="bento-stage">
+        <main className="bento-page flex min-h-dvh flex-1 flex-col p-3 sm:p-4">
+          <BentoGrid className="min-h-0 flex-1">
         <BentoCard className="bento-intro justify-between p-6 sm:p-8">
           <h1 className="text-3xl font-medium tracking-tight sm:text-4xl xl:text-[2.5rem] xl:leading-tight">
             Hi, I&apos;m {portfolio.contact.name} —
@@ -39,7 +41,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
         <BentoCard className="bento-about justify-between p-6 sm:p-8">
           <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
-            About
+            About.
           </p>
           <p className="mt-auto pt-8 text-lg leading-snug font-medium tracking-tight sm:text-xl">
             {portfolio.intro.closing}
@@ -54,9 +56,15 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
         <BentoCard className="bento-history justify-between overflow-y-auto p-6 sm:p-7">
           <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
-            Histories
+            Histories & Certificates.
           </p>
-          <ul className="mt-6 space-y-4 xl:mt-auto">
+          <ul className="bento-fill-end mt-6 space-y-4">
+            {portfolio.education.map((item) => (
+              <li key={item.school}>
+                <p className="font-medium tracking-tight">{item.school}</p>
+                <p className="mt-1 text-sm text-muted">{item.period}</p>
+              </li>
+            ))}
             {portfolio.histories.map((item) => (
               <li key={item.company}>
                 <p className="font-medium tracking-tight">{item.company}</p>
@@ -65,48 +73,36 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
                 </p>
               </li>
             ))}
+            {portfolio.certificates.map((item) => (
+              <li key={item.name}>
+                <p className="font-medium tracking-tight">{item.name}</p>
+                <p className="mt-1 text-sm text-muted">{item.date}</p>
+              </li>
+            ))}
           </ul>
         </BentoCard>
 
         <BentoCard className="bento-stack p-6 sm:p-7">
-          <p className="shrink-0 text-lg font-medium tracking-tight">
-            Stack I use
+          <p className="shrink-0 text-xs font-medium tracking-[0.18em] text-muted uppercase">
+            Stack I use.
           </p>
           <div className="flex min-h-0 flex-1 items-center">
             <StackRow items={portfolio.stack} />
           </div>
         </BentoCard>
 
-        <BentoCard className="bento-skills justify-between overflow-y-auto p-6 sm:p-7">
-          <div>
-            <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
-              Skills
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {portfolio.skills.map((label) => (
-                <span
-                  key={label}
-                    className="glass-chip rounded-full px-3 py-1.5 text-xs text-foreground sm:text-sm"
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="mt-6 space-y-3 text-sm xl:mt-auto">
-            {portfolio.education.map((item) => (
-              <p key={item.school} className="text-muted">
-                <span className="text-foreground">{item.school}</span>
-                <span className="mx-1.5 text-faint">·</span>
-                {item.period}
-              </p>
-            ))}
-            {portfolio.certificates.map((item) => (
-              <p key={item.name} className="text-muted">
-                <span className="text-foreground">{item.name}</span>
-                <span className="mx-1.5 text-faint">·</span>
-                {item.date}
-              </p>
+        <BentoCard className="bento-skills overflow-y-auto p-6 sm:p-7">
+          <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
+            Skills.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {portfolio.skills.map((label) => (
+              <span
+                key={label}
+                className="glass-chip rounded-full px-3 py-1.5 text-xs text-foreground sm:text-sm"
+              >
+                {label}
+              </span>
             ))}
           </div>
         </BentoCard>
@@ -115,6 +111,8 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
           <ThemeToggle />
         </BentoCard>
       </BentoGrid>
-    </main>
+        </main>
+      </div>
+    </div>
   );
 }

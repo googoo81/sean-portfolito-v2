@@ -35,45 +35,82 @@
   gap: 12px;
 }
 
-@media (min-width: 1024px) {
-  .bento-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-
-  .bento-intro,
-  .bento-projects,
-  .bento-cta {
-    grid-column: span 2;
-  }
+.bento-scale,
+.bento-stage {
+  display: contents;
 }
 
-@media (min-width: 1280px) {
+.bento-stack-dock {
+  display: none;
+}
+
+.bento-stack-wrap {
+  display: flex;
+}
+
+@media (orientation: landscape) {
+  html:has(.bento-page),
+  html:has(.bento-page) body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  html:has(.bento-page) body {
+    min-height: 0;
+  }
+
+  .bento-scale {
+    --bento-w: 2560px;
+    --bento-h: 1440px;
+    --bento-scale: min(100vw / var(--bento-w), 100dvh / var(--bento-h));
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .bento-stage {
+    display: block;
+    width: calc(var(--bento-w) * var(--bento-scale));
+    height: calc(var(--bento-h) * var(--bento-scale));
+    overflow: hidden;
+  }
+
+  .bento-page {
+    display: flex;
+    width: var(--bento-w);
+    height: var(--bento-h);
+    min-width: var(--bento-w);
+    min-height: var(--bento-h);
+    max-width: var(--bento-w);
+    max-height: var(--bento-h);
+    flex: none;
+    padding: 20px;
+    overflow: hidden;
+    transform: scale(var(--bento-scale));
+    transform-origin: top left;
+  }
+
   .bento-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-rows:
-      minmax(8rem, 0.9fr)
-      minmax(8rem, 0.9fr)
-      minmax(10rem, 1fr)
-      minmax(8rem, 0.85fr);
+      minmax(0, 0.72fr)
+      minmax(0, 0.72fr)
+      minmax(0, 1fr)
+      minmax(0, 0.78fr);
     grid-template-areas:
-      "intro intro intro intro featured featured featured featured featured profile profile profile"
-      "about about about about featured featured featured featured featured social social social"
+      "intro intro intro intro featured featured featured featured featured featured profile profile"
+      "about about about about featured featured featured featured featured featured social social"
       "projects projects projects projects projects projects projects projects projects projects projects projects"
       "history history history stack stack stack skills skills skills skills cta cta";
-    gap: 16px;
+    gap: 18px;
     height: 100%;
     min-height: 0;
   }
 
-  .bento-intro,
-  .bento-about,
-  .bento-cta,
-  .bento-projects {
-    grid-column: auto;
-  }
-
-  .bento-card {
+  .bento-page .bento-card,
+  .bento-page .bento-card * {
     min-height: 0;
   }
 
@@ -115,5 +152,26 @@
 
   .bento-cta {
     grid-area: cta;
+  }
+
+  .bento-fill-end {
+    margin-top: auto;
+  }
+
+  .bento-stack-dock {
+    display: flex;
+  }
+
+  .bento-stack-wrap {
+    display: none;
+  }
+
+  .bento-intro h1 {
+    font-size: 2.5rem;
+    line-height: 1.15;
+  }
+
+  .bento-intro p {
+    font-size: 1.125rem;
   }
 }

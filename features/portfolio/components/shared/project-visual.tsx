@@ -8,7 +8,7 @@ export function ProjectVisual({ className }: ProjectVisualProps) {
   return (
     <div
       className={cn(
-        "flex h-full min-h-[16rem] items-center justify-center bg-soft xl:min-h-0",
+        "flex h-full min-h-[16rem] items-center justify-center bg-soft",
         className,
       )}
     >

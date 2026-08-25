@@ -15,10 +15,10 @@ export function ProjectsGridCell({ projects, className }: ProjectsGridCellProps)
 
   return (
     <BentoCard className={className}>
-      <div className="flex h-full min-h-[12rem] flex-col p-4 sm:p-5 xl:min-h-0">
+      <div className="flex h-full min-h-[12rem] flex-col p-4 sm:p-5">
         <div className="flex items-baseline justify-between gap-3">
           <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
-            Projects
+            Projects.
           </p>
           <p className="text-xs text-muted">{projects.length} works</p>
         </div>

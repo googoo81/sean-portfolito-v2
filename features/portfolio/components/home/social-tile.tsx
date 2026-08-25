@@ -119,7 +119,7 @@ export function SocialTile({
   ];
 
   return (
-    <div className="grid h-full min-h-64 grid-cols-2 grid-rows-2 gap-2.5 p-3 xl:min-h-0">
+    <div className="grid h-full min-h-64 grid-cols-2 grid-rows-2 gap-2.5 p-3">
       {links.map((link) => {
         const copied = copiedId === link.icon;
 

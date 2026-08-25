@@ -13,7 +13,7 @@ export function ProjectTile({ project, className }: ProjectTileProps) {
     <BentoCard as="article" className={className}>
       <Link
         href={`/work/${project.slug}`}
-        className="relative flex h-full min-h-[16rem] flex-col xl:min-h-0"
+        className="relative flex h-full min-h-[16rem] flex-col"
       >
         <div className="min-h-0 flex-1">
           <ProjectVisual />

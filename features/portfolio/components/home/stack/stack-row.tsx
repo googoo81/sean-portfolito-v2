@@ -5,11 +5,7 @@ import { useMotionValue } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { DockIcon } from "./dock-icon";
 import { NotesOverlay, type NotesOrigin } from "./notes-overlay";
-import {
-  clearNotesHash,
-  parseNotesHash,
-  writeNotesHash,
-} from "./notes-hash";
+import { clearNotesHash, parseNotesHash, writeNotesHash } from "./notes-hash";
 import { DOCK_GAP, DOCK_MAX_SIZE } from "./dock-config";
 import type { StackItem } from "@/features/portfolio/types";
 
@@ -109,11 +105,9 @@ export function StackRow({ items }: StackRowProps) {
         role="list"
         aria-label="사용 도구"
         style={{ gap: DOCK_GAP, height: DOCK_MAX_SIZE }}
-        className="relative hidden w-full items-end justify-center px-2 xl:flex"
+        className="bento-stack-dock relative w-full items-end justify-center px-2"
         onPointerMove={
-          reducedMotion
-            ? undefined
-            : (event) => pointerX.set(event.clientX)
+          reducedMotion ? undefined : (event) => pointerX.set(event.clientX)
         }
         onPointerLeave={
           reducedMotion
@@ -135,7 +129,7 @@ export function StackRow({ items }: StackRowProps) {
       <div
         role="list"
         aria-label="사용 도구"
-        className="flex max-w-full flex-wrap items-center justify-center gap-1.5 xl:hidden"
+        className="bento-stack-wrap max-w-full flex-wrap items-center justify-center gap-1.5"
       >
         {orderedItems.map((item) => (
           <DockIcon
