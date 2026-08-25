@@ -13,6 +13,7 @@ const ICON_SIZE = 54;
 const MAX_SCALE = 1.52;
 const INFLUENCE = 160;
 const GAP = 12;
+const THEMED_ICONS = new Set(["Notion", "CapCut", "ChatGPT"]);
 
 function scaleForDistance(distance: number) {
   if (distance >= INFLUENCE) {
@@ -56,6 +57,9 @@ function StackIcon({
   translation = 0,
   active = false,
 }: StackIconProps) {
+  const iconSrc = stackIconSrc(item);
+  const isThemedIcon = THEMED_ICONS.has(item);
+
   return (
     <span
       data-stack-slot
@@ -74,9 +78,7 @@ function StackIcon({
           bottom: `calc(100% + ${(scale - 1) * TILE_SIZE + 12}px)`,
         }}
         className={`pointer-events-none absolute left-1/2 z-20 -translate-x-1/2 rounded-full bg-[#2c2c2e]/95 px-4 py-2 text-sm font-medium whitespace-nowrap text-white shadow-[0_5px_18px_rgba(0,0,0,0.45)] ring-1 ring-white/15 backdrop-blur-xl transition-all duration-100 ${
-          active
-            ? "translate-y-0 opacity-100"
-            : "translate-y-1 opacity-0"
+          active ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
         }`}
       >
         {item}
@@ -89,17 +91,37 @@ function StackIcon({
           transform: `scale(${scale})`,
           transformOrigin: "bottom center",
         }}
-        className="flex items-center justify-center rounded-[1.35rem] bg-white/7 shadow-[0_8px_18px_rgba(0,0,0,0.28)] ring-1 ring-white/6 transition-transform duration-100 ease-out will-change-transform"
+        className="flex items-center justify-center rounded-[1.35rem] bg-soft shadow-[0_8px_18px_rgba(0,0,0,0.2)] ring-1 ring-line transition-[transform,background-color] duration-100 ease-out will-change-transform"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={stackIconSrc(item)}
-          alt=""
-          width={ICON_SIZE}
-          height={ICON_SIZE}
-          className="object-contain"
-          loading="lazy"
-        />
+        {isThemedIcon ? (
+          <span
+            aria-hidden="true"
+            style={{
+              width: ICON_SIZE,
+              height: ICON_SIZE,
+              backgroundColor: "var(--stack-icon-themed)",
+              maskImage: `url("${iconSrc}")`,
+              WebkitMaskImage: `url("${iconSrc}")`,
+              maskPosition: "center",
+              WebkitMaskPosition: "center",
+              maskRepeat: "no-repeat",
+              WebkitMaskRepeat: "no-repeat",
+              maskSize: "contain",
+              WebkitMaskSize: "contain",
+            }}
+            className="transition-colors duration-200"
+          />
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={iconSrc}
+            alt=""
+            width={ICON_SIZE}
+            height={ICON_SIZE}
+            className="object-contain"
+            loading="lazy"
+          />
+        )}
       </span>
     </span>
   );
@@ -136,9 +158,7 @@ export function StackRow({ items }: StackRowProps) {
     });
 
     setScales(next);
-    setActiveIndex(
-      closestDistance <= TILE_SIZE * 0.75 ? closestIndex : null,
-    );
+    setActiveIndex(closestDistance <= TILE_SIZE * 0.75 ? closestIndex : null);
   }, []);
 
   useEffect(() => {

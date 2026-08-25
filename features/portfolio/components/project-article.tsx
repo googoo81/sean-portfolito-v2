@@ -15,7 +15,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         <p className="mt-4 text-sm text-muted">{project.meta}</p>
         <p className="mt-1 text-sm text-muted">
           Tools: {project.tools}
-          <span className="mx-2 text-white/20">|</span>
+          <span className="mx-2 text-faint">|</span>
           {project.period}
         </p>
       </header>
@@ -28,7 +28,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
               <li key={link.href}>
                 <ExternalLink
                   href={link.href}
-                  className="text-sm underline decoration-white/20 underline-offset-4 hover:decoration-white"
+                  className="text-sm underline decoration-faint underline-offset-4 hover:decoration-foreground"
                 >
                   {link.label}
                 </ExternalLink>
@@ -54,7 +54,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
 
       <div>
         <h2 className="text-sm font-medium text-foreground">Result & Next Action</h2>
-        <Prose className="mt-2 border-l-2 border-white/15 pl-4">{project.result}</Prose>
+        <Prose className="mt-2 border-l-2 border-line pl-4">{project.result}</Prose>
       </div>
     </div>
   );

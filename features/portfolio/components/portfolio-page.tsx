@@ -1,6 +1,5 @@
-import { BentoCard, BentoGrid } from "@/components/ui";
+import { BentoCard, BentoGrid, ThemeToggle } from "@/components/ui";
 import { getFeaturedProject, getGridProjects } from "@/features/portfolio/lib";
-import { CopyEmailButton } from "./copy-email-button";
 import { MotionPreference } from "./motion-preference";
 import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./project-tile";
@@ -98,7 +97,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
                 {skillLabels.map((label) => (
                   <span
                     key={label}
-                    className="rounded-full bg-white/8 px-3 py-1.5 text-xs text-foreground sm:text-sm"
+                    className="rounded-full bg-soft px-3 py-1.5 text-xs text-foreground sm:text-sm"
                   >
                     {label}
                   </span>
@@ -109,25 +108,22 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               {portfolio.education.map((item) => (
                 <p key={item.school} className="text-muted">
                   <span className="text-foreground">{item.school}</span>
-                  <span className="mx-1.5 text-white/20">·</span>
+                  <span className="mx-1.5 text-faint">·</span>
                   {item.period}
                 </p>
               ))}
               {portfolio.certificates.map((item) => (
                 <p key={item.name} className="text-muted">
                   <span className="text-foreground">{item.name}</span>
-                  <span className="mx-1.5 text-white/20">·</span>
+                  <span className="mx-1.5 text-faint">·</span>
                   {item.date}
                 </p>
               ))}
             </div>
           </BentoCard>
 
-          <BentoCard className="bento-cta justify-between p-6 sm:p-7">
-            <p className="text-lg font-medium tracking-tight sm:text-xl">
-              Have a project in mind?
-            </p>
-            <CopyEmailButton email={portfolio.contact.email} />
+          <BentoCard className="bento-cta items-center justify-center p-6 sm:p-7">
+            <ThemeToggle />
           </BentoCard>
         </BentoGrid>
       </main>

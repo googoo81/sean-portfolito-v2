@@ -19,8 +19,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="ko"
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
       className={`${ibmPlexSansKr.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{const t=localStorage.getItem("portfolio-theme");const h=new Date().getHours();const m=t==="dark"||t==="light"?t:h>=9&&h<19?"light":"dark";document.documentElement.dataset.theme=m;document.documentElement.style.colorScheme=m}catch{document.documentElement.dataset.theme="dark"}`,
+          }}
+        />
+      </head>
       <body className="min-h-dvh flex flex-col bg-background font-sans text-foreground">
         {children}
       </body>

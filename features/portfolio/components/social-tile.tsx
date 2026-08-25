@@ -76,7 +76,7 @@ export function SocialTile({ github, medium, phone, email }: SocialTileProps) {
     <div className="grid h-full min-h-[16rem] grid-cols-2 grid-rows-2 gap-2.5 p-3 xl:min-h-0">
       {links.map((link) => {
         const className =
-          "flex items-center justify-center rounded-[1.35rem] bg-white/6 text-foreground transition-colors hover:bg-white/12";
+          "flex items-center justify-center rounded-[1.35rem] bg-soft text-foreground transition-colors hover:bg-soft-hover";
 
         if (link.external) {
           return (

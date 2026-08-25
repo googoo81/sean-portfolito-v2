@@ -23,7 +23,7 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
     <button
       type="button"
       onClick={copyEmail}
-      className="mt-auto inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white/10 px-5 text-sm font-medium text-foreground transition-colors hover:bg-white/20"
+      className="mt-auto inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-soft px-5 text-sm font-medium text-foreground transition-colors hover:bg-soft-hover"
     >
       <svg
         viewBox="0 0 24 24"
