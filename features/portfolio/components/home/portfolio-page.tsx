@@ -30,7 +30,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
           <ProjectTile project={featured} className="bento-featured" />
         ) : null}
 
-        <ProfileTile className="bento-profile" />
+        <ProfileTile className="bento-profile" name={portfolio.contact.name} />
 
         <BentoCard className="bento-about justify-between p-6 sm:p-8">
           <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
