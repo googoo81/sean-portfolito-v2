@@ -89,18 +89,17 @@ export function DockIcon({
       role="listitem"
       aria-label={item.label}
       style={{ width: size, height: size }}
-      className="relative flex shrink-0 items-center justify-center rounded-[1.35rem] bg-soft shadow-[0_8px_18px_rgba(0,0,0,0.2)] ring-1 ring-line will-change-[width,height]"
+      className="glass-chip relative flex shrink-0 items-center justify-center rounded-[1.35rem] will-change-[width,height]"
       onPointerEnter={() => setShowLabel(true)}
       onPointerLeave={() => setShowLabel(false)}
     >
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute bottom-[calc(100%+12px)] left-1/2 z-20 -translate-x-1/2 rounded-full bg-[#2c2c2e]/95 px-4 py-2 text-sm font-medium whitespace-nowrap text-white shadow-[0_5px_18px_rgba(0,0,0,0.45)] ring-1 ring-white/15 backdrop-blur-xl transition-all duration-100 ${
+        className={`glass pointer-events-none absolute bottom-[calc(100%+12px)] left-1/2 z-20 -translate-x-1/2 overflow-hidden rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap text-foreground transition-all duration-100 ${
           showLabel ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
         }`}
       >
         {item.label}
-        <span className="absolute top-full left-1/2 h-0 w-0 -translate-x-1/2 border-x-[5px] border-t-[6px] border-x-transparent border-t-[#2c2c2e]" />
       </span>
       <StackGlyph item={item} />
     </motion.span>

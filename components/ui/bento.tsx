@@ -27,7 +27,7 @@ export function BentoCard({
     <Comp
       id={id}
       className={cn(
-        "bento-card flex h-full min-h-[12rem] min-w-0 flex-col overflow-hidden rounded-[1.75rem] border border-line bg-surface sm:rounded-[2rem] xl:min-h-0",
+        "bento-card glass relative flex h-full min-h-[12rem] min-w-0 flex-col overflow-hidden rounded-[1.75rem] sm:rounded-[2rem] xl:min-h-0",
         className,
       )}
     >

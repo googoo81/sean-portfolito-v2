@@ -10,7 +10,7 @@ export function ProjectTileCompact({ project }: ProjectTileCompactProps) {
   return (
     <Link
       href={`/work/${project.slug}`}
-      className="flex h-full min-h-[7.5rem] flex-col overflow-hidden rounded-[1.25rem] border border-line bg-accent-soft transition-colors hover:bg-[#2e2e2e]"
+      className="glass-chip flex h-full min-h-[7.5rem] flex-col overflow-hidden rounded-[1.25rem] transition-colors hover:bg-soft-hover"
     >
       <div className="min-h-0 flex-1">
         <ProjectVisual className="h-full min-h-[4.5rem] bg-transparent" />

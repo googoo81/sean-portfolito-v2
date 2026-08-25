@@ -50,12 +50,12 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       aria-label="테마 전환"
       aria-pressed="false"
       className={cn(
-        "theme-toggle h-15 w-28 shrink-0 cursor-pointer rounded-full border border-foreground/20 bg-(--theme-toggle-track) p-1.5 backdrop-blur-xl transition-[transform,background-color,border-color] duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground",
+        "theme-toggle glass relative h-15 w-28 shrink-0 cursor-pointer overflow-hidden rounded-full bg-(--theme-toggle-track) p-1.5 transition-transform duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground",
         className,
       )}
     >
       <span className="sr-only">흑백 테마 전환</span>
-      <span className="theme-toggle__thumb relative flex size-12 items-center justify-center rounded-full bg-(--theme-toggle-thumb) text-(--theme-toggle-icon) shadow-[0_3px_12px_rgba(0,0,0,0.3)] ring-1 ring-foreground/15 transition-[transform,background-color,color] duration-300 ease-out">
+      <span className="theme-toggle__thumb glass-chip relative z-10 flex size-12 items-center justify-center rounded-full bg-(--theme-toggle-thumb) text-(--theme-toggle-icon) transition-[transform,background-color,color] duration-300 ease-out">
         <svg
           viewBox="0 0 24 24"
           className="theme-toggle__sun absolute size-6 transition-all duration-200"

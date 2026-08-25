@@ -37,14 +37,14 @@ export default async function WorkPage({ params }: PageProps<"/work/[slug]">) {
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-10 sm:px-8 sm:py-14">
         <Link
           href="/"
-          className="text-sm text-muted transition-opacity hover:text-foreground"
+          className="glass-chip inline-flex rounded-full px-3 py-1.5 text-sm text-muted transition-colors hover:text-foreground"
         >
           ← Home
         </Link>
-        <div className="mt-8 h-64 overflow-hidden rounded-4xl bg-surface sm:h-80">
-          <ProjectVisual className="min-h-full" />
+        <div className="glass relative mt-8 h-64 overflow-hidden rounded-4xl sm:h-80">
+          <ProjectVisual className="min-h-full bg-transparent" />
         </div>
-        <div className="mt-10">
+        <div className="glass relative mt-10 overflow-hidden rounded-4xl p-6 sm:p-8">
           <ProjectArticle project={project} />
         </div>
       </main>

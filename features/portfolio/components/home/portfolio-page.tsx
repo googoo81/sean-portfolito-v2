@@ -86,7 +86,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               {portfolio.skills.map((label) => (
                 <span
                   key={label}
-                  className="rounded-full bg-soft px-3 py-1.5 text-xs text-foreground sm:text-sm"
+                    className="glass-chip rounded-full px-3 py-1.5 text-xs text-foreground sm:text-sm"
                 >
                   {label}
                 </span>

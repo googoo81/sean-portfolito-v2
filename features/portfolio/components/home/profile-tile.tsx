@@ -15,7 +15,7 @@ export function ProfileTile({ contact, headline, className }: ProfileTileProps) 
       <div className="flex h-full min-h-[12rem] flex-col p-5 sm:p-6 xl:min-h-0">
         <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
           <div
-            className="flex size-20 items-center justify-center rounded-full border border-line bg-accent-soft text-2xl font-medium text-foreground sm:size-24"
+            className="glass-chip flex size-20 items-center justify-center rounded-full text-2xl font-medium text-foreground sm:size-24"
             aria-hidden
           >
             {initial}

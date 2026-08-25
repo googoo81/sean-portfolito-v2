@@ -69,7 +69,7 @@ export function SocialTile({
     <div className="grid h-full min-h-64 grid-cols-2 grid-rows-2 gap-2.5 p-3 xl:min-h-0">
       {links.map((link) => {
         const className =
-          "flex items-center justify-center rounded-[1.35rem] bg-soft text-foreground transition-colors hover:bg-soft-hover";
+          "glass-chip flex items-center justify-center rounded-[1.35rem] text-foreground transition-colors hover:bg-soft-hover";
         const icon = SOCIAL_ICONS[link.icon];
 
         if (link.external) {
