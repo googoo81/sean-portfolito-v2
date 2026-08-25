@@ -1,6 +1,6 @@
 import type { StackItem } from "@/features/portfolio/types";
 
-const STACK_ICON_DIR = "/images/stack";
+const STACK_ICON_DIR = "/svg/stack";
 
 export const STACK_ITEMS = [
   {
