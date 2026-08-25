@@ -3,6 +3,7 @@
 @import "./styles/chrome.css";
 @import "./styles/bento.css";
 @import "../components/ui/theme-toggle.css";
+@import "../features/portfolio/components/home/social-tile.css";
 @import "../features/portfolio/components/home/stack/notes-overlay.css";
 
 html[data-reduced-motion="true"] .bento-grid > * {

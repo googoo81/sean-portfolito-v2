@@ -1,12 +1,21 @@
-import { ExternalLink } from "@/components/ui";
-import { SOCIAL_ICONS, type SocialIconId } from "@/features/portfolio/constants";
-import { toTelHref } from "@/lib/format";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import {
+  SOCIAL_ACTION_ICONS,
+  SOCIAL_ICONS,
+  type SocialIconId,
+} from "@/features/portfolio/constants";
+import { cn, toTelHref } from "@/lib/format";
 import type { PortfolioContact } from "@/features/portfolio/types";
 
 type SocialLink = {
   href: string;
   label: string;
   icon: SocialIconId;
+  copyValue: string;
+  copyLabel: string;
+  openLabel: string;
   external?: boolean;
 };
 
@@ -29,43 +38,131 @@ function SocialGlyph({ src }: { src: string }) {
   );
 }
 
+async function copyToClipboard(value: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+    return;
+  }
+
+  const input = document.createElement("textarea");
+  input.value = value;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.left = "-9999px";
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}
+
 export function SocialTile({
   github,
   medium,
   phone,
   email,
 }: Pick<PortfolioContact, "github" | "medium" | "phone" | "email">) {
+  const [copiedId, setCopiedId] = useState<SocialIconId | null>(null);
+  const copiedTimer = useRef<number>(0);
+
+  useEffect(() => {
+    return () => window.clearTimeout(copiedTimer.current);
+  }, []);
+
+  async function handleCopy(id: SocialIconId, value: string) {
+    try {
+      await copyToClipboard(value);
+      setCopiedId(id);
+      window.clearTimeout(copiedTimer.current);
+      copiedTimer.current = window.setTimeout(() => {
+        setCopiedId(null);
+      }, 1600);
+    } catch {
+      setCopiedId(null);
+    }
+  }
+
   const links: SocialLink[] = [
-    { href: github, label: "Github", icon: "github", external: true },
-    { href: medium, label: "Medium", icon: "medium", external: true },
-    { href: toTelHref(phone), label: "Phone", icon: "phone" },
-    { href: `mailto:${email}`, label: "Email", icon: "mail" },
+    {
+      href: github,
+      label: "Github",
+      icon: "github",
+      copyValue: github,
+      copyLabel: "Github 링크 복사",
+      openLabel: "Github로 이동",
+      external: true,
+    },
+    {
+      href: medium,
+      label: "Medium",
+      icon: "medium",
+      copyValue: medium,
+      copyLabel: "Medium 링크 복사",
+      openLabel: "Medium으로 이동",
+      external: true,
+    },
+    {
+      href: toTelHref(phone),
+      label: "Phone",
+      icon: "phone",
+      copyValue: phone,
+      copyLabel: "전화번호 복사",
+      openLabel: "전화 걸기",
+    },
+    {
+      href: `mailto:${email}`,
+      label: "Email",
+      icon: "mail",
+      copyValue: email,
+      copyLabel: "이메일 주소 복사",
+      openLabel: "이메일 보내기",
+    },
   ];
 
   return (
     <div className="grid h-full min-h-64 grid-cols-2 grid-rows-2 gap-2.5 p-3 xl:min-h-0">
       {links.map((link) => {
-        const className =
-          "glass-chip flex items-center justify-center rounded-[1.35rem] text-foreground transition-colors hover:bg-soft-hover";
-        const icon = <SocialGlyph src={SOCIAL_ICONS[link.icon]} />;
-
-        if (link.external) {
-          return (
-            <ExternalLink
-              key={link.label}
-              href={link.href}
-              aria-label={link.label}
-              className={className}
-            >
-              {icon}
-            </ExternalLink>
-          );
-        }
+        const copied = copiedId === link.icon;
 
         return (
-          <a key={link.label} href={link.href} aria-label={link.label} className={className}>
-            {icon}
-          </a>
+          <div
+            key={link.label}
+            role="group"
+            aria-label={link.label}
+            className="social-chip glass-chip text-foreground"
+          >
+            <div className="social-chip__icon">
+              <SocialGlyph src={SOCIAL_ICONS[link.icon]} />
+              <span className="social-chip__caption">{link.label}</span>
+            </div>
+            <button
+              type="button"
+              className="social-chip__action"
+              aria-label={copied ? "copied!" : link.copyLabel}
+              onClick={() => {
+                void handleCopy(link.icon, link.copyValue);
+              }}
+            >
+              {copied ? (
+                <span className="social-chip__copied">copied!</span>
+              ) : (
+                <>
+                  <SocialGlyph src={SOCIAL_ACTION_ICONS.copy} />
+                  <span className="social-chip__caption">Copy</span>
+                </>
+              )}
+            </button>
+            <a
+              href={link.href}
+              aria-label={link.openLabel}
+              className={cn("social-chip__action", "social-chip__action--open")}
+              {...(link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              <SocialGlyph src={SOCIAL_ACTION_ICONS.open} />
+              <span className="social-chip__caption">Open</span>
+            </a>
+          </div>
         );
       })}
     </div>
