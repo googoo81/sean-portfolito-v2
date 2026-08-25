@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BentoCard } from "@/components/ui";
-import { ProjectVisual } from "./project-visual";
+import { ProjectVisual } from "../../shared/project-visual";
 import type { Project } from "@/features/portfolio/types";
 
 type ProjectTileProps = {

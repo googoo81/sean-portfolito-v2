@@ -2,9 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ThemeToggle } from "@/components/ui";
 import { getPortfolio, getProjectBySlug } from "@/features/portfolio";
-import { MotionPreference } from "@/features/portfolio/components/motion-preference";
-import { ProjectArticle } from "@/features/portfolio/components/project-article";
-import { ProjectVisual } from "@/features/portfolio/components/project-visual";
+import { ProjectVisual } from "@/features/portfolio/components/shared/project-visual";
+import { ProjectArticle } from "@/features/portfolio/components/work/project-article";
 
 export function generateStaticParams() {
   return getPortfolio().projects.map((project) => ({ slug: project.slug }));
@@ -34,7 +33,6 @@ export default async function WorkPage({ params }: PageProps<"/work/[slug]">) {
 
   return (
     <>
-      <MotionPreference />
       <ThemeToggle className="fixed top-5 right-5 z-50" />
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-10 sm:px-8 sm:py-14">
         <Link
@@ -43,7 +41,7 @@ export default async function WorkPage({ params }: PageProps<"/work/[slug]">) {
         >
           ← Home
         </Link>
-        <div className="mt-8 h-64 overflow-hidden rounded-[2rem] bg-surface sm:h-80">
+        <div className="mt-8 h-64 overflow-hidden rounded-4xl bg-surface sm:h-80">
           <ProjectVisual className="min-h-full" />
         </div>
         <div className="mt-10">

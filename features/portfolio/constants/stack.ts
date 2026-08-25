@@ -1,22 +1,42 @@
-export const STACK_ICON_DIR = "/images/stack";
+import type { StackItem } from "@/features/portfolio/types";
 
-/** File names under public/images/stack — keys match portfolio.stack labels (lowercase, no spaces). */
-export const STACK_ICONS = {
-  figma: `${STACK_ICON_DIR}/figma.svg`,
-  notion: `${STACK_ICON_DIR}/notion.svg`,
-  slack: `${STACK_ICON_DIR}/slack.svg`,
-  capcut: `${STACK_ICON_DIR}/capcut.svg`,
-  chatgpt: `${STACK_ICON_DIR}/chatgpt.svg`,
-  cursor: `${STACK_ICON_DIR}/cursor.svg`,
-} as const;
+const STACK_ICON_DIR = "/images/stack";
 
-export type StackIconId = keyof typeof STACK_ICONS;
-
-export function stackIconSlug(label: string): StackIconId | string {
-  return label.toLowerCase().replace(/\s+/g, "");
-}
-
-export function stackIconSrc(label: string): string {
-  const slug = stackIconSlug(label);
-  return STACK_ICONS[slug as StackIconId] ?? `${STACK_ICON_DIR}/${slug}.svg`;
-}
+export const STACK_ITEMS = [
+  {
+    id: "figma",
+    label: "Figma",
+    icon: `${STACK_ICON_DIR}/figma.svg`,
+    themed: false,
+  },
+  {
+    id: "notion",
+    label: "Notion",
+    icon: `${STACK_ICON_DIR}/notion.svg`,
+    themed: true,
+  },
+  {
+    id: "slack",
+    label: "Slack",
+    icon: `${STACK_ICON_DIR}/slack.svg`,
+    themed: false,
+  },
+  {
+    id: "capcut",
+    label: "CapCut",
+    icon: `${STACK_ICON_DIR}/capcut.svg`,
+    themed: true,
+  },
+  {
+    id: "chatgpt",
+    label: "ChatGPT",
+    icon: `${STACK_ICON_DIR}/chatgpt.svg`,
+    themed: true,
+  },
+  {
+    id: "cursor",
+    label: "Cursor",
+    icon: `${STACK_ICON_DIR}/cursor.svg`,
+    themed: false,
+  },
+] as const satisfies readonly StackItem[];

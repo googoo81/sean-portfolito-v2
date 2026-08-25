@@ -1,13 +1,3 @@
-export type SkillItem = {
-  title: string;
-  body: string;
-};
-
-export type SkillGroup = {
-  title: string;
-  items: SkillItem[];
-};
-
 export type ProjectLink = {
   label: string;
   href: string;
@@ -30,7 +20,6 @@ export type HistoryItem = {
   company: string;
   role: string;
   period: string;
-  summary: string[];
 };
 
 export type EducationItem = {
@@ -43,9 +32,15 @@ export type CertificateItem = {
   date: string;
 };
 
+export type StackItem = {
+  id: string;
+  label: string;
+  icon: string;
+  themed: boolean;
+};
+
 export type PortfolioIntro = {
   headline: string;
-  lines: string[];
   closing: string;
 };
 
@@ -60,20 +55,11 @@ export type PortfolioContact = {
 export type Portfolio = {
   intro: PortfolioIntro;
   contact: PortfolioContact;
-  skills: SkillGroup[];
-  stack: string[];
+  skills: string[];
+  stack: readonly StackItem[];
   featuredSlug: string;
-  projectsIntro: string;
   projects: Project[];
-  projectPattern: string;
-  closing: string;
   histories: HistoryItem[];
   education: EducationItem[];
   certificates: CertificateItem[];
-};
-
-export type NavItem = {
-  href: `#${string}`;
-  label: string;
-  sectionId: string;
 };

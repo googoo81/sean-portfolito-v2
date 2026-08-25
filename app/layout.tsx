@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_KR } from "next/font/google";
+import { MotionPreference } from "@/components/ui";
+import { getThemeInitScript } from "@/lib/theme";
 import "./globals.css";
 
 const ibmPlexSansKr = IBM_Plex_Sans_KR({
@@ -25,11 +27,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{const t=localStorage.getItem("portfolio-theme");const h=new Date().getHours();const m=t==="dark"||t==="light"?t:h>=9&&h<19?"light":"dark";document.documentElement.dataset.theme=m;document.documentElement.style.colorScheme=m}catch{document.documentElement.dataset.theme="dark"}`,
+            __html: getThemeInitScript(),
           }}
         />
       </head>
       <body className="min-h-dvh flex flex-col bg-background font-sans text-foreground">
+        <MotionPreference />
         {children}
       </body>
     </html>

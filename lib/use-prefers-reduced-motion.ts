@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-/** Respects prefers-reduced-motion for optional animation toggles. */
 export function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
 

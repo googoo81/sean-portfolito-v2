@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProjectVisual } from "./project-visual";
+import { ProjectVisual } from "../../shared/project-visual";
 import type { Project } from "@/features/portfolio/types";
 
 type ProjectTileCompactProps = {

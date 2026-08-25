@@ -2,54 +2,44 @@
 
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/format";
-
-type Theme = "dark" | "light";
+import {
+  applyTheme,
+  getCurrentTheme,
+  getOppositeTheme,
+  persistTheme,
+  type Theme,
+} from "@/lib/theme";
 
 type ThemeToggleProps = {
   className?: string;
 };
 
-function getScheduledTheme(): Theme {
-  const hour = new Date().getHours();
-  return hour >= 9 && hour < 19 ? "light" : "dark";
-}
-
-function getCurrentTheme(): Theme {
-  const theme = document.documentElement.dataset.theme;
-
-  if (theme === "dark" || theme === "light") {
-    return theme;
+function syncToggle(button: HTMLButtonElement | null, theme: Theme) {
+  if (!button) {
+    return;
   }
 
-  return getScheduledTheme();
-}
-
-function applyTheme(theme: Theme, button?: HTMLButtonElement | null) {
-  document.documentElement.dataset.theme = theme;
-  document.documentElement.style.colorScheme = theme;
-
-  if (button) {
-    const isDark = theme === "dark";
-    button.setAttribute("aria-pressed", String(isDark));
-    button.setAttribute(
-      "aria-label",
-      isDark ? "라이트 모드로 전환" : "다크 모드로 전환",
-    );
-  }
+  const isDark = theme === "dark";
+  button.setAttribute("aria-pressed", String(isDark));
+  button.setAttribute(
+    "aria-label",
+    isDark ? "라이트 모드로 전환" : "다크 모드로 전환",
+  );
 }
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    applyTheme(getCurrentTheme(), buttonRef.current);
+    syncToggle(buttonRef.current, getCurrentTheme());
   }, []);
 
   function toggleTheme() {
-    const nextTheme = getCurrentTheme() === "dark" ? "light" : "dark";
+    const nextTheme = getOppositeTheme(getCurrentTheme());
 
-    applyTheme(nextTheme, buttonRef.current);
-    window.localStorage.setItem("portfolio-theme", nextTheme);
+    applyTheme(nextTheme);
+    persistTheme(nextTheme);
+    syncToggle(buttonRef.current, nextTheme);
   }
 
   return (

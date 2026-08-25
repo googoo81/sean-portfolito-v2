@@ -12,18 +12,22 @@ export function getProjectBySlug(slug: string): Project | undefined {
   return portfolio.projects.find((project) => project.slug === slug);
 }
 
-export function getFeaturedProject(): Project | undefined {
-  const { featuredSlug, projects } = portfolio;
+type ProjectCollection = Pick<Portfolio, "featuredSlug" | "projects">;
+
+export function getFeaturedProject({
+  featuredSlug,
+  projects,
+}: ProjectCollection): Project | undefined {
   return projects.find((project) => project.slug === featuredSlug) ?? projects[0];
 }
 
-export function getGridProjects(): Project[] {
-  const featured = getFeaturedProject();
+export function getGridProjects(source: ProjectCollection): Project[] {
+  const featured = getFeaturedProject(source);
   if (!featured) {
-    return portfolio.projects.slice(0, MAX_GRID_PROJECTS);
+    return source.projects.slice(0, MAX_GRID_PROJECTS);
   }
 
-  return portfolio.projects
+  return source.projects
     .filter((project) => project.slug !== featured.slug)
     .slice(0, MAX_GRID_PROJECTS);
 }
