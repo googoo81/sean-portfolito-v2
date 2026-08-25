@@ -69,11 +69,65 @@
 }
 
 .bento-projects__go {
-  transition: transform 280ms cubic-bezier(0.22, 1.2, 0.36, 1);
+  overflow: hidden;
+  scale: 1;
+  transition:
+    background-color 280ms ease,
+    border-color 280ms ease,
+    color 280ms ease,
+    scale 320ms cubic-bezier(0.22, 1.2, 0.36, 1);
 }
 
-.bento-projects:hover .bento-projects__go {
-  transform: translate(2px, -2px);
+.bento-projects__go-icons {
+  display: grid;
+  place-items: center;
+}
+
+.bento-projects__go-icons svg {
+  grid-area: 1 / 1;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bento-projects__go-icons svg:last-child {
+  transform: translate(-1.65rem, 1.65rem);
+}
+
+@media (hover: hover) {
+  .bento-projects:hover .bento-projects__go {
+    scale: 1.16;
+    background: var(--foreground);
+    border-color: var(--foreground);
+    color: var(--background);
+  }
+
+  .bento-projects:hover .bento-projects__go-icons svg:first-child {
+    transform: translate(1.65rem, -1.65rem);
+  }
+
+  .bento-projects:hover .bento-projects__go-icons svg:last-child {
+    transform: translate(0, 0);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .bento-projects:hover .bento-projects__go {
+    scale: 1;
+  }
+
+  .bento-projects__go-icons svg:last-child,
+  .bento-projects:hover .bento-projects__go-icons svg:first-child,
+  .bento-projects:hover .bento-projects__go-icons svg:last-child {
+    transform: none;
+  }
+}
+
+html[data-reduced-motion="true"] .bento-projects:hover .bento-projects__go {
+  scale: 1;
+}
+
+html[data-reduced-motion="true"] .bento-projects__go-icons svg:last-child,
+html[data-reduced-motion="true"] .bento-projects:hover .bento-projects__go-icons svg {
+  transform: none;
 }
 
 @media (orientation: landscape) {

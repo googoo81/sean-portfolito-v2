@@ -5,6 +5,23 @@ type ProjectsGridCellProps = {
   className?: string;
 };
 
+function GoArrow() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M7 17 17 7" />
+      <path d="M9 7h8v8" />
+    </svg>
+  );
+}
+
 export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
   return (
     <BentoCard className={className}>
@@ -14,24 +31,16 @@ export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
         className="flex h-full min-h-[12rem] cursor-pointer flex-col items-center justify-center gap-4 p-5"
       >
         <p className="text-sm font-medium tracking-[0.18em] text-foreground uppercase">
-          Projects.
+          💻 Projects.
         </p>
         <span
           className="bento-projects__go flex size-10 items-center justify-center rounded-full border border-line bg-soft text-foreground"
           aria-hidden
         >
-          <svg
-            viewBox="0 0 24 24"
-            className="size-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M7 17 17 7" />
-            <path d="M9 7h8v8" />
-          </svg>
+          <span className="bento-projects__go-icons">
+            <GoArrow />
+            <GoArrow />
+          </span>
         </span>
       </Link>
     </BentoCard>

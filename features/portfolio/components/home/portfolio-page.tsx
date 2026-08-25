@@ -11,19 +11,43 @@ type PortfolioPageProps = {
   portfolio: Portfolio;
 };
 
+function ProcessArrow() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      className="about-process__arrow"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M3 8h10M9 4l4 4-4 4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function PortfolioPage({ portfolio }: PortfolioPageProps) {
   const featured = getFeaturedProject(portfolio);
 
   return (
     <main className="bento-page flex min-h-dvh flex-1 flex-col p-3 sm:p-4">
       <BentoGrid className="min-h-0 flex-1">
-        <BentoCard className="bento-intro justify-between p-6 sm:p-8">
-          <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
-            Hi, I&apos;m {portfolio.contact.name} —
+        <BentoCard className="bento-intro justify-center p-5 sm:p-6">
+          <h1 className="intro-title">
+            {portfolio.intro.headline.split("\n").map((line) => (
+              <span key={line} className="intro-title__rest">
+                {line}
+              </span>
+            ))}
+            <span>
+              {portfolio.contact.name}
+              <span className="intro-title__rest">입니다.</span>
+            </span>
           </h1>
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
-            {portfolio.intro.headline}
-          </p>
         </BentoCard>
 
         {featured ? (
@@ -32,13 +56,34 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
         <ProfileTile className="bento-profile" name={portfolio.contact.name} />
 
-        <BentoCard className="bento-about justify-between p-6 sm:p-8">
-          <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
-            About.
-          </p>
-          <p className="mt-auto pt-8 text-lg leading-snug font-medium tracking-tight sm:text-xl">
-            {portfolio.intro.closing}
-          </p>
+        <BentoCard className="bento-about justify-between gap-4 overflow-y-auto p-5 sm:p-6">
+          <div>
+            <p className="text-[0.65rem] font-medium tracking-[0.18em] text-muted uppercase">
+              👻 about.
+            </p>
+            <p className="about-process">
+              {portfolio.intro.process.map((step, index) => (
+                <span key={step} className="inline-flex items-center">
+                  {index > 0 ? <ProcessArrow /> : null}
+                  {step}
+                </span>
+              ))}
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <p className="text-[0.8125rem] leading-relaxed text-muted">
+              {portfolio.intro.closing}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {portfolio.intro.pairs.map((pair) => (
+                <span key={pair.join("-")} className="about-pair glass-chip">
+                  {pair[0]}
+                  <span className="about-pair__dot" aria-hidden />
+                  {pair[1]}
+                </span>
+              ))}
+            </div>
+          </div>
         </BentoCard>
 
         <BentoCard className="bento-social">
@@ -50,7 +95,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
           <BentoCard className="bento-history justify-between overflow-y-auto p-6 sm:p-7">
             <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
-              Histories & Certificates.
+              🧑‍💻 Histories & Certificates.
             </p>
             <div className="bento-fill-end mt-6 grid grid-cols-2 gap-x-8 gap-y-4">
               <ul className="space-y-4">
@@ -90,7 +135,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
         <div className="bento-bottom">
           <BentoCard className="bento-stack p-6 sm:p-7">
             <p className="shrink-0 text-xs font-medium tracking-[0.18em] text-muted uppercase">
-              Stack I use.
+              📚 Stack I use.
             </p>
             <div className="flex min-h-0 flex-1 items-center">
               <StackRow items={portfolio.stack} />
@@ -99,7 +144,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
           <BentoCard className="bento-skills overflow-y-auto p-6 sm:p-7">
             <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">
-              Skills.
+              🛠️ Skills.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {portfolio.skills.map((label) => (

@@ -3,9 +3,14 @@ import type { Portfolio } from "@/features/portfolio/types";
 
 export const portfolio: Portfolio = {
   intro: {
-    headline: "기획한 아이디어를 직접 구현하는 마케터",
+    headline: "기획한 아이디어를\n직접 구현하는 마케터",
+    process: ["Strategy", "Content", "Execution"],
     closing:
-      "분석에서 멈추지 않고 타깃과 채널에 맞는 콘텐츠를 완성하는 기획과 제작을 연결하는 마케터 송현우입니다.",
+      "분석에서 끝나는 것이 아니라 타깃과 채널에 맞는 콘텐츠가 실제 결과물로 이어지는 과정까지 직접 설계합니다.",
+    pairs: [
+      ["Planning", "Visual"],
+      ["Copy", "Development"],
+    ],
   },
   contact: {
     name: "송현우",
