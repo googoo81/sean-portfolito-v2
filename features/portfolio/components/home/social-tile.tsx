@@ -7,6 +7,7 @@ import {
   type SocialIconId,
 } from "@/features/portfolio/constants";
 import { cn, toTelHref } from "@/lib/format";
+import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import type { PortfolioContact } from "@/features/portfolio/types";
 
 type SocialLink = {
@@ -68,18 +69,19 @@ export function SocialTile({
     return () => window.clearTimeout(copiedTimer.current);
   }, []);
 
-  async function handleCopy(id: SocialIconId, value: string) {
-    try {
-      await copyToClipboard(value);
-      setCopiedId(id);
-      window.clearTimeout(copiedTimer.current);
-      copiedTimer.current = window.setTimeout(() => {
+  const handleCopy = useDebouncedCallback((id: SocialIconId, value: string) => {
+    void copyToClipboard(value)
+      .then(() => {
+        setCopiedId(id);
+        window.clearTimeout(copiedTimer.current);
+        copiedTimer.current = window.setTimeout(() => {
+          setCopiedId(null);
+        }, 1600);
+      })
+      .catch(() => {
         setCopiedId(null);
-      }, 1600);
-    } catch {
-      setCopiedId(null);
-    }
-  }
+      });
+  });
 
   const links: SocialLink[] = [
     {
@@ -138,9 +140,7 @@ export function SocialTile({
               type="button"
               className="social-chip__action"
               aria-label={copied ? "copied!" : link.copyLabel}
-              onClick={() => {
-                void handleCopy(link.icon, link.copyValue);
-              }}
+              onClick={() => handleCopy(link.icon, link.copyValue)}
             >
               {copied ? (
                 <span className="social-chip__copied">copied!</span>

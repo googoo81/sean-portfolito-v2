@@ -7,6 +7,8 @@ import {
   useTransform,
   type MotionValue,
 } from "motion/react";
+import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import type { StackItem } from "@/features/portfolio/types";
 import {
   DOCK_ICON_RATIO,
   DOCK_INFLUENCE,
@@ -15,7 +17,6 @@ import {
   DOCK_TILE_SIZE,
 } from "./dock-config";
 import type { NotesOrigin } from "./notes-overlay";
-import type { StackItem } from "@/features/portfolio/types";
 
 type DockIconProps = {
   item: StackItem;
@@ -85,6 +86,22 @@ export function DockIcon({
   );
   const animatedSize = useSpring(targetSize, DOCK_SPRING);
   const size = reducedMotion ? DOCK_TILE_SIZE : animatedSize;
+  const handleSelect = useDebouncedCallback(() => {
+    const bounds = iconRef.current?.getBoundingClientRect();
+    if (!bounds) {
+      return;
+    }
+
+    onSelect?.(
+      {
+        x: bounds.left,
+        y: bounds.top,
+        width: bounds.width,
+        height: bounds.height,
+      },
+      item,
+    );
+  });
 
   return (
     <motion.button
@@ -96,22 +113,7 @@ export function DockIcon({
       className="glass-chip relative flex shrink-0 origin-bottom cursor-pointer items-center justify-center rounded-[1.35rem] will-change-[width,height]"
       onPointerEnter={() => setShowLabel(true)}
       onPointerLeave={() => setShowLabel(false)}
-      onClick={() => {
-        const bounds = iconRef.current?.getBoundingClientRect();
-        if (!bounds) {
-          return;
-        }
-
-        onSelect?.(
-          {
-            x: bounds.left,
-            y: bounds.top,
-            width: bounds.width,
-            height: bounds.height,
-          },
-          item,
-        );
-      }}
+      onClick={handleSelect}
     >
       <span
         aria-hidden="true"

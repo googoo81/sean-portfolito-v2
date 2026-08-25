@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import type { StackItem } from "@/features/portfolio/types";
+import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 
 export type NotesOrigin = {
   x: number;
@@ -125,6 +126,7 @@ function NotesSidebar({
 }) {
   const draggingIdRef = useRef<string | null>(null);
   const didDragRef = useRef(false);
+  const handleSelectItem = useDebouncedCallback(onSelectItem);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-2 pb-3">
@@ -143,7 +145,7 @@ function NotesSidebar({
                 return;
               }
 
-              onSelectItem(entry);
+              handleSelectItem(entry);
             }}
             onDragStart={(event) => {
               draggingIdRef.current = entry.id;
@@ -318,6 +320,7 @@ export function NotesOverlay({
 }: NotesOverlayProps) {
   const exitedRef = useRef(false);
   const onCloseRef = useRef(onClose);
+  const handleClose = useDebouncedCallback(onClose);
   const frameRef = useRef<WindowFrame | null>(null);
   const restoredFrameRef = useRef<WindowFrame | null>(rememberedRestoredFrame);
   const dragRef = useRef<{
@@ -526,7 +529,7 @@ export function NotesOverlay({
         initial={{ opacity: 0 }}
         animate={{ opacity: open ? 1 : 0 }}
         transition={{ duration: reducedMotion ? 0 : 0.22, ease: "easeOut" }}
-        onClick={open ? onClose : undefined}
+        onClick={open ? handleClose : undefined}
       />
       <motion.div
         role="dialog"
@@ -565,7 +568,7 @@ export function NotesOverlay({
           style={{ width: visibleSidebarWidth }}
         >
           <div className="notes-overlay__glass m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-[1.05rem]">
-            <TrafficLights onClose={onClose} />
+            <TrafficLights onClose={handleClose} />
             <p className="px-3 pb-1.5 text-xs font-medium tracking-[0.16em] text-muted uppercase">
               list
             </p>

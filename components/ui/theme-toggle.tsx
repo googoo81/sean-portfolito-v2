@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/format";
+import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import {
   applyTheme,
   getCurrentTheme,
@@ -34,13 +35,13 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     syncToggle(buttonRef.current, getCurrentTheme());
   }, []);
 
-  function toggleTheme() {
+  const toggleTheme = useDebouncedCallback(() => {
     const nextTheme = getOppositeTheme(getCurrentTheme());
 
     applyTheme(nextTheme);
     persistTheme(nextTheme);
     syncToggle(buttonRef.current, nextTheme);
-  }
+  });
 
   return (
     <button
