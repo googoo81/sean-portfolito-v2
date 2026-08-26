@@ -22,14 +22,10 @@ import {
   writeProjectsListHash,
 } from "./projects-hash";
 import { useProjectsWindow } from "./use-projects-window";
+import type { ProjectsOrigin } from "./projects-origin";
 import type { Project } from "@/features/portfolio/types";
 
-export type ProjectsOrigin = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
+export type { ProjectsOrigin };
 
 type ProjectsOverlayProps = {
   open: boolean;

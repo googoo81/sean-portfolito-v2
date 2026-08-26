@@ -3,6 +3,7 @@ import { getFeaturedProject } from "@/features/portfolio/lib";
 import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./projects/project-tile";
 import { ProjectsGridCell } from "./projects/projects-grid-cell";
+import { ProjectsSessionProvider } from "./projects/projects-session";
 import { SocialTile } from "./social-tile";
 import { StackRow } from "./stack";
 import type { Portfolio } from "@/features/portfolio/types";
@@ -35,7 +36,8 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
   return (
     <main className="bento-page">
-      <BentoGrid>
+      <ProjectsSessionProvider projects={portfolio.projects}>
+        <BentoGrid>
         <BentoCard className="bento-intro">
           <h1 className="intro-title">
             {portfolio.intro.headline.split("\n").map((line) => (
@@ -87,10 +89,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
         </BentoCard>
 
         <div className="bento-mid">
-          <ProjectsGridCell
-            className="bento-projects"
-            projects={portfolio.projects}
-          />
+          <ProjectsGridCell className="bento-projects" />
 
           <BentoCard className="bento-history">
             <p className="eyebrow">🧑‍💻 Histories & Certificates.</p>
@@ -146,7 +145,8 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             <ThemeToggle />
           </BentoCard>
         </div>
-      </BentoGrid>
+        </BentoGrid>
+      </ProjectsSessionProvider>
     </main>
   );
 }

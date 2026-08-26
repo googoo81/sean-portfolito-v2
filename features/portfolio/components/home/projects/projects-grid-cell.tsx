@@ -1,32 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
+import { useRef } from "react";
 import { BentoCard } from "@/components/ui";
-import { useDebouncedCallback } from "@/lib/use-debounced-callback";
-import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
-import type { ProjectsOrigin } from "./projects-overlay";
 import {
-  beginProjectsSession,
-  closeProjectsHistory,
-  isProjectsHash,
-  restoreProjectsSession,
-  writeProjectsListHash,
-} from "./projects-hash";
-import type { Project } from "@/features/portfolio/types";
-
-const ProjectsOverlay = dynamic(
-  () => import("./projects-overlay").then((mod) => mod.ProjectsOverlay),
-  { ssr: false },
-);
-
-function prefetchProjectsOverlay() {
-  void import("./projects-overlay");
-}
+  prefetchProjectsOverlay,
+  useProjectsSession,
+} from "./projects-session";
+import { readProjectsOrigin } from "./projects-origin";
 
 type ProjectsGridCellProps = {
   className?: string;
-  projects: readonly Project[];
 };
 
 function GoArrow() {
@@ -45,134 +28,38 @@ function GoArrow() {
   );
 }
 
-function readProjectsOrigin(node: HTMLElement | null): ProjectsOrigin | null {
-  const bounds = node?.getBoundingClientRect();
-  if (!bounds) {
-    return null;
-  }
-
-  return {
-    x: bounds.left,
-    y: bounds.top,
-    width: bounds.width,
-    height: bounds.height,
-  };
-}
-
-export function ProjectsGridCell({
-  className,
-  projects,
-}: ProjectsGridCellProps) {
+export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
   const cardRef = useRef<HTMLButtonElement>(null);
-  const originRef = useRef<ProjectsOrigin | null>(null);
-  const reducedMotion = usePrefersReducedMotion();
-  const [open, setOpen] = useState(false);
-  const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
-  const [skipEnter, setSkipEnter] = useState(false);
-  originRef.current = origin;
-
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      if (!isProjectsHash()) {
-        return;
-      }
-
-      const nextOrigin = readProjectsOrigin(cardRef.current) ?? {
-        x: window.innerWidth / 2 - 80,
-        y: window.innerHeight / 2 - 80,
-        width: 160,
-        height: 160,
-      };
-
-      setOrigin(nextOrigin);
-      setSkipEnter(true);
-      setOpen(true);
-    });
-
-    return () => cancelAnimationFrame(frame);
-  }, []);
-
-  useEffect(() => {
-    const onPopState = () => {
-      if (isProjectsHash()) {
-        restoreProjectsSession();
-        const nextOrigin =
-          originRef.current ??
-          readProjectsOrigin(cardRef.current) ?? {
-            x: window.innerWidth / 2 - 80,
-            y: window.innerHeight / 2 - 80,
-            width: 160,
-            height: 160,
-          };
-
-        setOrigin(nextOrigin);
-        setSkipEnter(true);
-        setOpen(true);
-        return;
-      }
-
-      setOpen(false);
-    };
-
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
-
-  const handleOpen = useDebouncedCallback(() => {
-    const nextOrigin = readProjectsOrigin(cardRef.current);
-    if (!nextOrigin) {
-      return;
-    }
-
-    setSkipEnter(false);
-    setOrigin(nextOrigin);
-    setOpen(true);
-    beginProjectsSession();
-    writeProjectsListHash();
-  });
-
-  const handleClose = useCallback(() => {
-    setOpen(false);
-    closeProjectsHistory();
-  }, []);
-
-  const handleExited = useCallback(() => {
-    setOrigin(null);
-  }, []);
+  const { open, openProjects } = useProjectsSession();
 
   return (
-    <>
-      <BentoCard className={className}>
-        <button
-          ref={cardRef}
-          type="button"
-          aria-label="모든 프로젝트"
-          aria-expanded={open}
-          className="projects-cell"
-          onPointerEnter={prefetchProjectsOverlay}
-          onFocus={prefetchProjectsOverlay}
-          onClick={handleOpen}
-        >
-          <p className="project-kicker">💻 Projects.</p>
-          <span className="bento-projects__go" aria-hidden>
-            <span className="bento-projects__go-icons">
-              <GoArrow />
-              <GoArrow />
-            </span>
-          </span>
-        </button>
-      </BentoCard>
+    <BentoCard className={className}>
+      <button
+        ref={cardRef}
+        type="button"
+        aria-label="모든 프로젝트"
+        aria-expanded={open}
+        data-projects-origin="cell"
+        className="projects-cell"
+        onPointerEnter={prefetchProjectsOverlay}
+        onFocus={prefetchProjectsOverlay}
+        onClick={() => {
+          const origin = readProjectsOrigin(cardRef.current);
+          if (!origin) {
+            return;
+          }
 
-      {origin ? (
-        <ProjectsOverlay
-          open={open}
-          origin={origin}
-          projects={projects}
-          reducedMotion={reducedMotion || skipEnter}
-          onClose={handleClose}
-          onExited={handleExited}
-        />
-      ) : null}
-    </>
+          openProjects({ origin });
+        }}
+      >
+        <p className="project-kicker">💻 Projects.</p>
+        <span className="bento-projects__go" aria-hidden>
+          <span className="bento-projects__go-icons">
+            <GoArrow />
+            <GoArrow />
+          </span>
+        </span>
+      </button>
+    </BentoCard>
   );
 }
