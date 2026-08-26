@@ -16,7 +16,7 @@ import {
   DOCK_SPRING,
   DOCK_TILE_SIZE,
 } from "./dock-config";
-import type { NotesOrigin } from "./notes-overlay";
+import type { NotesOrigin } from "./notes-window";
 
 type DockIconProps = {
   item: StackItem;

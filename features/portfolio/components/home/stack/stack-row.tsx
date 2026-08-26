@@ -1,13 +1,23 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { useMotionValue } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { DockIcon } from "./dock-icon";
-import { NotesOverlay, type NotesOrigin } from "./notes-overlay";
+import type { NotesOrigin } from "./notes-window";
 import { clearNotesHash, parseNotesHash, writeNotesHash } from "./notes-hash";
 import { DOCK_GAP, DOCK_MAX_SIZE } from "./dock-config";
 import type { StackItem } from "@/features/portfolio/types";
+
+const NotesOverlay = dynamic(
+  () => import("./notes-overlay").then((mod) => mod.NotesOverlay),
+  { ssr: false },
+);
+
+function prefetchNotesOverlay() {
+  void import("./notes-overlay");
+}
 
 type StackRowProps = {
   items: readonly StackItem[];
@@ -17,11 +27,11 @@ function moveStackItem(
   items: readonly StackItem[],
   fromId: string,
   toId: string,
-) {
+): StackItem[] {
   const from = items.findIndex((item) => item.id === fromId);
   const to = items.findIndex((item) => item.id === toId);
   if (from < 0 || to < 0 || from === to) {
-    return items;
+    return [...items];
   }
 
   const next = [...items];
@@ -109,6 +119,7 @@ export function StackRow({ items }: StackRowProps) {
         onPointerMove={
           reducedMotion ? undefined : (event) => pointerX.set(event.clientX)
         }
+        onPointerEnter={prefetchNotesOverlay}
         onPointerLeave={
           reducedMotion
             ? undefined
@@ -130,6 +141,7 @@ export function StackRow({ items }: StackRowProps) {
         role="list"
         aria-label="사용 도구"
         className="bento-stack-wrap max-w-full flex-wrap items-center justify-center gap-1.5"
+        onPointerEnter={prefetchNotesOverlay}
       >
         {orderedItems.map((item) => (
           <DockIcon

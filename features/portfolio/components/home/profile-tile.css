@@ -29,7 +29,8 @@
   }
 }
 
-html[data-reduced-motion="true"] .bento-profile:hover .profile-tile__photo {
+html[data-reduced-motion="true"] .bento-profile:hover .profile-tile__photo,
+html[data-lite-motion="true"] .bento-profile:hover .profile-tile__photo {
   transform: scale(1);
   filter: brightness(1);
 }

@@ -48,5 +48,5 @@ export function getOppositeTheme(theme: Theme): Theme {
 }
 
 export function getThemeInitScript() {
-  return `try{const t=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});const h=new Date().getHours();const m=t==="dark"||t==="light"?t:h>=${LIGHT_THEME_START_HOUR}&&h<${DARK_THEME_START_HOUR}?"light":"dark";document.documentElement.dataset.theme=m;document.documentElement.style.colorScheme=m}catch{document.documentElement.dataset.theme=${JSON.stringify(DEFAULT_THEME)}}`;
+  return `try{const t=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});const h=new Date().getHours();const m=t==="dark"||t==="light"?t:h>=${LIGHT_THEME_START_HOUR}&&h<${DARK_THEME_START_HOUR}?"light":"dark";document.documentElement.dataset.theme=m;document.documentElement.style.colorScheme=m;document.documentElement.dataset.reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches?"true":"false"}catch{document.documentElement.dataset.theme=${JSON.stringify(DEFAULT_THEME)}}`;
 }

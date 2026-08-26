@@ -1,34 +1,82 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useHistoryPager } from "./use-history-pager";
 
 const glyph = "pointer-events-none";
 
-const closeIcon = (
-  <svg viewBox="0 0 12 12" className={glyph} fill="none">
-    <path
-      d="M3.5 3.5 8.5 8.5M8.5 3.5 3.5 8.5"
-      stroke="#4d0000"
-      strokeWidth="1.3"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+export function CloseLightIcon({ className = glyph }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 12 12" className={className} fill="none">
+      <path
+        d="M3.5 3.5 8.5 8.5M8.5 3.5 3.5 8.5"
+        stroke="#4d0000"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
-const minIcon = (
-  <svg viewBox="0 0 12 12" className={glyph} fill="none">
-    <path
-      d="M2.4 6h7.2"
-      stroke="#995700"
-      strokeWidth="1.3"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+export function MinLightIcon({ className = glyph }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 12 12" className={className} fill="none">
+      <path
+        d="M2.4 6h7.2"
+        stroke="#995700"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
-export function TrafficLights({
+export function ZoomLightIcon({ className = glyph }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 12 12" className={className}>
+      <path fill="#006400" d="M6.4 2.7h2.9v2.9L6.4 2.7Z" />
+      <path fill="#006400" d="M5.6 9.3H2.7V6.4L5.6 9.3Z" />
+    </svg>
+  );
+}
+
+function TrafficLight({
+  kind,
+  label,
+  closeHref,
+  onClose,
+}: {
+  kind: "close" | "min";
+  label: string;
+  closeHref?: string;
+  onClose?: () => void;
+}) {
+  const className = `projects-overlay__light projects-overlay__light--${kind}`;
+  const icon = kind === "close" ? <CloseLightIcon /> : <MinLightIcon />;
+
+  if (closeHref) {
+    return (
+      <Link href={closeHref} aria-label={label} className={className}>
+        {icon}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      className={className}
+      onClick={onClose}
+    >
+      {icon}
+    </button>
+  );
+}
+
+function TrafficLights({
   onClose,
   closeHref,
 }: {
@@ -37,50 +85,23 @@ export function TrafficLights({
 }) {
   return (
     <div className="projects-overlay__lights">
-      {closeHref ? (
-        <Link
-          href={closeHref}
-          aria-label="닫기"
-          className="projects-overlay__light projects-overlay__light--close"
-        >
-          {closeIcon}
-        </Link>
-      ) : (
-        <button
-          type="button"
-          aria-label="닫기"
-          className="projects-overlay__light projects-overlay__light--close"
-          onClick={onClose}
-        >
-          {closeIcon}
-        </button>
-      )}
-      {closeHref ? (
-        <Link
-          href={closeHref}
-          aria-label="홈으로"
-          className="projects-overlay__light projects-overlay__light--min"
-        >
-          {minIcon}
-        </Link>
-      ) : (
-        <button
-          type="button"
-          aria-label="홈으로"
-          className="projects-overlay__light projects-overlay__light--min"
-          onClick={onClose}
-        >
-          {minIcon}
-        </button>
-      )}
+      <TrafficLight
+        kind="close"
+        label="닫기"
+        closeHref={closeHref}
+        onClose={onClose}
+      />
+      <TrafficLight
+        kind="min"
+        label="홈으로"
+        closeHref={closeHref}
+        onClose={onClose}
+      />
       <span
         aria-hidden
         className="projects-overlay__light projects-overlay__light--zoom"
       >
-        <svg viewBox="0 0 12 12" className={glyph}>
-          <path fill="#006400" d="M6.4 2.7h2.9v2.9L6.4 2.7Z" />
-          <path fill="#006400" d="M5.6 9.3H2.7V6.4L5.6 9.3Z" />
-        </svg>
+        <ZoomLightIcon />
       </span>
     </div>
   );
@@ -90,85 +111,86 @@ export function HistoryNav({
   onBack,
   onForward,
   canForward,
-  backHref,
 }: {
-  onBack?: () => void;
-  onForward?: () => void;
+  onBack: () => void;
+  onForward: () => void;
   canForward: boolean;
-  backHref?: string;
 }) {
   return (
     <div className="projects-overlay__nav">
-      {backHref ? (
-        <Link href={backHref} aria-label="뒤로" className="projects-overlay__nav-btn">
-          <BackGlyph />
-        </Link>
-      ) : (
-        <button
-          type="button"
-          aria-label="뒤로"
-          className="projects-overlay__nav-btn"
-          onClick={onBack}
-        >
-          <BackGlyph />
-        </button>
-      )}
-      {onForward ? (
-        <button
-          type="button"
-          aria-label="앞으로"
-          className="projects-overlay__nav-btn"
-          disabled={!canForward}
-          onClick={onForward}
-        >
-          <ForwardGlyph />
-        </button>
-      ) : (
-        <span className="projects-overlay__nav-btn" aria-disabled>
-          <ForwardGlyph muted />
-        </span>
-      )}
+      <button
+        type="button"
+        aria-label="뒤로"
+        className="projects-overlay__nav-btn"
+        onClick={onBack}
+      >
+        <BackGlyph />
+      </button>
+      <button
+        type="button"
+        aria-label="앞으로"
+        className="projects-overlay__nav-btn"
+        disabled={!canForward}
+        onClick={onForward}
+      >
+        <ForwardGlyph />
+      </button>
     </div>
   );
 }
 
-let workForwardSteps = 0;
-let skipPathReset = false;
+export function WindowTitlebar({
+  title,
+  titleId,
+  closeHref,
+  onClose,
+  children,
+}: {
+  title: string;
+  titleId?: string;
+  closeHref?: string;
+  onClose?: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <header className="projects-overlay__titlebar">
+      <TrafficLights closeHref={closeHref} onClose={onClose} />
+      {children}
+      <p id={titleId} className="projects-overlay__title">
+        {title}
+      </p>
+    </header>
+  );
+}
 
-export function WorkHistoryNav() {
-  const pathname = usePathname();
-  const [forwardSteps, setForwardSteps] = useState(workForwardSteps);
-
-  useEffect(() => {
-    if (skipPathReset) {
-      skipPathReset = false;
-      return;
-    }
-
-    workForwardSteps = 0;
-    setForwardSteps(0);
-  }, [pathname]);
+function WorkHistoryNav() {
+  const pager = useHistoryPager({ persist: true });
 
   return (
     <HistoryNav
-      canForward={forwardSteps > 0}
-      onBack={() => {
-        skipPathReset = true;
-        workForwardSteps = forwardSteps + 1;
-        setForwardSteps(workForwardSteps);
-        history.back();
-      }}
-      onForward={() => {
-        if (forwardSteps === 0) {
-          return;
-        }
-
-        skipPathReset = true;
-        workForwardSteps = forwardSteps - 1;
-        setForwardSteps(workForwardSteps);
-        history.forward();
-      }}
+      canForward={pager.canForward}
+      onBack={pager.back}
+      onForward={pager.forward}
     />
+  );
+}
+
+export function WorkWindow({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  const pathname = usePathname();
+
+  return (
+    <main className="flex min-h-dvh flex-col bg-surface">
+      <WindowTitlebar title={title} closeHref="/">
+        <WorkHistoryNav key={pathname} />
+      </WindowTitlebar>
+      <div className="min-h-0 flex-1 overflow-hidden">{children}</div>
+    </main>
   );
 }
 
@@ -188,11 +210,11 @@ function BackGlyph() {
   );
 }
 
-function ForwardGlyph({ muted = false }: { muted?: boolean }) {
+function ForwardGlyph() {
   return (
     <svg
       viewBox="0 0 16 16"
-      className={muted ? "size-4 opacity-40" : "size-4"}
+      className="size-4"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.6"

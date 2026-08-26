@@ -1,19 +1,26 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { BentoCard } from "@/components/ui";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
-import {
-  ProjectsOverlay,
-  type ProjectsOrigin,
-} from "./projects-overlay";
+import type { ProjectsOrigin } from "./projects-overlay";
 import {
   clearProjectsHash,
   isProjectsHash,
   writeProjectsListHash,
 } from "./projects-hash";
 import type { Project } from "@/features/portfolio/types";
+
+const ProjectsOverlay = dynamic(
+  () => import("./projects-overlay").then((mod) => mod.ProjectsOverlay),
+  { ssr: false },
+);
+
+function prefetchProjectsOverlay() {
+  void import("./projects-overlay");
+}
 
 type ProjectsGridCellProps = {
   className?: string;
@@ -51,7 +58,10 @@ function readProjectsOrigin(node: HTMLElement | null): ProjectsOrigin | null {
   };
 }
 
-export function ProjectsGridCell({ className, projects }: ProjectsGridCellProps) {
+export function ProjectsGridCell({
+  className,
+  projects,
+}: ProjectsGridCellProps) {
   const cardRef = useRef<HTMLButtonElement>(null);
   const reducedMotion = usePrefersReducedMotion();
   const [open, setOpen] = useState(false);
@@ -122,6 +132,8 @@ export function ProjectsGridCell({ className, projects }: ProjectsGridCellProps)
           aria-label="모든 프로젝트"
           aria-expanded={open}
           className="flex h-full min-h-48 w-full cursor-pointer flex-col items-center justify-center gap-4 p-5"
+          onPointerEnter={prefetchProjectsOverlay}
+          onFocus={prefetchProjectsOverlay}
           onClick={handleOpen}
         >
           <p className="text-sm font-medium tracking-[0.18em] text-foreground uppercase">

@@ -130,13 +130,20 @@
   }
 }
 
-html[data-reduced-motion="true"] .bento-projects:hover .bento-projects__go {
+html[data-reduced-motion="true"] .bento-projects:hover .bento-projects__go,
+html[data-lite-motion="true"] .bento-projects:hover .bento-projects__go {
   scale: 1;
 }
 
 html[data-reduced-motion="true"] .bento-projects__go-icons svg:last-child,
-html[data-reduced-motion="true"] .bento-projects:hover .bento-projects__go-icons svg {
+html[data-reduced-motion="true"] .bento-projects:hover .bento-projects__go-icons svg,
+html[data-lite-motion="true"] .bento-projects__go-icons svg:last-child,
+html[data-lite-motion="true"] .bento-projects:hover .bento-projects__go-icons svg {
   transform: none;
+}
+
+html[data-lite-motion="true"] .bento-projects:hover {
+  scale: 1;
 }
 
 @media (orientation: landscape) {

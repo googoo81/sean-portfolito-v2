@@ -7,7 +7,7 @@ import "./globals.css";
 const ibmPlexSansKr = IBM_Plex_Sans_KR({
   variable: "--font-ibm-plex-sans-kr",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {

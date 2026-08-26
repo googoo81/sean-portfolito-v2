@@ -4,8 +4,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
-import { ProjectDetailView } from "@/features/portfolio/components/work/project-detail-view";
-import { ProjectListView } from "@/features/portfolio/components/work/project-list-view";
+import { ProjectDetailBody } from "@/features/portfolio/components/work/project-detail-view";
+import { ProjectListBody } from "@/features/portfolio/components/work/project-list-view";
+import { ProjectsSplitShell } from "@/features/portfolio/components/work/projects-split-shell";
+import { useHistoryPager } from "@/features/portfolio/components/work/use-history-pager";
+import {
+  HistoryNav,
+  WindowTitlebar,
+} from "@/features/portfolio/components/work/projects-chrome";
 import {
   parseProjectsSlug,
   writeProjectsDetailHash,
@@ -44,120 +50,6 @@ const WINDOW_CLOSE = {
 
 const CARD_RADIUS = 32;
 
-function Titlebar({
-  title,
-  onClose,
-  onBack,
-  onForward,
-  canForward,
-  withIndex = false,
-}: {
-  title: string;
-  onClose: () => void;
-  onBack: () => void;
-  onForward: () => void;
-  canForward: boolean;
-  withIndex?: boolean;
-}) {
-  const glyph = "pointer-events-none";
-
-  return (
-    <header
-      className={
-        withIndex
-          ? "projects-overlay__titlebar projects-overlay__titlebar--with-index"
-          : "projects-overlay__titlebar"
-      }
-    >
-      <div className="projects-overlay__lights">
-        <button
-          type="button"
-          aria-label="닫기"
-          className="projects-overlay__light projects-overlay__light--close"
-          onClick={onClose}
-        >
-          <svg viewBox="0 0 12 12" className={glyph} fill="none">
-            <path
-              d="M3.5 3.5 8.5 8.5M8.5 3.5 3.5 8.5"
-              stroke="#4d0000"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-        <button
-          type="button"
-          aria-label="홈으로"
-          className="projects-overlay__light projects-overlay__light--min"
-          onClick={onClose}
-        >
-          <svg viewBox="0 0 12 12" className={glyph} fill="none">
-            <path
-              d="M2.4 6h7.2"
-              stroke="#995700"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-        <span
-          aria-hidden
-          className="projects-overlay__light projects-overlay__light--zoom"
-        >
-          <svg viewBox="0 0 12 12" className={glyph}>
-            <path fill="#006400" d="M6.4 2.7h2.9v2.9L6.4 2.7Z" />
-            <path fill="#006400" d="M5.6 9.3H2.7V6.4L5.6 9.3Z" />
-          </svg>
-        </span>
-      </div>
-
-      <div className="projects-overlay__nav">
-        <button
-          type="button"
-          aria-label="뒤로"
-          className="projects-overlay__nav-btn"
-          onClick={onBack}
-        >
-          <svg
-            viewBox="0 0 16 16"
-            className="size-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M10 3 5 8l5 5" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          aria-label="앞으로"
-          className="projects-overlay__nav-btn"
-          disabled={!canForward}
-          onClick={onForward}
-        >
-          <svg
-            viewBox="0 0 16 16"
-            className="size-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M6 3l5 5-5 5" />
-          </svg>
-        </button>
-      </div>
-
-      <p id="projects-overlay-title" className="projects-overlay__title">
-        {title}
-      </p>
-    </header>
-  );
-}
-
 function projectFromHash(projects: readonly Project[]) {
   if (typeof window === "undefined") {
     return null;
@@ -177,19 +69,19 @@ export function ProjectsOverlay({
 }: ProjectsOverlayProps) {
   const exitedRef = useRef(false);
   const handleClose = useDebouncedCallback(onClose);
+  const pager = useHistoryPager();
+  const { back, syncPopState } = pager;
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
   const [selected, setSelected] = useState<Project | null>(() =>
     projectFromHash(projects),
   );
-  const [forwardSteps, setForwardSteps] = useState(0);
   const [wasOpen, setWasOpen] = useState(open);
-  const navDirection = useRef<"back" | "forward" | null>(null);
 
   if (open !== wasOpen) {
     setWasOpen(open);
     if (open) {
       setSelected(projectFromHash(projects));
-      setForwardSteps(0);
+      pager.reset();
     }
   }
 
@@ -204,15 +96,28 @@ export function ProjectsOverlay({
   }, []);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.setAttribute("data-projects-open", "");
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.documentElement.removeAttribute("data-projects-open");
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") {
         return;
       }
 
       if (parseProjectsSlug()) {
-        navDirection.current = "back";
-        setForwardSteps((steps) => steps + 1);
-        history.back();
+        back();
         return;
       }
 
@@ -221,28 +126,17 @@ export function ProjectsOverlay({
 
     const onPopState = () => {
       setSelected(projectFromHash(projects));
-
-      if (navDirection.current === "back" || navDirection.current === "forward") {
-        navDirection.current = null;
-        return;
-      }
-
-      setForwardSteps((steps) => steps + 1);
+      syncPopState();
     };
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.setAttribute("data-projects-open", "");
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("popstate", onPopState);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
-      document.documentElement.removeAttribute("data-projects-open");
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("popstate", onPopState);
     };
-  }, [handleClose, projects]);
+  }, [back, handleClose, open, projects, syncPopState]);
 
   const fromCard = useMemo(() => {
     if (!viewport.width || !viewport.height) {
@@ -276,31 +170,15 @@ export function ProjectsOverlay({
   };
 
   const handleSelect = useDebouncedCallback((project: Project) => {
-    setForwardSteps(0);
+    pager.reset();
     setSelected(project);
     writeProjectsDetailHash(project.slug);
   });
 
   const handleBackToList = () => {
-    setForwardSteps(0);
+    pager.reset();
     setSelected(null);
     writeProjectsListHash();
-  };
-
-  const handleBack = () => {
-    navDirection.current = "back";
-    setForwardSteps((steps) => steps + 1);
-    history.back();
-  };
-
-  const handleForward = () => {
-    if (forwardSteps === 0) {
-      return;
-    }
-
-    navDirection.current = "forward";
-    setForwardSteps((steps) => steps - 1);
-    history.forward();
   };
 
   if (!viewport.width) {
@@ -366,29 +244,34 @@ export function ProjectsOverlay({
             delay: open && !reducedMotion ? 0.14 : 0,
           }}
         >
-          <Titlebar
+          <WindowTitlebar
             title={selected ? selected.shortTitle : "Projects."}
+            titleId="projects-overlay-title"
             onClose={handleClose}
-            onBack={handleBack}
-            onForward={handleForward}
-            canForward={forwardSteps > 0}
-            withIndex
-          />
+          >
+            <HistoryNav
+              canForward={pager.canForward}
+              onBack={pager.back}
+              onForward={pager.forward}
+            />
+          </WindowTitlebar>
           <div className="projects-overlay__body projects-overlay__body--split">
-            {selected ? (
-              <ProjectDetailView
-                project={selected}
-                projects={projects}
-                onSelect={handleSelect}
-                onBackToList={handleBackToList}
-              />
-            ) : (
-              <ProjectListView
-                projects={projects}
-                onSelect={handleSelect}
-                onBackToList={handleBackToList}
-              />
-            )}
+            <ProjectsSplitShell
+              projects={projects}
+              activeSlug={selected?.slug}
+              onSelect={handleSelect}
+              onBackToList={handleBackToList}
+              scrollKey={selected?.slug ?? "list"}
+            >
+              {selected ? (
+                <ProjectDetailBody project={selected} />
+              ) : (
+                <ProjectListBody
+                  projects={projects}
+                  onSelect={handleSelect}
+                />
+              )}
+            </ProjectsSplitShell>
           </div>
         </motion.div>
       </motion.div>

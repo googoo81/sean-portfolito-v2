@@ -21,3 +21,7 @@
     box-shadow 240ms ease,
     transform 200ms ease;
 }
+
+body > main {
+  transition: filter 0.4s ease;
+}
