@@ -1,3 +1,8 @@
+.projects-shell {
+  container-type: inline-size;
+  container-name: projects-window;
+}
+
 .projects-overlay__titlebar {
   position: relative;
   display: flex;
@@ -27,15 +32,14 @@
   cursor: pointer;
 }
 
-.projects-overlay__light svg {
-  width: 8px;
-  height: 8px;
+.projects-overlay__light img {
+  flex-shrink: 0;
   opacity: 0;
   transition: opacity 100ms ease;
 }
 
-.projects-overlay__lights:hover .projects-overlay__light svg,
-.projects-overlay__light:focus-visible svg {
+.projects-overlay__lights:hover .projects-overlay__light img,
+.projects-overlay__light:focus-visible img {
   opacity: 1;
 }
 
@@ -49,7 +53,6 @@
 
 .projects-overlay__light--zoom {
   background: #28c840;
-  cursor: default;
 }
 
 .projects-overlay__nav {
@@ -268,11 +271,16 @@
   min-width: 0;
   min-height: 0;
   flex: 1;
+  overflow-x: hidden;
   overflow-y: auto;
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
   border-top-left-radius: 16px;
   background: var(--surface);
+}
+
+.projects-overlay__page {
+  width: 100%;
 }
 
 .projects-overlay__detail {
@@ -281,12 +289,63 @@
   max-width: var(--detail-max);
   margin-left: max(
     0px,
-    calc(50vw - (var(--detail-max) / 2) - var(--project-index-width))
+    calc(50cqw - (var(--detail-max) / 2) - var(--project-index-width))
   );
   margin-right: auto;
 }
 
-@media (max-width: 767px) {
+.projects-overlay__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.projects-overlay__list .project-visual {
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 16 / 10;
+}
+
+.projects-overlay__article {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.projects-overlay__article-body {
+  padding: 1.25rem;
+}
+
+.projects-overlay__hero {
+  height: 14rem;
+  min-height: 14rem;
+}
+
+@container projects-window (min-width: 40rem) {
+  .projects-overlay__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container projects-window (min-width: 64rem) {
+  .projects-overlay__list,
+  .projects-overlay__article {
+    padding: 2rem;
+  }
+
+  .projects-overlay__article-body {
+    padding: 1.75rem;
+  }
+
+  .projects-overlay__hero {
+    height: 18rem;
+    min-height: 18rem;
+  }
+}
+
+@container projects-window (max-width: 47.9375rem) {
   .projects-overlay__titlebar {
     border-bottom-color: var(--line);
   }

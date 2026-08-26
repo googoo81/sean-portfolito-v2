@@ -1,44 +1,82 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { PointerEvent, ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useHistoryPager } from "./use-history-pager";
 
 const glyph = "pointer-events-none";
+const LIGHT_SIZE = 12;
+const LIGHT_DESIGN = 50;
+
+function scaled(size: number) {
+  return (size * LIGHT_SIZE) / LIGHT_DESIGN;
+}
+
+function TrafficGlyph({
+  src,
+  width,
+  height,
+  className = glyph,
+}: {
+  src: string;
+  width: number;
+  height: number;
+  className?: string;
+}) {
+  return (
+    <img
+      src={src}
+      alt=""
+      width={scaled(width)}
+      height={scaled(height)}
+      draggable={false}
+      className={className}
+    />
+  );
+}
 
 export function CloseLightIcon({ className = glyph }: { className?: string }) {
   return (
-    <svg viewBox="0 0 12 12" className={className} fill="none">
-      <path
-        d="M3.5 3.5 8.5 8.5M8.5 3.5 3.5 8.5"
-        stroke="#4d0000"
-        strokeWidth="1.3"
-        strokeLinecap="round"
-      />
-    </svg>
+    <TrafficGlyph
+      src="/svg/header/close.svg"
+      width={26}
+      height={27}
+      className={className}
+    />
   );
 }
 
 export function MinLightIcon({ className = glyph }: { className?: string }) {
   return (
-    <svg viewBox="0 0 12 12" className={className} fill="none">
-      <path
-        d="M2.4 6h7.2"
-        stroke="#995700"
-        strokeWidth="1.3"
-        strokeLinecap="round"
-      />
-    </svg>
+    <TrafficGlyph
+      src="/svg/header/minimize.svg"
+      width={30}
+      height={6}
+      className={className}
+    />
   );
 }
 
 export function ZoomLightIcon({ className = glyph }: { className?: string }) {
   return (
-    <svg viewBox="0 0 12 12" className={className}>
-      <path fill="#006400" d="M6.4 2.7h2.9v2.9L6.4 2.7Z" />
-      <path fill="#006400" d="M5.6 9.3H2.7V6.4L5.6 9.3Z" />
-    </svg>
+    <TrafficGlyph
+      src="/svg/header/zoom.svg"
+      width={22}
+      height={22}
+      className={className}
+    />
+  );
+}
+
+export function ExpandLightIcon({ className = glyph }: { className?: string }) {
+  return (
+    <TrafficGlyph
+      src="/svg/header/expand.svg"
+      width={38}
+      height={38}
+      className={className}
+    />
   );
 }
 
@@ -79,12 +117,23 @@ function TrafficLight({
 function TrafficLights({
   onClose,
   closeHref,
+  onZoom,
+  maximized = true,
 }: {
   onClose?: () => void;
   closeHref?: string;
+  onZoom?: () => void;
+  maximized?: boolean;
 }) {
+  const zoomLabel = maximized ? "창 크기 복원" : "전체 화면";
+  const zoomIcon = maximized ? <ExpandLightIcon /> : <ZoomLightIcon />;
+
   return (
-    <div className="projects-overlay__lights">
+    <div
+      className="projects-overlay__lights"
+      onPointerDown={(event) => event.stopPropagation()}
+      onDoubleClick={(event) => event.stopPropagation()}
+    >
       <TrafficLight
         kind="close"
         label="닫기"
@@ -97,12 +146,23 @@ function TrafficLights({
         closeHref={closeHref}
         onClose={onClose}
       />
-      <span
-        aria-hidden
-        className="projects-overlay__light projects-overlay__light--zoom"
-      >
-        <ZoomLightIcon />
-      </span>
+      {onZoom ? (
+        <button
+          type="button"
+          aria-label={zoomLabel}
+          className="projects-overlay__light projects-overlay__light--zoom"
+          onClick={onZoom}
+        >
+          {zoomIcon}
+        </button>
+      ) : (
+        <span
+          aria-hidden
+          className="projects-overlay__light projects-overlay__light--zoom"
+        >
+          {zoomIcon}
+        </span>
+      )}
     </div>
   );
 }
@@ -110,18 +170,25 @@ function TrafficLights({
 export function HistoryNav({
   onBack,
   onForward,
+  canBack = true,
   canForward,
 }: {
   onBack: () => void;
   onForward: () => void;
+  canBack?: boolean;
   canForward: boolean;
 }) {
   return (
-    <div className="projects-overlay__nav">
+    <div
+      className="projects-overlay__nav"
+      onPointerDown={(event) => event.stopPropagation()}
+      onDoubleClick={(event) => event.stopPropagation()}
+    >
       <button
         type="button"
         aria-label="뒤로"
         className="projects-overlay__nav-btn"
+        disabled={!canBack}
         onClick={onBack}
       >
         <BackGlyph />
@@ -144,17 +211,34 @@ export function WindowTitlebar({
   titleId,
   closeHref,
   onClose,
+  onZoom,
+  maximized,
+  onMovePointerDown,
   children,
 }: {
   title: string;
   titleId?: string;
   closeHref?: string;
   onClose?: () => void;
+  onZoom?: () => void;
+  maximized?: boolean;
+  onMovePointerDown?: (event: PointerEvent<HTMLElement>) => void;
   children: ReactNode;
 }) {
   return (
-    <header className="projects-overlay__titlebar">
-      <TrafficLights closeHref={closeHref} onClose={onClose} />
+    <header
+      className={`projects-overlay__titlebar${
+        onMovePointerDown ? " projects-overlay__titlebar--move" : ""
+      }`}
+      onDoubleClick={onZoom}
+      onPointerDown={onMovePointerDown}
+    >
+      <TrafficLights
+        closeHref={closeHref}
+        onClose={onClose}
+        onZoom={onZoom}
+        maximized={maximized}
+      />
       {children}
       <p id={titleId} className="projects-overlay__title">
         {title}
@@ -185,7 +269,7 @@ export function WorkWindow({
   const pathname = usePathname();
 
   return (
-    <main className="flex min-h-dvh flex-col bg-surface">
+    <main className="projects-shell flex min-h-dvh flex-col bg-surface">
       <WindowTitlebar title={title} closeHref="/">
         <WorkHistoryNav key={pathname} />
       </WindowTitlebar>

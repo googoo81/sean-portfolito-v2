@@ -40,6 +40,83 @@
   pointer-events: none;
 }
 
+.projects-overlay__titlebar--move {
+  cursor: grab;
+}
+
+.projects-overlay__titlebar--move:active {
+  cursor: grabbing;
+}
+
+.projects-overlay__handle {
+  position: absolute;
+  z-index: 4;
+}
+
+.projects-overlay__handle--n,
+.projects-overlay__handle--s {
+  left: 10px;
+  right: 10px;
+  height: 6px;
+  cursor: ns-resize;
+}
+
+.projects-overlay__handle--e,
+.projects-overlay__handle--w {
+  top: 10px;
+  bottom: 10px;
+  width: 6px;
+  cursor: ew-resize;
+}
+
+.projects-overlay__handle--n {
+  top: 0;
+}
+
+.projects-overlay__handle--s {
+  bottom: 0;
+}
+
+.projects-overlay__handle--e {
+  right: 0;
+}
+
+.projects-overlay__handle--w {
+  left: 0;
+}
+
+.projects-overlay__handle--ne,
+.projects-overlay__handle--nw,
+.projects-overlay__handle--se,
+.projects-overlay__handle--sw {
+  width: 12px;
+  height: 12px;
+}
+
+.projects-overlay__handle--ne {
+  top: 0;
+  right: 0;
+  cursor: nesw-resize;
+}
+
+.projects-overlay__handle--nw {
+  top: 0;
+  left: 0;
+  cursor: nwse-resize;
+}
+
+.projects-overlay__handle--se {
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+}
+
+.projects-overlay__handle--sw {
+  bottom: 0;
+  left: 0;
+  cursor: nesw-resize;
+}
+
 html[data-projects-open] .bento-projects {
   scale: 1;
 }

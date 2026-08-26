@@ -5,31 +5,47 @@ import type { StackItem } from "@/features/portfolio/types";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import {
   CloseLightIcon,
+  ExpandLightIcon,
   MinLightIcon,
   ZoomLightIcon,
 } from "@/features/portfolio/components/work/projects-chrome";
 
-function TrafficLights({ onClose }: { onClose: () => void }) {
-  const glyphClassName =
-    "pointer-events-none size-[8px] opacity-0 transition-opacity duration-100 group-hover/lights:opacity-100";
-
+function TrafficLights({
+  onClose,
+  onZoom,
+  maximized,
+}: {
+  onClose: () => void;
+  onZoom: () => void;
+  maximized: boolean;
+}) {
   return (
-    <button
-      type="button"
-      aria-label="닫기"
-      onClick={onClose}
-      className="group/lights flex w-full cursor-pointer items-center gap-2 px-4 py-3.5"
-    >
-      <span className="flex size-3 items-center justify-center overflow-hidden rounded-full bg-[#ff5f57]">
-        <CloseLightIcon className={glyphClassName} />
-      </span>
-      <span className="flex size-3 items-center justify-center overflow-hidden rounded-full bg-[#febc2e]">
-        <MinLightIcon className={glyphClassName} />
-      </span>
-      <span className="flex size-3 items-center justify-center overflow-hidden rounded-full bg-[#28c840]">
-        <ZoomLightIcon className={glyphClassName} />
-      </span>
-    </button>
+    <div className="projects-overlay__lights h-[44px] w-full px-[14px]">
+      <button
+        type="button"
+        aria-label="닫기"
+        className="projects-overlay__light projects-overlay__light--close"
+        onClick={onClose}
+      >
+        <CloseLightIcon />
+      </button>
+      <button
+        type="button"
+        aria-label="닫기"
+        className="projects-overlay__light projects-overlay__light--min"
+        onClick={onClose}
+      >
+        <MinLightIcon />
+      </button>
+      <button
+        type="button"
+        aria-label={maximized ? "창 크기 복원" : "전체 화면"}
+        className="projects-overlay__light projects-overlay__light--zoom"
+        onClick={onZoom}
+      >
+        {maximized ? <ExpandLightIcon /> : <ZoomLightIcon />}
+      </button>
+    </div>
   );
 }
 
@@ -141,6 +157,8 @@ export function NotesSidebar({
   items,
   selectedId,
   onClose,
+  onZoom,
+  maximized,
   onSelectItem,
   onReorder,
   onResizePointerDown,
@@ -149,6 +167,8 @@ export function NotesSidebar({
   items: readonly StackItem[];
   selectedId: string;
   onClose: () => void;
+  onZoom: () => void;
+  maximized: boolean;
   onSelectItem: (item: StackItem) => void;
   onReorder: (fromId: string, toId: string) => void;
   onResizePointerDown: (event: PointerEvent<HTMLElement>) => void;
@@ -159,7 +179,7 @@ export function NotesSidebar({
       style={{ width }}
     >
       <div className="notes-overlay__glass m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-[1.05rem]">
-        <TrafficLights onClose={onClose} />
+        <TrafficLights onClose={onClose} onZoom={onZoom} maximized={maximized} />
         <p className="px-3 pb-1.5 text-xs font-medium tracking-[0.16em] text-muted uppercase">
           list
         </p>

@@ -122,3 +122,13 @@ export function maximizedFrame(): WindowFrame {
     height: window.innerHeight - WINDOW_PAD * 2,
   };
 }
+
+export function isMaximizedFrame(frame: WindowFrame) {
+  const max = maximizedFrame();
+  return (
+    Math.abs(frame.x - max.x) < 2 &&
+    Math.abs(frame.y - max.y) < 2 &&
+    Math.abs(frame.width - max.width) < 2 &&
+    Math.abs(frame.height - max.height) < 2
+  );
+}

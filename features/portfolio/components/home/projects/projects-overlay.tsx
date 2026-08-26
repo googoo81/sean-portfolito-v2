@@ -1,22 +1,27 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import { ProjectDetailBody } from "@/features/portfolio/components/work/project-detail-view";
 import { ProjectListBody } from "@/features/portfolio/components/work/project-list-view";
 import { ProjectsSplitShell } from "@/features/portfolio/components/work/projects-split-shell";
-import { useHistoryPager } from "@/features/portfolio/components/work/use-history-pager";
 import {
   HistoryNav,
   WindowTitlebar,
 } from "@/features/portfolio/components/work/projects-chrome";
+import { RESIZE_EDGES } from "@/features/portfolio/components/home/stack/notes-window";
 import {
+  canProjectsBack,
+  canProjectsForward,
+  isProjectsHash,
   parseProjectsSlug,
+  restoreProjectsSession,
   writeProjectsDetailHash,
   writeProjectsListHash,
 } from "./projects-hash";
+import { useProjectsWindow } from "./use-projects-window";
 import type { Project } from "@/features/portfolio/types";
 
 export type ProjectsOrigin = {
@@ -35,20 +40,20 @@ type ProjectsOverlayProps = {
   onExited: () => void;
 };
 
-const WINDOW_OPEN = {
-  type: "spring",
-  stiffness: 280,
-  damping: 32,
-  mass: 1,
-} as const;
-
 const WINDOW_CLOSE = {
   type: "tween",
   duration: 0.28,
   ease: [0.32, 0, 0.67, 0],
 } as const;
 
+const WINDOW_ZOOM = {
+  type: "tween",
+  duration: 0.36,
+  ease: [0.22, 1, 0.36, 1],
+} as const;
+
 const CARD_RADIUS = 32;
+const WINDOW_RADIUS = 20;
 
 function projectFromHash(projects: readonly Project[]) {
   if (typeof window === "undefined") {
@@ -69,9 +74,14 @@ export function ProjectsOverlay({
 }: ProjectsOverlayProps) {
   const exitedRef = useRef(false);
   const handleClose = useDebouncedCallback(onClose);
-  const pager = useHistoryPager();
-  const { back, syncPopState } = pager;
-  const [viewport, setViewport] = useState({ width: 0, height: 0 });
+  const {
+    frame,
+    dragging,
+    isMaximized,
+    startMove,
+    startResize,
+    toggleMaximize,
+  } = useProjectsWindow(open);
   const [selected, setSelected] = useState<Project | null>(() =>
     projectFromHash(projects),
   );
@@ -81,19 +91,8 @@ export function ProjectsOverlay({
     setWasOpen(open);
     if (open) {
       setSelected(projectFromHash(projects));
-      pager.reset();
     }
   }
-
-  useEffect(() => {
-    const update = () => {
-      setViewport({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -117,7 +116,7 @@ export function ProjectsOverlay({
       }
 
       if (parseProjectsSlug()) {
-        back();
+        history.back();
         return;
       }
 
@@ -125,8 +124,12 @@ export function ProjectsOverlay({
     };
 
     const onPopState = () => {
+      if (!isProjectsHash()) {
+        return;
+      }
+
+      restoreProjectsSession();
       setSelected(projectFromHash(projects));
-      syncPopState();
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -136,52 +139,35 @@ export function ProjectsOverlay({
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("popstate", onPopState);
     };
-  }, [back, handleClose, open, projects, syncPopState]);
+  }, [handleClose, open, projects]);
 
-  const fromCard = useMemo(() => {
-    if (!viewport.width || !viewport.height) {
-      return {
-        x: origin.x,
-        y: origin.y,
-        scaleX: 1,
-        scaleY: 1,
-        borderRadius: CARD_RADIUS,
-      };
-    }
+  const fromCard = {
+    left: origin.x,
+    top: origin.y,
+    width: origin.width,
+    height: origin.height,
+    borderRadius: CARD_RADIUS,
+  };
 
-    const scaleX = origin.width / viewport.width;
-    const scaleY = origin.height / viewport.height;
-
-    return {
-      x: origin.x,
-      y: origin.y,
-      scaleX,
-      scaleY,
-      borderRadius: CARD_RADIUS / scaleX,
-    };
-  }, [origin, viewport]);
-
-  const shown = {
-    x: 0,
-    y: 0,
-    scaleX: 1,
-    scaleY: 1,
-    borderRadius: 0,
+  const openFrame = {
+    left: frame.x,
+    top: frame.y,
+    width: frame.width,
+    height: frame.height,
+    borderRadius: isMaximized ? 0 : WINDOW_RADIUS,
   };
 
   const handleSelect = useDebouncedCallback((project: Project) => {
-    pager.reset();
     setSelected(project);
     writeProjectsDetailHash(project.slug);
   });
 
   const handleBackToList = () => {
-    pager.reset();
     setSelected(null);
     writeProjectsListHash();
   };
 
-  if (!viewport.width) {
+  if (!frame.width) {
     return null;
   }
 
@@ -198,17 +184,15 @@ export function ProjectsOverlay({
         role="dialog"
         aria-modal="true"
         aria-labelledby="projects-overlay-title"
-        className="projects-overlay__window"
-        style={{
-          left: 0,
-          top: 0,
-          width: viewport.width,
-          height: viewport.height,
-        }}
-        initial={reducedMotion ? shown : fromCard}
-        animate={open ? shown : fromCard}
+        className="projects-overlay__window projects-shell"
+        initial={reducedMotion ? openFrame : fromCard}
+        animate={open ? openFrame : fromCard}
         transition={
-          reducedMotion ? { duration: 0 } : open ? WINDOW_OPEN : WINDOW_CLOSE
+          reducedMotion || dragging
+            ? { duration: 0 }
+            : open
+              ? WINDOW_ZOOM
+              : WINDOW_CLOSE
         }
         onAnimationComplete={() => {
           if (open) {
@@ -224,6 +208,13 @@ export function ProjectsOverlay({
           onExited();
         }}
       >
+        {RESIZE_EDGES.map((edge) => (
+          <div
+            key={edge}
+            className={`projects-overlay__handle projects-overlay__handle--${edge}`}
+            onPointerDown={startResize(edge)}
+          />
+        ))}
         <motion.div
           className="projects-overlay__face"
           initial={{ opacity: 1 }}
@@ -248,11 +239,15 @@ export function ProjectsOverlay({
             title={selected ? selected.shortTitle : "Projects."}
             titleId="projects-overlay-title"
             onClose={handleClose}
+            onZoom={toggleMaximize}
+            onMovePointerDown={startMove}
+            maximized={isMaximized}
           >
             <HistoryNav
-              canForward={pager.canForward}
-              onBack={pager.back}
-              onForward={pager.forward}
+              canBack={canProjectsBack()}
+              canForward={canProjectsForward()}
+              onBack={() => history.back()}
+              onForward={() => history.forward()}
             />
           </WindowTitlebar>
           <div className="projects-overlay__body projects-overlay__body--split">

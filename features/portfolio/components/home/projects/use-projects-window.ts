@@ -1,75 +1,103 @@
 "use client";
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
-import type { StackItem } from "@/features/portfolio/types";
 import {
   clampFrame,
-  clampSidebarWidth,
-  getNotesWindowTarget,
-  isMaximizedFrame,
-  maximizedFrame,
   resizeFrame,
-  SIDEBAR_DEFAULT,
-  type NoteDraft,
   type ResizeEdge,
   type WindowFrame,
-} from "./notes-window";
+} from "@/features/portfolio/components/home/stack/notes-window";
 
 type DragState = {
   pointerX: number;
   pointerY: number;
   start: WindowFrame;
-  startSidebarWidth: number;
-  mode: "move" | "sidebar" | ResizeEdge;
+  mode: "move" | ResizeEdge;
 };
 
 let rememberedFrame: WindowFrame | null = null;
 let rememberedRestoredFrame: WindowFrame | null = null;
-let rememberedSidebarWidth: number | null = null;
-let rememberedNotes: Record<string, NoteDraft> = {};
 
-function getNoteDraft(item: StackItem): NoteDraft {
+export function getProjectsWindowTarget(): WindowFrame {
+  const padding = window.matchMedia("(min-width: 640px)").matches ? 32 : 16;
+  const width = Math.min(960, window.innerWidth - padding * 2);
+  const height = Math.min(
+    window.innerHeight * 0.86,
+    window.innerHeight - padding * 2,
+  );
+
+  return {
+    x: (window.innerWidth - width) / 2,
+    y: (window.innerHeight - height) / 2,
+    width,
+    height,
+  };
+}
+
+export function fullscreenFrame(): WindowFrame {
+  return {
+    x: 0,
+    y: 0,
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+}
+
+export function isProjectsMaximized(frame: WindowFrame) {
+  const max = fullscreenFrame();
   return (
-    rememberedNotes[item.id] ?? {
-      title: item.label,
-      body: item.note,
-    }
+    Math.abs(frame.x - max.x) < 2 &&
+    Math.abs(frame.y - max.y) < 2 &&
+    Math.abs(frame.width - max.width) < 2 &&
+    Math.abs(frame.height - max.height) < 2
   );
 }
 
-export function useNotesWindow(open: boolean, item: StackItem) {
+export function useProjectsWindow(open: boolean) {
   const frameRef = useRef<WindowFrame | null>(null);
   const restoredFrameRef = useRef<WindowFrame | null>(rememberedRestoredFrame);
   const dragRef = useRef<DragState | null>(null);
+  const [frame, setFrame] = useState<WindowFrame>(() => {
+    if (typeof window === "undefined") {
+      return { x: 0, y: 0, width: 0, height: 0 };
+    }
 
-  const [frame, setFrame] = useState<WindowFrame>(() =>
-    clampFrame(rememberedFrame ?? getNotesWindowTarget()),
-  );
-  const [sidebarWidth, setSidebarWidth] = useState(() =>
-    clampSidebarWidth(
-      rememberedSidebarWidth ?? SIDEBAR_DEFAULT,
-      (rememberedFrame ?? getNotesWindowTarget()).width,
-    ),
-  );
-  const [notesById, setNotesById] = useState<Record<string, NoteDraft>>(
-    () => rememberedNotes,
-  );
-  const draft = notesById[item.id] ?? {
-    title: item.label,
-    body: item.note,
-  };
+    if (!rememberedFrame) {
+      return fullscreenFrame();
+    }
 
+    return isProjectsMaximized(rememberedFrame)
+      ? fullscreenFrame()
+      : clampFrame(rememberedFrame);
+  });
   const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
     frameRef.current = frame;
     rememberedFrame = frame;
+    if (!isProjectsMaximized(frame)) {
+      restoredFrameRef.current = frame;
+    }
     rememberedRestoredFrame = restoredFrameRef.current;
   }, [frame]);
 
   useEffect(() => {
-    rememberedSidebarWidth = sidebarWidth;
-  }, [sidebarWidth]);
+    const onResize = () => {
+      const current = frameRef.current;
+      if (!current) {
+        return;
+      }
+
+      setFrame(
+        isProjectsMaximized(current)
+          ? fullscreenFrame()
+          : clampFrame(current),
+      );
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const onPointerMove = (event: globalThis.PointerEvent) => {
@@ -88,13 +116,6 @@ export function useNotesWindow(open: boolean, item: StackItem) {
             x: drag.start.x + dx,
             y: drag.start.y + dy,
           }),
-        );
-        return;
-      }
-
-      if (drag.mode === "sidebar") {
-        setSidebarWidth(
-          clampSidebarWidth(drag.startSidebarWidth + dx, drag.start.width),
         );
         return;
       }
@@ -130,7 +151,6 @@ export function useNotesWindow(open: boolean, item: StackItem) {
       pointerX: event.clientX,
       pointerY: event.clientY,
       start: frame,
-      startSidebarWidth: sidebarWidth,
       mode,
     };
     setDragging(true);
@@ -138,6 +158,14 @@ export function useNotesWindow(open: boolean, item: StackItem) {
   };
 
   const startMove = (event: PointerEvent<HTMLElement>) => {
+    if ((event.target as HTMLElement).closest("button, a")) {
+      return;
+    }
+
+    if (isProjectsMaximized(frame)) {
+      return;
+    }
+
     beginDrag(event, "move");
   };
 
@@ -151,51 +179,31 @@ export function useNotesWindow(open: boolean, item: StackItem) {
       event.stopPropagation();
     };
 
-  const startSidebarResize = (event: PointerEvent<HTMLElement>) => {
-    if (!beginDrag(event, "sidebar")) {
-      return;
-    }
-
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
   const toggleMaximize = () => {
     const current = frameRef.current ?? frame;
 
-    if (isMaximizedFrame(current) && restoredFrameRef.current) {
+    if (isProjectsMaximized(current) && restoredFrameRef.current) {
       setFrame(clampFrame(restoredFrameRef.current));
       return;
     }
 
-    restoredFrameRef.current = current;
-    setFrame(maximizedFrame());
-  };
+    if (isProjectsMaximized(current)) {
+      const next = clampFrame(getProjectsWindowTarget());
+      restoredFrameRef.current = next;
+      setFrame(next);
+      return;
+    }
 
-  const updateDraft = (field: keyof NoteDraft, value: string) => {
-    setNotesById((current) => {
-      const next = {
-        ...current,
-        [item.id]: {
-          ...(current[item.id] ?? getNoteDraft(item)),
-          [field]: value,
-        },
-      };
-      rememberedNotes = next;
-      return next;
-    });
+    restoredFrameRef.current = current;
+    setFrame(fullscreenFrame());
   };
 
   return {
     frame,
-    draft,
-    isMaximized: isMaximizedFrame(frame),
     dragging,
-    visibleSidebarWidth: clampSidebarWidth(sidebarWidth, frame.width),
+    isMaximized: isProjectsMaximized(frame),
     startMove,
     startResize,
-    startSidebarResize,
     toggleMaximize,
-    updateDraft,
   };
 }

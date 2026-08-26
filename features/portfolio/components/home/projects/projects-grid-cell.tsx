@@ -7,8 +7,10 @@ import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import type { ProjectsOrigin } from "./projects-overlay";
 import {
-  clearProjectsHash,
+  beginProjectsSession,
+  closeProjectsHistory,
   isProjectsHash,
+  restoreProjectsSession,
   writeProjectsListHash,
 } from "./projects-hash";
 import type { Project } from "@/features/portfolio/types";
@@ -63,10 +65,12 @@ export function ProjectsGridCell({
   projects,
 }: ProjectsGridCellProps) {
   const cardRef = useRef<HTMLButtonElement>(null);
+  const originRef = useRef<ProjectsOrigin | null>(null);
   const reducedMotion = usePrefersReducedMotion();
   const [open, setOpen] = useState(false);
   const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
   const [skipEnter, setSkipEnter] = useState(false);
+  originRef.current = origin;
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -92,6 +96,19 @@ export function ProjectsGridCell({
   useEffect(() => {
     const onPopState = () => {
       if (isProjectsHash()) {
+        restoreProjectsSession();
+        const nextOrigin =
+          originRef.current ??
+          readProjectsOrigin(cardRef.current) ?? {
+            x: window.innerWidth / 2 - 80,
+            y: window.innerHeight / 2 - 80,
+            width: 160,
+            height: 160,
+          };
+
+        setOrigin(nextOrigin);
+        setSkipEnter(true);
+        setOpen(true);
         return;
       }
 
@@ -111,12 +128,13 @@ export function ProjectsGridCell({
     setSkipEnter(false);
     setOrigin(nextOrigin);
     setOpen(true);
+    beginProjectsSession();
     writeProjectsListHash();
   });
 
   const handleClose = useCallback(() => {
     setOpen(false);
-    clearProjectsHash();
+    closeProjectsHistory();
   }, []);
 
   const handleExited = useCallback(() => {

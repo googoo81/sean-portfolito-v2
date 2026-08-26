@@ -6,7 +6,7 @@ import { useMotionValue } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { DockIcon } from "./dock-icon";
 import type { NotesOrigin } from "./notes-window";
-import { clearNotesHash, parseNotesHash, writeNotesHash } from "./notes-hash";
+import { closeNotesHistory, parseNotesHash, syncNotesSession, writeNotesHash } from "./notes-hash";
 import { DOCK_GAP, DOCK_MAX_SIZE } from "./dock-config";
 import type { StackItem } from "@/features/portfolio/types";
 
@@ -82,6 +82,33 @@ export function StackRow({ items }: StackRowProps) {
     return () => cancelAnimationFrame(frame);
   }, [items]);
 
+  useEffect(() => {
+    const onPopState = () => {
+      const itemId = parseNotesHash();
+      if (itemId === undefined) {
+        setNotesOpen(false);
+        return;
+      }
+
+      syncNotesSession();
+
+      const item =
+        items.find((entry) => entry.id === itemId) ?? items[0] ?? null;
+      if (!item) {
+        setNotesOpen(false);
+        return;
+      }
+
+      setNotesItem(item);
+      setNotesOrigin((current) => current ?? fallbackNotesOrigin());
+      setSkipEnter(true);
+      setNotesOpen(true);
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [items]);
+
   const openNotes = useCallback((origin: NotesOrigin, item: StackItem) => {
     setSkipEnter(false);
     setNotesItem(item);
@@ -92,7 +119,7 @@ export function StackRow({ items }: StackRowProps) {
 
   const closeNotes = useCallback(() => {
     setNotesOpen(false);
-    clearNotesHash();
+    closeNotesHistory();
   }, []);
 
   const handleNotesExited = useCallback(() => {

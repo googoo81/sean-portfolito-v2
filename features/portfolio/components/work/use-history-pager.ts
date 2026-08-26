@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Options = {
   persist?: boolean;
@@ -9,8 +9,15 @@ type Options = {
 let persistedSteps = 0;
 let skipReset = false;
 
+function navigationIndex() {
+  const nav = (window as Window & { navigation?: { currentEntry?: { index: number } } })
+    .navigation;
+  return nav?.currentEntry?.index;
+}
+
 export function useHistoryPager({ persist = false }: Options = {}) {
   const navDirection = useRef<"back" | "forward" | null>(null);
+  const lastIndex = useRef<number | null>(null);
   const [forwardSteps, setForwardSteps] = useState(() => {
     if (!persist) {
       return 0;
@@ -66,13 +73,33 @@ export function useHistoryPager({ persist = false }: Options = {}) {
   }, [forwardSteps, persist, remember]);
 
   const syncPopState = useCallback(() => {
+    if (persist) {
+      skipReset = true;
+    }
+
     if (navDirection.current === "back" || navDirection.current === "forward") {
       navDirection.current = null;
+      lastIndex.current = navigationIndex() ?? lastIndex.current;
+      return;
+    }
+
+    const idx = navigationIndex();
+    const prev = lastIndex.current;
+    lastIndex.current = idx ?? prev;
+
+    if (idx != null && prev != null && idx > prev) {
+      setForwardSteps((steps) => remember(Math.max(0, steps - 1)));
       return;
     }
 
     setForwardSteps((steps) => remember(steps + 1));
-  }, [remember]);
+  }, [persist, remember]);
+
+  useEffect(() => {
+    lastIndex.current = navigationIndex() ?? lastIndex.current;
+    window.addEventListener("popstate", syncPopState);
+    return () => window.removeEventListener("popstate", syncPopState);
+  }, [syncPopState]);
 
   return useMemo(
     () => ({

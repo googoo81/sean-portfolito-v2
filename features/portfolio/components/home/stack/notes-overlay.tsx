@@ -55,6 +55,8 @@ export function NotesOverlay({
   const {
     frame,
     draft,
+    isMaximized,
+    dragging,
     visibleSidebarWidth,
     startMove,
     startResize,
@@ -113,7 +115,9 @@ export function NotesOverlay({
         role="dialog"
         aria-modal="true"
         aria-labelledby="notes-overlay-title"
-        className="notes-overlay__window flex overflow-hidden rounded-[1.25rem]"
+        className={`notes-overlay__window flex overflow-hidden rounded-[1.25rem]${
+          dragging || reducedMotion ? "" : " notes-overlay__window--smooth"
+        }`}
         style={{
           left: frame.x,
           top: frame.y,
@@ -146,6 +150,8 @@ export function NotesOverlay({
           items={items}
           selectedId={item.id}
           onClose={handleClose}
+          onZoom={toggleMaximize}
+          maximized={isMaximized}
           onSelectItem={onSelectItem}
           onReorder={onReorder}
           onResizePointerDown={startSidebarResize}

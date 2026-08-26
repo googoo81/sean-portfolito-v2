@@ -119,7 +119,9 @@ function IndexSlot({
         return;
       }
 
-      const horizontal = window.matchMedia("(max-width: 767px)").matches;
+      const shell = slotRef.current?.closest(".projects-shell");
+      const shellWidth = shell?.getBoundingClientRect().width ?? window.innerWidth;
+      const horizontal = shellWidth < 768;
       setTip(
         horizontal
           ? {

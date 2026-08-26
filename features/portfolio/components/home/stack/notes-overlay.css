@@ -26,6 +26,14 @@ html[data-notes-open] main {
   background: var(--notes-paper);
 }
 
+.notes-overlay__window--smooth {
+  transition:
+    left 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .notes-overlay__titlebar {
   cursor: grab;
 }

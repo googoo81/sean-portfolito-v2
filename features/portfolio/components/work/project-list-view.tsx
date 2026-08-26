@@ -13,7 +13,7 @@ export function ProjectListBody({
   onSelect,
 }: Pick<ProjectListViewProps, "projects" | "onSelect">) {
   return (
-    <div className="projects-overlay__detail grid grid-cols-1 gap-3 px-5 py-6 sm:grid-cols-2 sm:px-8 sm:py-8">
+    <div className="projects-overlay__detail projects-overlay__list">
       {projects.map((project) => (
         <ProjectTileCompact
           key={project.slug}

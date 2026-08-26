@@ -12,11 +12,11 @@ type ProjectDetailViewProps = {
 
 export function ProjectDetailBody({ project }: { project: Project }) {
   return (
-    <div className="projects-overlay__detail flex w-full flex-col gap-3 px-5 py-6 sm:px-8 sm:py-8">
+    <div className="projects-overlay__detail projects-overlay__article">
       <div className="glass-chip overflow-hidden rounded-[1.25rem]">
-        <ProjectVisual className="h-56 min-h-56 bg-transparent sm:h-72" />
+        <ProjectVisual className="projects-overlay__hero bg-transparent" />
       </div>
-      <div className="glass-chip rounded-[1.25rem] p-5 sm:p-7">
+      <div className="glass-chip projects-overlay__article-body rounded-[1.25rem]">
         <ProjectArticle project={project} />
       </div>
     </div>
