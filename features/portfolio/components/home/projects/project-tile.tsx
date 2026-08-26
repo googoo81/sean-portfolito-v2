@@ -11,16 +11,11 @@ type ProjectTileProps = {
 export function ProjectTile({ project, className }: ProjectTileProps) {
   return (
     <BentoCard as="article" className={className}>
-      <Link
-        href={`/work/${project.slug}`}
-        className="relative flex h-full min-h-[16rem] flex-col"
-      >
-        <div className="min-h-0 flex-1">
+      <Link href={`/work/${project.slug}`} className="project-tile">
+        <div className="project-tile__body">
           <ProjectVisual />
         </div>
-        <p className="px-5 pb-5 text-base font-medium tracking-tight sm:text-lg">
-          {project.shortTitle}
-        </p>
+        <p className="project-tile__title">{project.shortTitle}</p>
       </Link>
     </BentoCard>
   );

@@ -221,9 +221,7 @@ export function ProjectsOverlay({
           animate={{ opacity: open ? 0 : 1 }}
           transition={{ duration: reducedMotion ? 0 : 0.18 }}
         >
-          <p className="text-sm font-medium tracking-[0.18em] text-foreground uppercase">
-            💻 Projects.
-          </p>
+          <p className="project-kicker">💻 Projects.</p>
         </motion.div>
         <motion.div
           className="projects-overlay__content"

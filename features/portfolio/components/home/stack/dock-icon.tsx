@@ -45,7 +45,7 @@ function StackGlyph({ item }: { item: StackItem }) {
           maskSize: "contain",
           WebkitMaskSize: "contain",
         }}
-        className="transition-colors duration-200"
+        className="dock-icon__glyph"
       />
     );
   }
@@ -56,7 +56,7 @@ function StackGlyph({ item }: { item: StackItem }) {
       src={item.icon}
       alt=""
       style={{ width: size, height: size }}
-      className="object-contain"
+      className="dock-icon__glyph"
       loading="lazy"
     />
   );
@@ -110,19 +110,17 @@ export function DockIcon({
       role="listitem"
       aria-label={item.label}
       style={{ width: size, height: size }}
-      className="glass-chip relative flex shrink-0 origin-bottom cursor-pointer items-center justify-center rounded-[1.35rem] will-change-[width,height]"
+      className="dock-icon glass-chip"
       onPointerEnter={() => setShowLabel(true)}
       onPointerLeave={() => setShowLabel(false)}
       onClick={handleSelect}
     >
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute bottom-[calc(100%+14px)] left-1/2 z-20 -translate-x-1/2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-medium whitespace-nowrap text-foreground transition-all duration-100 ${
-          showLabel ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
-        }`}
+        className={`dock-icon__tip${showLabel ? " is-visible" : ""}`}
       >
         {item.label}
-        <span className="absolute top-full left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border-r border-b border-line bg-surface" />
+        <span className="dock-icon__tip-arrow" />
       </span>
       <StackGlyph item={item} />
     </motion.button>

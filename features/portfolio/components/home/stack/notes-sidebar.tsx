@@ -20,7 +20,7 @@ function TrafficLights({
   maximized: boolean;
 }) {
   return (
-    <div className="projects-overlay__lights h-[44px] w-full px-[14px]">
+    <div className="projects-overlay__lights">
       <button
         type="button"
         aria-label="닫기"
@@ -54,7 +54,7 @@ function SidebarAppIcon({ item }: { item: StackItem }) {
     return (
       <span
         aria-hidden="true"
-        className="size-4 shrink-0"
+        className="notes-overlay__app-icon"
         style={{
           backgroundColor: "var(--stack-icon-themed)",
           maskImage: `url("${item.icon}")`,
@@ -75,7 +75,7 @@ function SidebarAppIcon({ item }: { item: StackItem }) {
     <img
       src={item.icon}
       alt=""
-      className="size-4 shrink-0 object-contain"
+      className="notes-overlay__app-icon"
       draggable={false}
     />
   );
@@ -97,7 +97,7 @@ function NotesList({
   const handleSelectItem = useDebouncedCallback(onSelectItem);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-2 pb-3">
+    <div className="notes-overlay__list">
       {items.map((entry) => {
         const selected = entry.id === selectedId;
 
@@ -134,9 +134,7 @@ function NotesList({
             onDragEnd={() => {
               draggingIdRef.current = null;
             }}
-            className={`flex w-full cursor-grab items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm active:cursor-grabbing ${
-              selected ? "text-foreground" : "text-muted hover:bg-soft"
-            }`}
+            className={`notes-overlay__item${selected ? " is-active" : ""}`}
             style={
               selected
                 ? { backgroundColor: "var(--notes-glass-item)" }
@@ -144,7 +142,7 @@ function NotesList({
             }
           >
             <SidebarAppIcon item={entry} />
-            <span className="min-w-0 truncate">{entry.label}</span>
+            <span className="notes-overlay__item-label">{entry.label}</span>
           </button>
         );
       })}
@@ -175,14 +173,12 @@ export function NotesSidebar({
 }) {
   return (
     <div
-      className="notes-overlay__sidebar relative flex h-full min-h-0 shrink-0 flex-col"
+      className="notes-overlay__sidebar"
       style={{ width }}
     >
-      <div className="notes-overlay__glass m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-[1.05rem]">
+      <div className="notes-overlay__glass">
         <TrafficLights onClose={onClose} onZoom={onZoom} maximized={maximized} />
-        <p className="px-3 pb-1.5 text-xs font-medium tracking-[0.16em] text-muted uppercase">
-          list
-        </p>
+        <p className="notes-overlay__label">list</p>
         <NotesList
           items={items}
           selectedId={selectedId}

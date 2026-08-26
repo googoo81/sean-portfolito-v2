@@ -24,16 +24,10 @@ function SocialGlyph({ src }: { src: string }) {
   return (
     <span
       aria-hidden
-      className="size-5 bg-current"
+      className="icon icon--xl icon--mask"
       style={{
         maskImage: `url("${src}")`,
         WebkitMaskImage: `url("${src}")`,
-        maskRepeat: "no-repeat",
-        WebkitMaskRepeat: "no-repeat",
-        maskPosition: "center",
-        WebkitMaskPosition: "center",
-        maskSize: "contain",
-        WebkitMaskSize: "contain",
       }}
     />
   );
@@ -121,7 +115,7 @@ export function SocialTile({
   ];
 
   return (
-    <div className="grid h-full min-h-64 grid-cols-2 grid-rows-2 gap-2.5 p-3">
+    <div className="social-grid">
       {links.map((link) => {
         const copied = copiedId === link.icon;
 
@@ -130,7 +124,7 @@ export function SocialTile({
             key={link.label}
             role="group"
             aria-label={link.label}
-            className="social-chip glass-chip text-foreground"
+            className="social-chip glass-chip"
           >
             <div className="social-chip__icon">
               <SocialGlyph src={SOCIAL_ICONS[link.icon]} />

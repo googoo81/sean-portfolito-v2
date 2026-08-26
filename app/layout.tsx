@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ko"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${ibmPlexSansKr.variable} h-full antialiased`}
+      className={ibmPlexSansKr.variable}
     >
       <head>
         <script
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="min-h-dvh flex flex-col bg-background font-sans text-foreground">
+      <body>
         <MotionPreference />
         {children}
       </body>

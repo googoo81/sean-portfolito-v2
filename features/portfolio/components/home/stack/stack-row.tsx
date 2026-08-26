@@ -142,7 +142,7 @@ export function StackRow({ items }: StackRowProps) {
         role="list"
         aria-label="사용 도구"
         style={{ gap: DOCK_GAP, height: DOCK_MAX_SIZE }}
-        className="bento-stack-dock relative w-full items-end justify-center px-2"
+        className="bento-stack-dock"
         onPointerMove={
           reducedMotion ? undefined : (event) => pointerX.set(event.clientX)
         }
@@ -167,7 +167,7 @@ export function StackRow({ items }: StackRowProps) {
       <div
         role="list"
         aria-label="사용 도구"
-        className="bento-stack-wrap max-w-full flex-wrap items-center justify-center gap-1.5"
+        className="bento-stack-wrap"
         onPointerEnter={prefetchNotesOverlay}
       >
         {orderedItems.map((item) => (

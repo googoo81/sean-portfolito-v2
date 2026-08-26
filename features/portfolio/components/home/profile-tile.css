@@ -1,4 +1,12 @@
+.profile-tile {
+  position: relative;
+  height: 100%;
+  min-height: 12rem;
+  flex: 1;
+}
+
 .profile-tile__photo {
+  object-fit: cover;
   transform: scale(1);
   filter: brightness(1);
   transition:
@@ -8,11 +16,23 @@
 }
 
 .profile-tile__photo--dark {
+  object-position: right;
   transform-origin: right center;
+  opacity: 1;
 }
 
 .profile-tile__photo--light {
+  object-position: left;
   transform-origin: left center;
+  opacity: 0;
+}
+
+html[data-theme="light"] .profile-tile__photo--dark {
+  opacity: 0;
+}
+
+html[data-theme="light"] .profile-tile__photo--light {
+  opacity: 1;
 }
 
 @media (hover: hover) {

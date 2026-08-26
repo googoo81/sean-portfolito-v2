@@ -24,13 +24,7 @@ export function BentoCard({
   className,
 }: BentoCardProps) {
   return (
-    <Comp
-      id={id}
-      className={cn(
-        "bento-card glass relative flex h-full min-h-[12rem] min-w-0 flex-col overflow-hidden rounded-[1.75rem] sm:rounded-[2rem]",
-        className,
-      )}
-    >
+    <Comp id={id} className={cn("bento-card glass", className)}>
       {children}
     </Comp>
   );

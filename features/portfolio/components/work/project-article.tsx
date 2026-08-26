@@ -7,29 +7,24 @@ type ProjectArticleProps = {
 
 export function ProjectArticle({ project }: ProjectArticleProps) {
   return (
-    <div className="space-y-8">
+    <div className="article">
       <header>
-        <h1 className="text-3xl font-medium leading-snug tracking-tight text-foreground sm:text-4xl">
-          {project.title}
-        </h1>
-        <p className="mt-4 text-sm text-muted">{project.meta}</p>
-        <p className="mt-1 text-sm text-muted">
+        <h1 className="article__title">{project.title}</h1>
+        <p className="article__meta">{project.meta}</p>
+        <p className="article__meta">
           Tools: {project.tools}
-          <span className="mx-2 text-faint">|</span>
+          <span className="article__sep">|</span>
           {project.period}
         </p>
       </header>
 
       {project.links && project.links.length > 0 ? (
         <div>
-          <h2 className="text-sm font-medium text-foreground">Links</h2>
-          <ul className="mt-2 space-y-1">
+          <h2 className="article__heading">Links</h2>
+          <ul className="article__links">
             {project.links.map((link) => (
               <li key={link.href}>
-                <ExternalLink
-                  href={link.href}
-                  className="text-sm underline decoration-faint underline-offset-4 hover:decoration-foreground"
-                >
+                <ExternalLink href={link.href} className="article__link">
                   {link.label}
                 </ExternalLink>
               </li>
@@ -39,15 +34,13 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
       ) : null}
 
       <div>
-        <h2 className="text-sm font-medium text-foreground">
-          Situation & Task
-        </h2>
-        <Prose className="mt-2">{project.situation}</Prose>
+        <h2 className="article__heading">Situation & Task</h2>
+        <Prose>{project.situation}</Prose>
       </div>
 
       <div>
-        <h2 className="text-sm font-medium text-foreground">Action</h2>
-        <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted sm:text-base">
+        <h2 className="article__heading">Action</h2>
+        <ul className="article__actions">
           {project.actions.map((action) => (
             <li key={action}>{action}</li>
           ))}
@@ -55,12 +48,8 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
       </div>
 
       <div>
-        <h2 className="text-sm font-medium text-foreground">
-          Result & Next Action
-        </h2>
-        <Prose className="mt-2 border-l-2 border-line pl-4">
-          {project.result}
-        </Prose>
+        <h2 className="article__heading">Result & Next Action</h2>
+        <Prose className="article__result">{project.result}</Prose>
       </div>
     </div>
   );

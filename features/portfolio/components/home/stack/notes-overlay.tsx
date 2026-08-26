@@ -115,7 +115,7 @@ export function NotesOverlay({
         role="dialog"
         aria-modal="true"
         aria-labelledby="notes-overlay-title"
-        className={`notes-overlay__window flex overflow-hidden rounded-[1.25rem]${
+        className={`notes-overlay__window${
           dragging || reducedMotion ? "" : " notes-overlay__window--smooth"
         }`}
         style={{
@@ -158,35 +158,35 @@ export function NotesOverlay({
         />
 
         <div
-          className="flex min-w-0 flex-1 flex-col"
+          className="notes-overlay__body"
           style={{
             backgroundColor: "var(--notes-paper)",
             color: "var(--notes-ink)",
           }}
         >
           <div
-            className="notes-overlay__titlebar flex items-center justify-center border-b border-line px-4 py-3"
+            className="notes-overlay__titlebar"
             onPointerDown={startMove}
             onDoubleClick={toggleMaximize}
           >
-            <h2 id="notes-overlay-title" className="text-sm font-medium">
+            <h2 id="notes-overlay-title" className="notes-overlay__title">
               Stack I use
             </h2>
           </div>
-          <div className="flex min-h-0 flex-1 flex-col px-8 py-7 sm:px-10 sm:py-8">
+          <div className="notes-overlay__editor">
             <input
               value={draft.title}
               onChange={(event) => updateDraft("title", event.target.value)}
               aria-label="메모 제목"
               placeholder="제목"
-              className="w-full border-0 bg-transparent p-0 text-2xl font-semibold tracking-tight outline-none"
+              className="notes-overlay__input"
             />
             <textarea
               value={draft.body}
               onChange={(event) => updateDraft("body", event.target.value)}
               aria-label="메모 내용"
               placeholder="메모를 입력하세요"
-              className="mt-4 min-h-0 w-full flex-1 resize-none border-0 bg-transparent p-0 text-[15px] leading-7 outline-none"
+              className="notes-overlay__textarea"
             />
           </div>
         </div>

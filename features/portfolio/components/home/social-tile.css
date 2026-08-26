@@ -5,6 +5,7 @@
   min-height: 0;
   overflow: hidden;
   border-radius: 1.35rem;
+  color: var(--foreground);
   cursor: pointer;
   transform-origin: center;
   transition:
@@ -139,4 +140,14 @@ html[data-reduced-motion="true"] .social-chip:active {
   .social-chip__action--open {
     border-left-color: var(--line);
   }
+}
+
+.social-grid {
+  display: grid;
+  height: 100%;
+  min-height: 16rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.625rem;
+  padding: 0.75rem;
 }

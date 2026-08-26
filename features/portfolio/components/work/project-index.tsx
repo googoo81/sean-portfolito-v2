@@ -73,7 +73,7 @@ function ListGlyph() {
   return (
     <svg
       viewBox="0 0 16 16"
-      className="size-4"
+      className="icon"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.6"

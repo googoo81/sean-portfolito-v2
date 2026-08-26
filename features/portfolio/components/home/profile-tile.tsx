@@ -15,7 +15,7 @@ export function ProfileTile({ className, name }: ProfileTileProps) {
   return (
     <BentoCard className={className}>
       <div
-        className="relative h-full min-h-[12rem] flex-1"
+        className="profile-tile"
         role="img"
         aria-label={`${name} 프로필 사진`}
       >
@@ -26,7 +26,7 @@ export function ProfileTile({ className, name }: ProfileTileProps) {
           priority
           sizes="(orientation: landscape) 25vw, 100vw"
           draggable={false}
-          className="profile-tile__photo profile-tile__photo--dark object-cover object-right opacity-100 in-data-[theme=light]:opacity-0"
+          className="profile-tile__photo profile-tile__photo--dark"
         />
         <Image
           src={PROFILE_PHOTOS.light}
@@ -34,7 +34,7 @@ export function ProfileTile({ className, name }: ProfileTileProps) {
           fill
           sizes="(orientation: landscape) 25vw, 100vw"
           draggable={false}
-          className="profile-tile__photo profile-tile__photo--light object-cover object-left opacity-0 in-data-[theme=light]:opacity-100"
+          className="profile-tile__photo profile-tile__photo--light"
         />
       </div>
     </BentoCard>

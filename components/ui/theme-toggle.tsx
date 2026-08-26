@@ -50,16 +50,13 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       onClick={toggleTheme}
       aria-label="테마 전환"
       aria-pressed="false"
-      className={cn(
-        "theme-toggle glass relative h-15 w-28 shrink-0 cursor-pointer overflow-hidden rounded-full bg-(--theme-toggle-track) p-1.5 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground",
-        className,
-      )}
+      className={cn("theme-toggle glass", className)}
     >
       <span className="sr-only">흑백 테마 전환</span>
-      <span className="theme-toggle__thumb glass-chip relative z-10 flex size-12 items-center justify-center rounded-full bg-(--theme-toggle-thumb) text-(--theme-toggle-icon)">
+      <span className="theme-toggle__thumb glass-chip">
         <svg
           viewBox="0 0 24 24"
-          className="theme-toggle__sun absolute size-6"
+          className="theme-toggle__sun"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.8"
@@ -71,7 +68,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         </svg>
         <svg
           viewBox="0 0 24 24"
-          className="theme-toggle__moon absolute size-6"
+          className="theme-toggle__moon"
           fill="currentColor"
           aria-hidden
         >

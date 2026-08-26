@@ -33,7 +33,6 @@ function GoArrow() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="size-4"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
@@ -149,18 +148,13 @@ export function ProjectsGridCell({
           type="button"
           aria-label="모든 프로젝트"
           aria-expanded={open}
-          className="flex h-full min-h-48 w-full cursor-pointer flex-col items-center justify-center gap-4 p-5"
+          className="projects-cell"
           onPointerEnter={prefetchProjectsOverlay}
           onFocus={prefetchProjectsOverlay}
           onClick={handleOpen}
         >
-          <p className="text-sm font-medium tracking-[0.18em] text-foreground uppercase">
-            💻 Projects.
-          </p>
-          <span
-            className="bento-projects__go flex size-10 items-center justify-center rounded-full border border-line bg-soft text-foreground"
-            aria-hidden
-          >
+          <p className="project-kicker">💻 Projects.</p>
+          <span className="bento-projects__go" aria-hidden>
             <span className="bento-projects__go-icons">
               <GoArrow />
               <GoArrow />

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useHistoryPager } from "./use-history-pager";
 
-const glyph = "pointer-events-none";
+const glyph = "no-pointer";
 const LIGHT_SIZE = 12;
 const LIGHT_DESIGN = 50;
 
@@ -269,11 +269,11 @@ export function WorkWindow({
   const pathname = usePathname();
 
   return (
-    <main className="projects-shell flex min-h-dvh flex-col bg-surface">
+    <main className="projects-shell">
       <WindowTitlebar title={title} closeHref="/">
         <WorkHistoryNav key={pathname} />
       </WindowTitlebar>
-      <div className="min-h-0 flex-1 overflow-hidden">{children}</div>
+      <div className="projects-shell__body">{children}</div>
     </main>
   );
 }
@@ -282,7 +282,7 @@ function BackGlyph() {
   return (
     <svg
       viewBox="0 0 16 16"
-      className="size-4"
+      className="icon"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.6"
@@ -298,7 +298,7 @@ function ForwardGlyph() {
   return (
     <svg
       viewBox="0 0 16 16"
-      className="size-4"
+      className="icon"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.6"

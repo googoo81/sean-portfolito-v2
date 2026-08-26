@@ -11,17 +11,14 @@ export function ProjectTileCompact({
   project,
   onSelect,
 }: ProjectTileCompactProps) {
-  const className =
-    "glass-chip flex h-full min-h-[7.5rem] w-full flex-col overflow-hidden rounded-[1.25rem] text-left transition-colors hover:bg-soft-hover";
+  const className = "project-tile-compact glass-chip";
 
   const content = (
     <>
-      <div className="min-h-0 flex-1">
-        <ProjectVisual className="h-full min-h-[4.5rem] bg-transparent" />
+      <div className="project-tile-compact__body">
+        <ProjectVisual />
       </div>
-      <p className="truncate px-3 pb-3 text-sm font-medium tracking-tight">
-        {project.shortTitle}
-      </p>
+      <p className="project-tile-compact__title">{project.shortTitle}</p>
     </>
   );
 
@@ -29,7 +26,7 @@ export function ProjectTileCompact({
     return (
       <button
         type="button"
-        className={`${className} cursor-pointer`}
+        className={className}
         onClick={() => onSelect(project)}
       >
         {content}
