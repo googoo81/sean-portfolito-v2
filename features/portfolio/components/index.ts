@@ -1,11 +1,1 @@
-export { CertificatesSection } from "./certificates-section";
-export { ContactSection } from "./contact-section";
-export { EducationSection } from "./education-section";
-export { HeroSection } from "./hero-section";
-export { HistoriesSection } from "./histories-section";
-export { PortfolioPage } from "./portfolio-page";
-export { ProjectPatternSection } from "./project-pattern-section";
-export { ProjectsSection } from "./projects-section";
-export { SiteFooter } from "./site-footer";
-export { SiteNav } from "./site-nav";
-export { SkillsSection } from "./skills-section";
+export { PortfolioPage } from "./home/portfolio-page";

@@ -7,14 +7,5 @@ type ProseProps = {
 };
 
 export function Prose({ children, className }: ProseProps) {
-  return (
-    <p
-      className={cn(
-        "text-sm leading-relaxed text-muted sm:text-base",
-        className,
-      )}
-    >
-      {children}
-    </p>
-  );
+  return <p className={cn("prose", className)}>{children}</p>;
 }

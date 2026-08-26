@@ -1,0 +1,154 @@
+.social-chip {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 1.35rem;
+  color: var(--foreground);
+  cursor: pointer;
+  transform-origin: center;
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    scale 280ms cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+.social-chip__icon {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  pointer-events: none;
+  transition: opacity 280ms ease;
+}
+
+.social-chip__caption {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.social-chip__action {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.5rem;
+  color: var(--muted);
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 280ms ease,
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.social-chip__action--open {
+  border-left: 1px solid transparent;
+}
+
+.social-chip__action:hover,
+.social-chip__action:focus-visible {
+  color: var(--foreground);
+  background: var(--soft-hover);
+}
+
+.social-chip__action:hover .social-chip__caption,
+.social-chip__action:focus-visible .social-chip__caption {
+  color: var(--foreground);
+}
+
+.social-chip__action:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: -2px;
+}
+
+.social-chip__copied {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--foreground);
+}
+
+@media (hover: hover) {
+  .social-chip:hover,
+  .social-chip:focus-within {
+    z-index: 2;
+    background: var(--surface);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    scale: 1.1;
+  }
+
+  .social-chip:hover .social-chip__icon,
+  .social-chip:focus-within .social-chip__icon {
+    opacity: 0;
+  }
+
+  .social-chip:hover .social-chip__action,
+  .social-chip:focus-within .social-chip__action {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .social-chip:hover .social-chip__action--open,
+  .social-chip:focus-within .social-chip__action--open {
+    border-left-color: var(--line);
+  }
+
+  .social-chip:active {
+    scale: 1.04;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .social-chip:hover,
+  .social-chip:focus-within,
+  .social-chip:active {
+    scale: 1;
+  }
+}
+
+html[data-reduced-motion="true"] .social-chip:hover,
+html[data-reduced-motion="true"] .social-chip:focus-within,
+html[data-reduced-motion="true"] .social-chip:active {
+  scale: 1;
+}
+
+@media (hover: none) {
+  .social-chip__icon {
+    opacity: 0;
+  }
+
+  .social-chip__action {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .social-chip__action--open {
+    border-left-color: var(--line);
+  }
+}
+
+.social-grid {
+  display: grid;
+  height: 100%;
+  min-height: 16rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.625rem;
+  padding: 0.75rem;
+}

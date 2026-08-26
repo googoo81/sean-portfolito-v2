@@ -2,20 +2,14 @@ export type {
   CertificateItem,
   EducationItem,
   HistoryItem,
-  NavItem,
   Portfolio,
   PortfolioContact,
   PortfolioIntro,
   Project,
+  ProjectImage,
   ProjectLink,
-  SkillGroup,
-  SkillItem,
+  StackItem,
 } from "@/features/portfolio/types";
 
-export { getPortfolio } from "@/features/portfolio/lib";
+export { getFeaturedProject, getPortfolio, getProjectBySlug } from "@/features/portfolio/lib";
 export { PortfolioPage } from "@/features/portfolio/components";
-export { NAV_ITEMS } from "@/features/portfolio/constants";
-export {
-  useActiveSection,
-  usePrefersReducedMotion,
-} from "@/features/portfolio/hooks";

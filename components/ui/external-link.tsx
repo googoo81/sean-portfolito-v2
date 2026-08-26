@@ -21,10 +21,7 @@ export function ExternalLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(
-        "text-foreground transition-colors hover:text-accent",
-        className,
-      )}
+      className={cn("external-link", className)}
       {...props}
     >
       {children}

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_KR } from "next/font/google";
+import { MotionPreference } from "@/components/ui";
+import { getThemeInitScript } from "@/lib/theme";
 import "./globals.css";
 
 const ibmPlexSansKr = IBM_Plex_Sans_KR({
   variable: "--font-ibm-plex-sans-kr",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -18,10 +20,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ko"
-      className={`${ibmPlexSansKr.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      className={ibmPlexSansKr.variable}
     >
-      <body className="page-atmosphere min-h-full flex flex-col font-sans text-foreground">
-        <div className="noise-overlay" aria-hidden />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: getThemeInitScript(),
+          }}
+        />
+      </head>
+      <body>
+        <MotionPreference />
         {children}
       </body>
     </html>

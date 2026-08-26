@@ -1,14 +1,16 @@
+import { STACK_ITEMS } from "@/features/portfolio/constants";
 import type { Portfolio } from "@/features/portfolio/types";
 
 export const portfolio: Portfolio = {
   intro: {
-    headline: "기획한 아이디어를 직접 구현하는 마케터",
-    lines: [
-      "브랜드의 특징을 발견해 콘텐츠 전략으로 구조화하고,",
-      "이미지·영상·카피를 활용해 직접 결과물로 구현합니다.",
-    ],
+    headline: "기획한 아이디어를\n직접 구현하는 마케터",
+    process: ["Strategy", "Content", "Execution"],
     closing:
-      "분석에서 멈추지 않고 타깃과 채널에 맞는 콘텐츠를 완성하는 기획과 제작을 연결하는 마케터 송현우입니다.",
+      "분석에서 끝나는 것이 아니라 타깃과 채널에 맞는 콘텐츠가 실제 결과물로 이어지는 과정까지 직접 설계합니다.",
+    pairs: [
+      ["Planning", "Visual"],
+      ["Copy", "Development"],
+    ],
   },
   contact: {
     name: "송현우",
@@ -17,63 +19,20 @@ export const portfolio: Portfolio = {
     github: "https://github.com/googoo81",
     medium: "https://medium.com/@beautiful-tuna",
   },
+  stack: STACK_ITEMS,
+  featuredSlug: "bareway",
   skills: [
-    {
-      title: "Content Planning",
-      items: [
-        {
-          title: "브랜드 분석",
-          body: "브랜드와 경쟁사의 제품, 콘텐츠, 고객 반응을 조사하여 브랜드가 가진 특징과 차별점을 찾습니다. 분석한 내용을 단순히 나열하기보다 타깃과 콘텐츠 전략으로 연결하고자 합니다.",
-        },
-        {
-          title: "브랜드 리서치",
-          body: "타깃의 관심사와 라이프스타일을 바탕으로 콘텐츠의 주제와 메시지를 설정합니다. 브랜드가 전달하려는 내용을 사용자가 쉽게 이해하고 관심을 가질 수 있는 콘셉트로 정리합니다.",
-        },
-      ],
-    },
-    {
-      title: "Content Production & Communication",
-      items: [
-        {
-          title: "이미지 콘텐츠",
-          body: "Figma와 생성형 AI를 활용하여 카드뉴스, 인스타그램 캐러셀, 광고 소재 등을 제작할 수 있습니다. 콘텐츠의 흐름과 이미지 배치를 고려하여 브랜드 메시지를 시각적으로 전달합니다.",
-        },
-        {
-          title: "숏폼 콘텐츠",
-          body: "콘텐츠의 콘셉트부터 장면 구성, 스토리보드, 카피까지 기획할 수 있습니다. 이미지와 영상이 자연스럽게 이어지고 사용자가 끝까지 볼 수 있는 흐름을 고민합니다.",
-        },
-        {
-          title: "스토리텔링",
-          body: "브랜드 소개에서 제품과 채널, 사용자 행동으로 이어지는 콘텐츠 흐름을 설계합니다. 각 이미지와 문장이 따로 보이지 않고 하나의 이야기로 연결되도록 구성합니다.",
-        },
-        {
-          title: "카피라이팅",
-          body: "콘텐츠의 목적과 채널에 맞게 제목, 본문, CTA 문구를 작성합니다. 사용자가 콘텐츠를 본 뒤 어떤 행동을 해야 하는지 명확하게 전달하고자 합니다.",
-        },
-      ],
-    },
-    {
-      title: "Others",
-      items: [
-        {
-          title: "Figma",
-          body: "인스타그램 캐러셀, 광고 소재, 발표 자료와 콘텐츠 레이아웃을 제작할 수 있습니다. 정보의 우선순위와 시선의 흐름을 고려하여 화면을 구성합니다.",
-        },
-        {
-          title: "Notion",
-          body: "시장조사, 콘텐츠 기획안, 프로젝트 진행 상황과 피드백을 정리하여 팀원들과 공유할 수 있습니다. 맡은 작업과 수정 사항을 문서화하며 협업합니다.",
-        },
-        {
-          title: "CapCut",
-          body: "숏폼 영상과 광고 콘텐츠를 직접 편집할 수 있습니다. 컷 구성, 자막, 음악, 전환 효과를 활용하여 기획한 콘텐츠를 영상 결과물로 제작합니다.",
-        },
-      ],
-    },
+    "브랜드 분석",
+    "브랜드 리서치",
+    "이미지 콘텐츠",
+    "숏폼 콘텐츠",
+    "스토리텔링",
+    "카피라이팅",
   ],
-  projectsIntro:
-    "내일배움캠프를 수료하며 브랜드 분석, 광고 기획, 이미지 콘텐츠와 숏폼 제작 프로젝트를 진행했습니다. 시장과 타깃을 조사한 뒤 콘텐츠 콘셉트를 기획하고, 이미지·영상·카피를 직접 결과물로 제작했습니다.",
   projects: [
     {
+      slug: "team-sparta",
+      shortTitle: "팀스파르타",
       title: "3개 세그먼트별 메시지를 설계한 팀스파르타 신규 유입 캠페인",
       meta: "팀 프로젝트 | 담당: 브랜드 분석 · 타깃 설정 · 캠페인 전략 및 소재 기획",
       tools: "Notion · Figma",
@@ -88,8 +47,21 @@ export const portfolio: Portfolio = {
       ],
       result:
         "대학생·직무 전환 직장인·1인 창업자별로 메시지와 KPI를 나눈 신규 유입 캠페인 기획안을 완성했습니다. 다만 세그먼트 설정의 일부 근거가 추정에 머물렀고, 페르소나의 취미와 생활 맥락도 실제 매체·카피 선택에 충분히 사용하지 못했습니다. 이후에는 세그먼트별 주장에 정량 데이터를 붙이고, 페르소나 항목마다 어떤 메시지와 매체 결정에 활용됐는지 함께 정리하고 있습니다.",
+      cover: {
+        src: "/project/sparta/cover.png",
+        alt: "팀스파르타 신규 유입 마케팅 기획안 표지",
+        fit: "contain",
+      },
+      links: [
+        {
+          label: "캠페인 PPT",
+          href: "/project/sparta/7번조의 선물.pdf",
+        },
+      ],
     },
     {
+      slug: "meta-comedy",
+      shortTitle: "메타코미디클럽",
       title: "온라인 관심을 공연 예매로 연결한 인스타그램 7장 카드뉴스",
       meta: "팀 프로젝트 | 담당: 브랜드 분석 · 콘텐츠 구조 설계 · 카피 · 디자인",
       tools: "Figma · 생성형 AI",
@@ -104,6 +76,41 @@ export const portfolio: Portfolio = {
       ],
       result:
         "표지부터 브랜드 소개, 공연 유형, 첫 방문 안내까지 이어지는 7장 카드뉴스 1종을 제작했습니다. 실제 코미디언 이미지와 그린 포인트 컬러를 활용해 현장감과 시각적 통일성을 높였지만, 마지막 장의 예매 안내가 약해 사용자의 행동을 끝까지 연결하지 못했습니다. 이후에는 CTA를 먼저 정한 뒤 앞선 카드의 정보가 해당 행동으로 자연스럽게 이어지는지 점검하고 있습니다.",
+      cover: {
+        src: "/project/metacomedy/Slide 1.png",
+        alt: "야, 도파민, 안부족해? 메타코미디클럽 카드뉴스 표지",
+      },
+      galleryFormat: "carousel",
+      gallery: [
+        {
+          src: "/project/metacomedy/Slide 2.png",
+          alt: "뭐하는 곳인지 앎? 라이브 코미디 공연장 소개",
+        },
+        {
+          src: "/project/metacomedy/Slide 3.png",
+          alt: "메코클 유튜브 톤을 소개하는 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 4.png",
+          alt: "부족한 도파민은 실제로 봐야지, 현장 경험 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 5.png",
+          alt: "스탠드업부터 캐릭터 코미디까지 공연 유형 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 6.png",
+          alt: "첫 방문도 괜찮은 메코클 입문 안내 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 7.png",
+          alt: "공연 일정 확인하고 예매하라는 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 8.png",
+          alt: "META COMEDY CLUB 로고 카드",
+        },
+      ],
       links: [
         {
           label: "인스타그램 게시물 보기",
@@ -112,6 +119,8 @@ export const portfolio: Portfolio = {
       ],
     },
     {
+      slug: "bareway",
+      shortTitle: "배리웨이",
       title: "제품의 맛을 데일리 스타일링으로 재해석한 재구매 콘텐츠 캠페인",
       meta: "팀 프로젝트 | 담당: 콘텐츠 전략 · 캐러셀/릴스 기획 · 디자인",
       tools: "Figma · CapCut · 생성형 AI",
@@ -127,30 +136,46 @@ export const portfolio: Portfolio = {
       ],
       result:
         "제품과 패션을 연결한 인스타그램 캐러셀과 릴스 소재를 제작하고, 온드미디어와 유료 매체를 연계한 재구매 캠페인 운영안을 완성했습니다. 제품 특징을 직접 나열하기보다 타깃의 관심사 안에서 제품을 새롭게 해석할 때 브랜드만의 콘텐츠 차별점이 만들어진다는 점을 도출했습니다.",
+      video: "/project/variway/main.mov",
+      videoFormat: "reels",
+      links: [
+        {
+          label: "캠페인 PPT",
+          href: "/project/variway/ppt.pdf",
+        },
+      ],
+    },
+    {
+      slug: "musinsa",
+      shortTitle: "무신사",
+      title: "계절감과 스트리트 무드를 담은 무신사 룩북 콘텐츠",
+      meta: "개인 프로젝트 | 담당: 콘텐츠 기획 · 촬영 연출 · 영상/이미지 제작",
+      tools: "CapCut · 생성형 AI",
+      period: "2026.08",
+      situation:
+        "무신사 스타일 콘텐츠는 상품을 나열하기보다 옷이 입힌 장면과 분위기로 설득해야 했습니다. 비 오는 거리와 맑은 낮을 오가며, 자전거·콘 같은 도시 소품을 반복 등장시켜 하나의 룩북 영상으로 읽히게 하는 것이 목표였습니다.",
+      actions: [
+        "같은 로케이션에서 날씨와 의상을 바꿔 시즌 무드가 이어지도록 컷을 설계",
+        "오렌지 자전거와 콘을 포인트 컬러로 고정해 컷 사이 시각적 연결고리 만들기",
+        "전신 스트리트 컷과 우산·레인부츠 연출로 아이템이 장면 안에서 쓰이도록 촬영",
+        "촬영분을 룩북 무드의 메인 영상으로 편집해 스크롤 첫 화면으로 배치",
+      ],
+      result:
+        "맑은 날과 우천 연출을 한 흐름으로 묶은 룩북 영상을 완성했습니다. 상품 컷보다 착용 장면이 먼저 보이도록 구성했지만, 개별 아이템의 구매 정보와 CTA는 아직 약합니다. 이후에는 장면마다 어떤 카테고리로 이어지는지 한 줄로 붙이려 합니다.",
+      video: "/project/musinsa/main.mov",
+      videoFormat: "reels",
     },
   ],
-  projectPattern:
-    "프로젝트를 진행하며 분석 자료가 많아질수록 모든 내용을 보여주는 것보다, 콘텐츠의 목적에 맞는 핵심 정보만 선별하는 것이 중요하다는 점을 알게 되었습니다. 또한 타깃의 특징을 작성하는 데 그치지 않고, 해당 특징이 콘텐츠의 메시지와 이미지, CTA로 이어지도록 연결해야 한다는 피드백을 받았습니다. 이후에는 콘텐츠를 본 사용자가 무엇을 느끼고 어떤 행동을 해야 하는지 먼저 정한 뒤 결과물을 제작하고 있습니다.",
-  closing:
-    "브랜드와 타깃을 분석하고, 아이디어를 이미지와 영상 콘텐츠로 직접 구현하는 콘텐츠 마케터입니다. 개발과 디자인 경험을 바탕으로 기획의 의도를 실제 결과물까지 연결할 수 있습니다.",
   histories: [
     {
       company: "Sionic AI",
       role: "FrontEnd Developer, Designer",
       period: "2024.10.02 – 2025.02.07",
-      summary: [
-        "AI 리서치 팀이 존재하는 기업인 만큼, AI 연구의 산출물들을 직접 디자인·개발하며 데모를 제작하는 일을 맡아 진행했습니다.",
-        "데모 페이지 신규 개발뿐만 아니라, 소개 페이지나 메인 프로덕트의 기능 개선 및 유지보수에도 참여하여 실제 운영 서비스 개선 경험을 쌓았습니다.",
-      ],
     },
     {
       company: "웅진씽크빅",
       role: "FrontEnd Developer",
       period: "2025.03.12 – 2025.11.30",
-      summary: [
-        "장기간 운영 중인 다양한 학습 콘텐츠의 HTML 마이그레이션을 전담했습니다. Proto·검증·운영 환경별 테스트를 수행하며 배포까지의 전 과정을 경험했습니다.",
-        "외주업체와의 커뮤니케이션 및 일정 관리를 주도하며 콘텐츠 단위 프로젝트를 관리했으며, VOC 기반 고객 문의를 통해 운영 중 발생한 오류를 분석하고 수정 → 재배포까지 직접 대응했습니다.",
-      ],
     },
   ],
   education: [

@@ -1,19 +1,17 @@
-export type SkillItem = {
-  title: string;
-  body: string;
-};
-
-export type SkillGroup = {
-  title: string;
-  items: SkillItem[];
-};
-
 export type ProjectLink = {
   label: string;
   href: string;
 };
 
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  fit?: "contain";
+};
+
 export type Project = {
+  slug: string;
+  shortTitle: string;
   title: string;
   meta: string;
   tools: string;
@@ -22,13 +20,17 @@ export type Project = {
   actions: string[];
   result: string;
   links?: ProjectLink[];
+  cover?: ProjectImage;
+  video?: string;
+  videoFormat?: "reels";
+  gallery?: ProjectImage[];
+  galleryFormat?: "carousel";
 };
 
 export type HistoryItem = {
   company: string;
   role: string;
   period: string;
-  summary: string[];
 };
 
 export type EducationItem = {
@@ -41,10 +43,19 @@ export type CertificateItem = {
   date: string;
 };
 
+export type StackItem = {
+  id: string;
+  label: string;
+  icon: string;
+  themed: boolean;
+  note: string;
+};
+
 export type PortfolioIntro = {
   headline: string;
-  lines: string[];
+  process: readonly string[];
   closing: string;
+  pairs: readonly (readonly [string, string])[];
 };
 
 export type PortfolioContact = {
@@ -58,18 +69,11 @@ export type PortfolioContact = {
 export type Portfolio = {
   intro: PortfolioIntro;
   contact: PortfolioContact;
-  skills: SkillGroup[];
-  projectsIntro: string;
+  skills: string[];
+  stack: readonly StackItem[];
+  featuredSlug: string;
   projects: Project[];
-  projectPattern: string;
-  closing: string;
   histories: HistoryItem[];
   education: EducationItem[];
   certificates: CertificateItem[];
-};
-
-export type NavItem = {
-  href: `#${string}`;
-  label: string;
-  sectionId: string;
 };

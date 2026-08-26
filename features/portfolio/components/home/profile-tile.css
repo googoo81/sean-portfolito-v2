@@ -1,0 +1,56 @@
+.profile-tile {
+  position: relative;
+  height: 100%;
+  min-height: 12rem;
+  flex: 1;
+}
+
+.profile-tile__photo {
+  object-fit: cover;
+  transform: scale(1);
+  filter: brightness(1);
+  transition:
+    opacity 240ms ease,
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 560ms ease;
+}
+
+.profile-tile__photo--dark {
+  object-position: right;
+  transform-origin: right center;
+  opacity: 1;
+}
+
+.profile-tile__photo--light {
+  object-position: left;
+  transform-origin: left center;
+  opacity: 0;
+}
+
+html[data-theme="light"] .profile-tile__photo--dark {
+  opacity: 0;
+}
+
+html[data-theme="light"] .profile-tile__photo--light {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .bento-profile:hover .profile-tile__photo {
+    transform: scale(1.06);
+    filter: brightness(1.06);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .bento-profile:hover .profile-tile__photo {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+html[data-reduced-motion="true"] .bento-profile:hover .profile-tile__photo,
+html[data-lite-motion="true"] .bento-profile:hover .profile-tile__photo {
+  transform: scale(1);
+  filter: brightness(1);
+}
