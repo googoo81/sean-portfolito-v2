@@ -48,6 +48,15 @@
   display: flex;
 }
 
+.bento-social {
+  overflow: visible;
+}
+
+.bento-social:hover,
+.bento-social:focus-within {
+  z-index: 4;
+}
+
 .bento-projects {
   cursor: pointer;
   transform-origin: center;

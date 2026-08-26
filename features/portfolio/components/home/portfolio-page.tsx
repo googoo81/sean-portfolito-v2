@@ -45,7 +45,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             ))}
             <span>
               {portfolio.contact.name}
-              <span className="intro-title__rest">입니다.</span>
+              <span className="intro-title__rest"> 입니다.</span>
             </span>
           </h1>
         </BentoCard>
@@ -91,7 +91,10 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
         </BentoCard>
 
         <div className="bento-mid">
-          <ProjectsGridCell className="bento-projects" />
+          <ProjectsGridCell
+            className="bento-projects"
+            projects={portfolio.projects}
+          />
 
           <BentoCard className="bento-history justify-between overflow-y-auto p-6 sm:p-7">
             <p className="text-xs font-medium tracking-[0.18em] text-muted uppercase">

@@ -108,23 +108,6 @@ export const portfolio: Portfolio = {
       result:
         "추후 실제 프로젝트 내용으로 교체 예정입니다. 현재는 2×2 Projects 그리드 채움용 placeholder입니다.",
     },
-    {
-      slug: "sample-shortform",
-      shortTitle: "샘플 숏폼",
-      title: "[임시] 브랜드 숏폼 콘텐츠 시리즈 기획",
-      meta: "개인 프로젝트 | 담당: 스토리보드 · 편집 · 카피 (placeholder)",
-      tools: "CapCut · Figma",
-      period: "2026.08",
-      situation:
-        "Projects 칸 빈 슬롯을 채우기 위한 임시 항목입니다. 숏폼 시리즈 기획 및 제작 사례가 들어갈 예정입니다.",
-      actions: [
-        "3~5편 분량의 숏폼 콘셉트 및 훅 아이디어 도출 (placeholder)",
-        "장면별 스토리보드와 자막 카피 작성 (placeholder)",
-        "CapCut으로 1편 시안 편집 (placeholder)",
-      ],
-      result:
-        "실제 작업물과 성과 지표로 업데이트할 placeholder 프로젝트입니다. 상세 페이지 구조 확인용으로 사용 중입니다.",
-    },
   ],
   histories: [
     {

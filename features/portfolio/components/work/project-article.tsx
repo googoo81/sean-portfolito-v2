@@ -39,7 +39,9 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
       ) : null}
 
       <div>
-        <h2 className="text-sm font-medium text-foreground">Situation & Task</h2>
+        <h2 className="text-sm font-medium text-foreground">
+          Situation & Task
+        </h2>
         <Prose className="mt-2">{project.situation}</Prose>
       </div>
 
@@ -53,8 +55,12 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
       </div>
 
       <div>
-        <h2 className="text-sm font-medium text-foreground">Result & Next Action</h2>
-        <Prose className="mt-2 border-l-2 border-line pl-4">{project.result}</Prose>
+        <h2 className="text-sm font-medium text-foreground">
+          Result & Next Action
+        </h2>
+        <Prose className="mt-2 border-l-2 border-line pl-4">
+          {project.result}
+        </Prose>
       </div>
     </div>
   );

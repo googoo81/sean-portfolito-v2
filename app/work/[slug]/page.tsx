@@ -1,9 +1,10 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ThemeToggle } from "@/components/ui";
 import { getPortfolio, getProjectBySlug } from "@/features/portfolio";
-import { ProjectVisual } from "@/features/portfolio/components/shared/project-visual";
-import { ProjectArticle } from "@/features/portfolio/components/work/project-article";
+import { ProjectDetailView } from "@/features/portfolio/components/work/project-detail-view";
+import {
+  TrafficLights,
+  WorkHistoryNav,
+} from "@/features/portfolio/components/work/projects-chrome";
 
 export function generateStaticParams() {
   return getPortfolio().projects.map((project) => ({ slug: project.slug }));
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">) {
 
 export default async function WorkPage({ params }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
+  const { projects } = getPortfolio();
   const project = getProjectBySlug(slug);
 
   if (!project) {
@@ -32,22 +34,17 @@ export default async function WorkPage({ params }: PageProps<"/work/[slug]">) {
   }
 
   return (
-    <>
-      <ThemeToggle className="fixed top-5 right-5 z-50" />
-      <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-10 sm:px-8 sm:py-14">
-        <Link
-          href="/"
-          className="glass-chip inline-flex rounded-full px-3 py-1.5 text-sm text-muted transition-colors hover:text-foreground"
-        >
-          ← Home
-        </Link>
-        <div className="glass relative mt-8 h-64 overflow-hidden rounded-4xl sm:h-80">
-          <ProjectVisual className="min-h-full bg-transparent" />
-        </div>
-        <div className="glass relative mt-10 overflow-hidden rounded-4xl p-6 sm:p-8">
-          <ProjectArticle project={project} />
-        </div>
-      </main>
-    </>
+    <main className="flex min-h-dvh flex-col bg-surface">
+      <header className="projects-overlay__titlebar projects-overlay__titlebar--with-index">
+        <TrafficLights closeHref="/" />
+        <WorkHistoryNav />
+        <p className="projects-overlay__title">
+          {project.shortTitle}
+        </p>
+      </header>
+      <div className="min-h-0 flex-1 overflow-hidden">
+        <ProjectDetailView project={project} projects={projects} />
+      </div>
+    </main>
   );
 }

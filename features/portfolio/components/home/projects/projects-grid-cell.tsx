@@ -1,8 +1,23 @@
-import Link from "next/link";
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BentoCard } from "@/components/ui";
+import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
+import {
+  ProjectsOverlay,
+  type ProjectsOrigin,
+} from "./projects-overlay";
+import {
+  clearProjectsHash,
+  isProjectsHash,
+  writeProjectsListHash,
+} from "./projects-hash";
+import type { Project } from "@/features/portfolio/types";
 
 type ProjectsGridCellProps = {
   className?: string;
+  projects: readonly Project[];
 };
 
 function GoArrow() {
@@ -22,27 +37,118 @@ function GoArrow() {
   );
 }
 
-export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
+function readProjectsOrigin(node: HTMLElement | null): ProjectsOrigin | null {
+  const bounds = node?.getBoundingClientRect();
+  if (!bounds) {
+    return null;
+  }
+
+  return {
+    x: bounds.left,
+    y: bounds.top,
+    width: bounds.width,
+    height: bounds.height,
+  };
+}
+
+export function ProjectsGridCell({ className, projects }: ProjectsGridCellProps) {
+  const cardRef = useRef<HTMLButtonElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+  const [open, setOpen] = useState(false);
+  const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
+  const [skipEnter, setSkipEnter] = useState(false);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (!isProjectsHash()) {
+        return;
+      }
+
+      const nextOrigin = readProjectsOrigin(cardRef.current) ?? {
+        x: window.innerWidth / 2 - 80,
+        y: window.innerHeight / 2 - 80,
+        width: 160,
+        height: 160,
+      };
+
+      setOrigin(nextOrigin);
+      setSkipEnter(true);
+      setOpen(true);
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    const onPopState = () => {
+      if (isProjectsHash()) {
+        return;
+      }
+
+      setOpen(false);
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  const handleOpen = useDebouncedCallback(() => {
+    const nextOrigin = readProjectsOrigin(cardRef.current);
+    if (!nextOrigin) {
+      return;
+    }
+
+    setSkipEnter(false);
+    setOrigin(nextOrigin);
+    setOpen(true);
+    writeProjectsListHash();
+  });
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    clearProjectsHash();
+  }, []);
+
+  const handleExited = useCallback(() => {
+    setOrigin(null);
+  }, []);
+
   return (
-    <BentoCard className={className}>
-      <Link
-        href="/work"
-        aria-label="모든 프로젝트"
-        className="flex h-full min-h-[12rem] cursor-pointer flex-col items-center justify-center gap-4 p-5"
-      >
-        <p className="text-sm font-medium tracking-[0.18em] text-foreground uppercase">
-          💻 Projects.
-        </p>
-        <span
-          className="bento-projects__go flex size-10 items-center justify-center rounded-full border border-line bg-soft text-foreground"
-          aria-hidden
+    <>
+      <BentoCard className={className}>
+        <button
+          ref={cardRef}
+          type="button"
+          aria-label="모든 프로젝트"
+          aria-expanded={open}
+          className="flex h-full min-h-48 w-full cursor-pointer flex-col items-center justify-center gap-4 p-5"
+          onClick={handleOpen}
         >
-          <span className="bento-projects__go-icons">
-            <GoArrow />
-            <GoArrow />
+          <p className="text-sm font-medium tracking-[0.18em] text-foreground uppercase">
+            💻 Projects.
+          </p>
+          <span
+            className="bento-projects__go flex size-10 items-center justify-center rounded-full border border-line bg-soft text-foreground"
+            aria-hidden
+          >
+            <span className="bento-projects__go-icons">
+              <GoArrow />
+              <GoArrow />
+            </span>
           </span>
-        </span>
-      </Link>
-    </BentoCard>
+        </button>
+      </BentoCard>
+
+      {origin ? (
+        <ProjectsOverlay
+          open={open}
+          origin={origin}
+          projects={projects}
+          reducedMotion={reducedMotion || skipEnter}
+          onClose={handleClose}
+          onExited={handleExited}
+        />
+      ) : null}
+    </>
   );
 }
