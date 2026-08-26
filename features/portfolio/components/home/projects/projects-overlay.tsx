@@ -51,15 +51,6 @@ const WINDOW_ZOOM = {
 const CARD_RADIUS = 32;
 const WINDOW_RADIUS = 20;
 
-function projectFromHash(projects: readonly Project[]) {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const slug = parseProjectsSlug();
-  return projects.find((project) => project.slug === slug) ?? null;
-}
-
 export function ProjectsOverlay({
   open,
   origin,
@@ -78,15 +69,18 @@ export function ProjectsOverlay({
     startResize,
     toggleMaximize,
   } = useProjectsWindow(open);
-  const [selected, setSelected] = useState<Project | null>(() =>
-    projectFromHash(projects),
+  const [selectedSlug, setSelectedSlug] = useState<string | undefined>(() =>
+    parseProjectsSlug(),
   );
   const [wasOpen, setWasOpen] = useState(open);
+  const selected = selectedSlug
+    ? (projects.find((project) => project.slug === selectedSlug) ?? null)
+    : null;
 
   if (open !== wasOpen) {
     setWasOpen(open);
     if (open) {
-      setSelected(projectFromHash(projects));
+      setSelectedSlug(parseProjectsSlug());
     }
   }
 
@@ -125,7 +119,7 @@ export function ProjectsOverlay({
       }
 
       restoreProjectsSession();
-      setSelected(projectFromHash(projects));
+      setSelectedSlug(parseProjectsSlug());
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -154,12 +148,12 @@ export function ProjectsOverlay({
   };
 
   const handleSelect = useDebouncedCallback((project: Project) => {
-    setSelected(project);
+    setSelectedSlug(project.slug);
     writeProjectsDetailHash(project.slug);
   });
 
   const handleBackToList = () => {
-    setSelected(null);
+    setSelectedSlug(undefined);
     writeProjectsListHash();
   };
 

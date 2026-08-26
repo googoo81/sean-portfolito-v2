@@ -115,50 +115,36 @@
 }
 
 @media (hover: hover) {
-  .bento-projects:hover .bento-projects__go,
-  .bento-featured:hover .bento-projects__go,
-  .bento-featured:focus-within .bento-projects__go {
+  .bento-projects:hover .bento-projects__go {
     scale: 1.16;
     background: var(--foreground);
     border-color: var(--foreground);
     color: var(--background);
   }
 
-  .bento-projects:hover .bento-projects__go-icons svg:first-child,
-  .bento-featured:hover .bento-projects__go-icons svg:first-child,
-  .bento-featured:focus-within .bento-projects__go-icons svg:first-child {
+  .bento-projects:hover .bento-projects__go-icons svg:first-child {
     transform: translate(1.65rem, -1.65rem);
   }
 
-  .bento-projects:hover .bento-projects__go-icons svg:last-child,
-  .bento-featured:hover .bento-projects__go-icons svg:last-child,
-  .bento-featured:focus-within .bento-projects__go-icons svg:last-child {
+  .bento-projects:hover .bento-projects__go-icons svg:last-child {
     transform: translate(0, 0);
   }
 }
 
 @media (hover: hover) and (prefers-reduced-motion: reduce) {
-  .bento-projects:hover .bento-projects__go,
-  .bento-featured:hover .bento-projects__go,
-  .bento-featured:focus-within .bento-projects__go {
+  .bento-projects:hover .bento-projects__go {
     scale: 1;
   }
 
   .bento-projects__go-icons svg:last-child,
   .bento-projects:hover .bento-projects__go-icons svg:first-child,
-  .bento-projects:hover .bento-projects__go-icons svg:last-child,
-  .bento-featured:hover .bento-projects__go-icons svg:first-child,
-  .bento-featured:hover .bento-projects__go-icons svg:last-child,
-  .bento-featured:focus-within .bento-projects__go-icons svg:first-child,
-  .bento-featured:focus-within .bento-projects__go-icons svg:last-child {
+  .bento-projects:hover .bento-projects__go-icons svg:last-child {
     transform: none;
   }
 }
 
 html[data-reduced-motion="true"] .bento-projects:hover .bento-projects__go,
-html[data-lite-motion="true"] .bento-projects:hover .bento-projects__go,
-html[data-reduced-motion="true"] .bento-featured:hover .bento-projects__go,
-html[data-lite-motion="true"] .bento-featured:hover .bento-projects__go {
+html[data-lite-motion="true"] .bento-projects:hover .bento-projects__go {
   scale: 1;
 }
 
@@ -167,17 +153,9 @@ html[data-reduced-motion="true"]
   .bento-projects:hover
   .bento-projects__go-icons
   svg,
-html[data-reduced-motion="true"]
-  .bento-featured:hover
-  .bento-projects__go-icons
-  svg,
 html[data-lite-motion="true"] .bento-projects__go-icons svg:last-child,
 html[data-lite-motion="true"]
   .bento-projects:hover
-  .bento-projects__go-icons
-  svg,
-html[data-lite-motion="true"]
-  .bento-featured:hover
   .bento-projects__go-icons
   svg {
   transform: none;
@@ -188,85 +166,34 @@ html[data-lite-motion="true"] .bento-projects:hover {
 }
 
 .bento-featured {
-  --tilt-x: 0deg;
-  --tilt-y: 0deg;
-  --shift-x: 0px;
-  --shift-y: 0px;
   cursor: pointer;
   transform-origin: center;
-  transform: perspective(920px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
   transition:
     background-color 240ms ease,
     border-color 240ms ease,
-    box-shadow 280ms ease,
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow 240ms ease,
+    transform 280ms cubic-bezier(0.22, 1.2, 0.36, 1),
+    scale 280ms cubic-bezier(0.22, 1.2, 0.36, 1);
 }
 
 .bento-featured:hover,
 .bento-featured:focus-within {
   z-index: 3;
   background: var(--soft-hover);
-  box-shadow:
-    0 1px 0 var(--glass-highlight) inset,
-    0 20px 48px color-mix(in srgb, var(--foreground) 18%, transparent);
-  transform: perspective(920px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y))
-    translateY(-8px) scale(1.04);
-  transition:
-    background-color 240ms ease,
-    border-color 240ms ease,
-    box-shadow 280ms ease,
-    transform 80ms linear;
+  scale: 1.045;
 }
 
 .bento-featured:active {
-  transform: perspective(920px) rotateX(0deg) rotateY(0deg) scale(0.985);
+  scale: 0.97;
 }
 
-.bento-featured .project-visual {
-  transform: scale(1) translate3d(var(--shift-x), var(--shift-y), 0);
-  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.bento-featured:hover .project-visual,
-.bento-featured:focus-within .project-visual {
-  transform: scale(1.16) translate3d(var(--shift-x), var(--shift-y), 0);
-  transition: transform 80ms linear;
-}
-
-.bento-featured .project-tile__title {
-  position: relative;
-  z-index: 1;
-  padding-right: 3.75rem;
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.bento-featured:hover .project-tile__title,
-.bento-featured:focus-within .project-tile__title {
-  transform: translateY(-6px);
-}
-
-html[data-reduced-motion="true"] .bento-featured,
-html[data-lite-motion="true"] .bento-featured,
 html[data-reduced-motion="true"] .bento-featured:hover,
-html[data-lite-motion="true"] .bento-featured:hover,
 html[data-reduced-motion="true"] .bento-featured:focus-within,
-html[data-lite-motion="true"] .bento-featured:focus-within,
 html[data-reduced-motion="true"] .bento-featured:active,
+html[data-lite-motion="true"] .bento-featured:hover,
+html[data-lite-motion="true"] .bento-featured:focus-within,
 html[data-lite-motion="true"] .bento-featured:active {
-  transform: none;
-  box-shadow: 0 1px 0 var(--glass-highlight) inset;
-}
-
-html[data-reduced-motion="true"] .bento-featured .project-visual,
-html[data-lite-motion="true"] .bento-featured .project-visual,
-html[data-reduced-motion="true"] .bento-featured:hover .project-visual,
-html[data-lite-motion="true"] .bento-featured:hover .project-visual {
-  transform: none;
-}
-
-html[data-reduced-motion="true"] .bento-featured .project-tile__title,
-html[data-lite-motion="true"] .bento-featured .project-tile__title {
-  transform: none;
+  scale: 1;
 }
 
 .bento-page {

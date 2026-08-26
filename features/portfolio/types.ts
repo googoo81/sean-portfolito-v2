@@ -3,6 +3,12 @@ export type ProjectLink = {
   href: string;
 };
 
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  fit?: "contain";
+};
+
 export type Project = {
   slug: string;
   shortTitle: string;
@@ -14,6 +20,11 @@ export type Project = {
   actions: string[];
   result: string;
   links?: ProjectLink[];
+  cover?: ProjectImage;
+  video?: string;
+  videoFormat?: "reels";
+  gallery?: ProjectImage[];
+  galleryFormat?: "carousel";
 };
 
 export type HistoryItem = {

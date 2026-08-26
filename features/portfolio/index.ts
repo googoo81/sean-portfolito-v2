@@ -6,6 +6,7 @@ export type {
   PortfolioContact,
   PortfolioIntro,
   Project,
+  ProjectImage,
   ProjectLink,
   StackItem,
 } from "@/features/portfolio/types";

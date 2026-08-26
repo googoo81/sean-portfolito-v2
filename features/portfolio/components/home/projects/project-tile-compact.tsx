@@ -16,7 +16,7 @@ export function ProjectTileCompact({
   const content = (
     <>
       <div className="project-tile-compact__body">
-        <ProjectVisual />
+        <ProjectVisual project={project} />
       </div>
       <p className="project-tile-compact__title">{project.shortTitle}</p>
     </>

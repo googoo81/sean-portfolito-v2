@@ -1,3 +1,4 @@
+import { InstagramCarousel } from "@/features/portfolio/components/shared/instagram-carousel";
 import { ProjectArticle } from "@/features/portfolio/components/work/project-article";
 import { ProjectVisual } from "@/features/portfolio/components/shared/project-visual";
 import { ProjectsSplitShell } from "./projects-split-shell";
@@ -11,10 +12,25 @@ type ProjectDetailViewProps = {
 };
 
 export function ProjectDetailBody({ project }: { project: Project }) {
+  const carousel =
+    project.galleryFormat === "carousel"
+      ? [project.cover, ...(project.gallery ?? [])].filter(
+          (image): image is NonNullable<typeof image> => Boolean(image),
+        )
+      : [];
+
   return (
     <div className="projects-overlay__detail projects-overlay__article">
       <div className="glass-chip projects-overlay__chip">
-        <ProjectVisual className="projects-overlay__hero" />
+        {carousel.length > 0 ? (
+          <InstagramCarousel images={carousel} />
+        ) : (
+          <ProjectVisual
+            project={project}
+            preferVideo
+            className="projects-overlay__hero"
+          />
+        )}
       </div>
       <div className="glass-chip projects-overlay__chip projects-overlay__article-body">
         <ProjectArticle project={project} />

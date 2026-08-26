@@ -1,11 +1,28 @@
 import { ExternalLink, Prose } from "@/components/ui";
-import type { Project } from "@/features/portfolio/types";
+import type { Project, ProjectImage } from "@/features/portfolio/types";
 
 type ProjectArticleProps = {
   project: Project;
 };
 
+function stillsOf(project: Project): ProjectImage[] {
+  if (project.galleryFormat === "carousel") {
+    return [];
+  }
+
+  return project.gallery ?? [];
+}
+
+function pdfLinksOf(project: Project) {
+  return (
+    project.links?.filter((link) => /\.pdf(?:$|\?)/i.test(link.href)) ?? []
+  );
+}
+
 export function ProjectArticle({ project }: ProjectArticleProps) {
+  const stills = stillsOf(project);
+  const pdfs = pdfLinksOf(project);
+
   return (
     <div className="article">
       <header>
@@ -24,12 +41,39 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           <ul className="article__links">
             {project.links.map((link) => (
               <li key={link.href}>
-                <ExternalLink href={link.href} className="article__link">
+                <ExternalLink href={encodeURI(link.href)} className="article__link">
                   {link.label}
                 </ExternalLink>
               </li>
             ))}
           </ul>
+        </div>
+      ) : null}
+
+      {stills.length > 0 ? (
+        <div>
+          <h2 className="article__heading">Work</h2>
+          <div className="article__gallery">
+            {stills.map((image) => (
+              <figure key={image.src} className="article__shot">
+                <img src={image.src} alt={image.alt} />
+              </figure>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {pdfs.length > 0 ? (
+        <div>
+          <h2 className="article__heading">Deck</h2>
+          {pdfs.map((pdf) => (
+            <iframe
+              key={pdf.href}
+              src={encodeURI(pdf.href)}
+              title={pdf.label}
+              className="article__pdf"
+            />
+          ))}
         </div>
       ) : null}
 

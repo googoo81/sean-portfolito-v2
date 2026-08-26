@@ -20,7 +20,7 @@ export const portfolio: Portfolio = {
     medium: "https://medium.com/@beautiful-tuna",
   },
   stack: STACK_ITEMS,
-  featuredSlug: "sample-brand-launch",
+  featuredSlug: "bareway",
   skills: [
     "브랜드 분석",
     "브랜드 리서치",
@@ -47,6 +47,17 @@ export const portfolio: Portfolio = {
       ],
       result:
         "대학생·직무 전환 직장인·1인 창업자별로 메시지와 KPI를 나눈 신규 유입 캠페인 기획안을 완성했습니다. 다만 세그먼트 설정의 일부 근거가 추정에 머물렀고, 페르소나의 취미와 생활 맥락도 실제 매체·카피 선택에 충분히 사용하지 못했습니다. 이후에는 세그먼트별 주장에 정량 데이터를 붙이고, 페르소나 항목마다 어떤 메시지와 매체 결정에 활용됐는지 함께 정리하고 있습니다.",
+      cover: {
+        src: "/project/sparta/cover.png",
+        alt: "팀스파르타 신규 유입 마케팅 기획안 표지",
+        fit: "contain",
+      },
+      links: [
+        {
+          label: "캠페인 PPT",
+          href: "/project/sparta/7번조의 선물.pdf",
+        },
+      ],
     },
     {
       slug: "meta-comedy",
@@ -65,6 +76,41 @@ export const portfolio: Portfolio = {
       ],
       result:
         "표지부터 브랜드 소개, 공연 유형, 첫 방문 안내까지 이어지는 7장 카드뉴스 1종을 제작했습니다. 실제 코미디언 이미지와 그린 포인트 컬러를 활용해 현장감과 시각적 통일성을 높였지만, 마지막 장의 예매 안내가 약해 사용자의 행동을 끝까지 연결하지 못했습니다. 이후에는 CTA를 먼저 정한 뒤 앞선 카드의 정보가 해당 행동으로 자연스럽게 이어지는지 점검하고 있습니다.",
+      cover: {
+        src: "/project/metacomedy/Slide 1.png",
+        alt: "야, 도파민, 안부족해? 메타코미디클럽 카드뉴스 표지",
+      },
+      galleryFormat: "carousel",
+      gallery: [
+        {
+          src: "/project/metacomedy/Slide 2.png",
+          alt: "뭐하는 곳인지 앎? 라이브 코미디 공연장 소개",
+        },
+        {
+          src: "/project/metacomedy/Slide 3.png",
+          alt: "메코클 유튜브 톤을 소개하는 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 4.png",
+          alt: "부족한 도파민은 실제로 봐야지, 현장 경험 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 5.png",
+          alt: "스탠드업부터 캐릭터 코미디까지 공연 유형 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 6.png",
+          alt: "첫 방문도 괜찮은 메코클 입문 안내 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 7.png",
+          alt: "공연 일정 확인하고 예매하라는 카드",
+        },
+        {
+          src: "/project/metacomedy/Slide 8.png",
+          alt: "META COMEDY CLUB 로고 카드",
+        },
+      ],
       links: [
         {
           label: "인스타그램 게시물 보기",
@@ -90,23 +136,34 @@ export const portfolio: Portfolio = {
       ],
       result:
         "제품과 패션을 연결한 인스타그램 캐러셀과 릴스 소재를 제작하고, 온드미디어와 유료 매체를 연계한 재구매 캠페인 운영안을 완성했습니다. 제품 특징을 직접 나열하기보다 타깃의 관심사 안에서 제품을 새롭게 해석할 때 브랜드만의 콘텐츠 차별점이 만들어진다는 점을 도출했습니다.",
+      video: "/project/variway/main.mov",
+      videoFormat: "reels",
+      links: [
+        {
+          label: "캠페인 PPT",
+          href: "/project/variway/ppt.pdf",
+        },
+      ],
     },
     {
-      slug: "sample-brand-launch",
-      shortTitle: "샘플 브랜드 런칭",
-      title: "[임시] 신규 브랜드 런칭 인지 캠페인 기획",
-      meta: "개인 프로젝트 | 담당: 콘텐츠 기획 · 카피 · 디자인 (placeholder)",
-      tools: "Figma · Notion",
+      slug: "musinsa",
+      shortTitle: "무신사",
+      title: "계절감과 스트리트 무드를 담은 무신사 룩북 콘텐츠",
+      meta: "개인 프로젝트 | 담당: 콘텐츠 기획 · 촬영 연출 · 영상/이미지 제작",
+      tools: "CapCut · 생성형 AI",
       period: "2026.08",
       situation:
-        "그리드 레이아웃 확인을 위한 임시 프로젝트입니다. 실제 브랜드 런칭 캠페인 기획안이 들어갈 자리입니다.",
+        "무신사 스타일 콘텐츠는 상품을 나열하기보다 옷이 입힌 장면과 분위기로 설득해야 했습니다. 비 오는 거리와 맑은 낮을 오가며, 자전거·콘 같은 도시 소품을 반복 등장시켜 하나의 룩북 영상으로 읽히게 하는 것이 목표였습니다.",
       actions: [
-        "타깃과 채널에 맞는 메시지 방향 정리 (placeholder)",
-        "SNS용 키 비주얼 및 카피 초안 작성 (placeholder)",
-        "콘텐츠 일정 및 채널별 역할 구분 (placeholder)",
+        "같은 로케이션에서 날씨와 의상을 바꿔 시즌 무드가 이어지도록 컷을 설계",
+        "오렌지 자전거와 콘을 포인트 컬러로 고정해 컷 사이 시각적 연결고리 만들기",
+        "전신 스트리트 컷과 우산·레인부츠 연출로 아이템이 장면 안에서 쓰이도록 촬영",
+        "촬영분을 룩북 무드의 메인 영상으로 편집해 스크롤 첫 화면으로 배치",
       ],
       result:
-        "추후 실제 프로젝트 내용으로 교체 예정입니다. 현재는 2×2 Projects 그리드 채움용 placeholder입니다.",
+        "맑은 날과 우천 연출을 한 흐름으로 묶은 룩북 영상을 완성했습니다. 상품 컷보다 착용 장면이 먼저 보이도록 구성했지만, 개별 아이템의 구매 정보와 CTA는 아직 약합니다. 이후에는 장면마다 어떤 카테고리로 이어지는지 한 줄로 붙이려 합니다.",
+      video: "/project/musinsa/main.mov",
+      videoFormat: "reels",
     },
   ],
   histories: [
