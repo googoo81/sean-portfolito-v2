@@ -30,19 +30,31 @@
 }
 
 .projects-overlay__light {
+  position: relative;
   display: flex;
-  width: 12px;
-  height: 12px;
+  width: 22px;
+  height: 22px;
+  margin: 0 -5px;
   align-items: center;
   justify-content: center;
   padding: 0;
   overflow: hidden;
   border: 0;
   border-radius: 999px;
+  background: transparent;
   cursor: pointer;
 }
 
+.projects-overlay__light::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
 .projects-overlay__light img {
+  position: relative;
   flex-shrink: 0;
   opacity: 0;
   transition: opacity 100ms ease;
@@ -53,15 +65,15 @@
   opacity: 1;
 }
 
-.projects-overlay__light--close {
+.projects-overlay__light--close::before {
   background: #ff5f57;
 }
 
-.projects-overlay__light--min {
+.projects-overlay__light--min::before {
   background: #febc2e;
 }
 
-.projects-overlay__light--zoom {
+.projects-overlay__light--zoom::before {
   background: #28c840;
 }
 
@@ -439,6 +451,7 @@
 .project-tile__body {
   min-height: 0;
   flex: 1;
+  overflow: hidden;
 }
 
 .project-tile__title {
@@ -446,6 +459,13 @@
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.025em;
+}
+
+.project-tile__go {
+  position: absolute;
+  right: 1.15rem;
+  bottom: 1.05rem;
+  z-index: 1;
 }
 
 .project-tile-compact {

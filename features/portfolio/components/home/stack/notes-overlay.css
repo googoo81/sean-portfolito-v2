@@ -283,7 +283,9 @@ html[data-theme="light"] .notes-overlay__glass {
 
 .dock-icon__glyph {
   object-fit: contain;
-  transition: background-color 200ms ease, color 200ms ease;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
 .dock-icon__tip {

@@ -88,7 +88,8 @@
   .social-chip:hover,
   .social-chip:focus-within {
     z-index: 2;
-    background: var(--soft-hover);
+    background: var(--surface);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     scale: 1.1;
   }
 
