@@ -48,16 +48,10 @@ export const portfolio: Portfolio = {
       result:
         "대학생·직무 전환 직장인·1인 창업자별로 메시지와 KPI를 나눈 신규 유입 캠페인 기획안을 완성했습니다. 다만 세그먼트 설정의 일부 근거가 추정에 머물렀고, 페르소나의 취미와 생활 맥락도 실제 매체·카피 선택에 충분히 사용하지 못했습니다. 이후에는 세그먼트별 주장에 정량 데이터를 붙이고, 페르소나 항목마다 어떤 메시지와 매체 결정에 활용됐는지 함께 정리하고 있습니다.",
       cover: {
-        src: "/project/sparta/cover.png",
-        alt: "팀스파르타 신규 유입 마케팅 기획안 표지",
+        src: "/project/sparta/mockup.png",
+        alt: "팀스파르타 신규 유입 마케팅 기획안 목업",
         fit: "contain",
       },
-      links: [
-        {
-          label: "캠페인 PPT",
-          href: "/project/sparta/7번조의 선물.pdf",
-        },
-      ],
     },
     {
       slug: "meta-comedy",
@@ -77,37 +71,42 @@ export const portfolio: Portfolio = {
       result:
         "표지부터 브랜드 소개, 공연 유형, 첫 방문 안내까지 이어지는 7장 카드뉴스 1종을 제작했습니다. 실제 코미디언 이미지와 그린 포인트 컬러를 활용해 현장감과 시각적 통일성을 높였지만, 마지막 장의 예매 안내가 약해 사용자의 행동을 끝까지 연결하지 못했습니다. 이후에는 CTA를 먼저 정한 뒤 앞선 카드의 정보가 해당 행동으로 자연스럽게 이어지는지 점검하고 있습니다.",
       cover: {
-        src: "/project/metacomedy/Slide 1.png",
-        alt: "야, 도파민, 안부족해? 메타코미디클럽 카드뉴스 표지",
+        src: "/project/metacomedy/mockup.png",
+        alt: "메타코미디클럽 인스타그램 피드 목업",
+        fit: "contain",
       },
       galleryFormat: "carousel",
       gallery: [
         {
-          src: "/project/metacomedy/Slide 2.png",
+          src: "/project/metacomedy/slide/01.png",
+          alt: "야, 도파민, 안부족해? 메타코미디클럽 카드뉴스 표지",
+        },
+        {
+          src: "/project/metacomedy/slide/02.png",
           alt: "뭐하는 곳인지 앎? 라이브 코미디 공연장 소개",
         },
         {
-          src: "/project/metacomedy/Slide 3.png",
+          src: "/project/metacomedy/slide/03.png",
           alt: "메코클 유튜브 톤을 소개하는 카드",
         },
         {
-          src: "/project/metacomedy/Slide 4.png",
+          src: "/project/metacomedy/slide/04.png",
           alt: "부족한 도파민은 실제로 봐야지, 현장 경험 카드",
         },
         {
-          src: "/project/metacomedy/Slide 5.png",
+          src: "/project/metacomedy/slide/05.png",
           alt: "스탠드업부터 캐릭터 코미디까지 공연 유형 카드",
         },
         {
-          src: "/project/metacomedy/Slide 6.png",
+          src: "/project/metacomedy/slide/06.png",
           alt: "첫 방문도 괜찮은 메코클 입문 안내 카드",
         },
         {
-          src: "/project/metacomedy/Slide 7.png",
+          src: "/project/metacomedy/slide/07.png",
           alt: "공연 일정 확인하고 예매하라는 카드",
         },
         {
-          src: "/project/metacomedy/Slide 8.png",
+          src: "/project/metacomedy/slide/08.png",
           alt: "META COMEDY CLUB 로고 카드",
         },
       ],
@@ -136,6 +135,11 @@ export const portfolio: Portfolio = {
       ],
       result:
         "제품과 패션을 연결한 인스타그램 캐러셀과 릴스 소재를 제작하고, 온드미디어와 유료 매체를 연계한 재구매 캠페인 운영안을 완성했습니다. 제품 특징을 직접 나열하기보다 타깃의 관심사 안에서 제품을 새롭게 해석할 때 브랜드만의 콘텐츠 차별점이 만들어진다는 점을 도출했습니다.",
+      cover: {
+        src: "/project/variway/mockup.png",
+        alt: "배리웨이 인스타그램 릴스 목업",
+        fit: "contain",
+      },
       video: "/project/variway/main.mov",
       videoFormat: "reels",
       links: [
@@ -162,6 +166,11 @@ export const portfolio: Portfolio = {
       ],
       result:
         "맑은 날과 우천 연출을 한 흐름으로 묶은 룩북 영상을 완성했습니다. 상품 컷보다 착용 장면이 먼저 보이도록 구성했지만, 개별 아이템의 구매 정보와 CTA는 아직 약합니다. 이후에는 장면마다 어떤 카테고리로 이어지는지 한 줄로 붙이려 합니다.",
+      cover: {
+        src: "/project/musinsa/mockup.png",
+        alt: "무신사 룩북 릴스 목업",
+        fit: "contain",
+      },
       video: "/project/musinsa/main.mov",
       videoFormat: "reels",
     },

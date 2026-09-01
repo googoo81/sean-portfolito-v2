@@ -13,11 +13,7 @@ type ProjectDetailViewProps = {
 
 export function ProjectDetailBody({ project }: { project: Project }) {
   const carousel =
-    project.galleryFormat === "carousel"
-      ? [project.cover, ...(project.gallery ?? [])].filter(
-          (image): image is NonNullable<typeof image> => Boolean(image),
-        )
-      : [];
+    project.galleryFormat === "carousel" ? (project.gallery ?? []) : [];
 
   return (
     <div className="projects-overlay__detail projects-overlay__article">
