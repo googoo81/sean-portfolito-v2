@@ -16,7 +16,6 @@ export function ProjectVisual({
   const video =
     project?.video && (preferVideo || !cover) ? project.video : undefined;
   const reels = Boolean(video && project?.videoFormat === "reels");
-  const carousel = project?.galleryFormat === "carousel";
 
   if (!video && !cover) {
     return (
@@ -32,7 +31,6 @@ export function ProjectVisual({
         "project-visual",
         "project-visual--media",
         reels && "project-visual--reels",
-        carousel && "project-visual--carousel",
         cover?.fit === "contain" && !video && "project-visual--contain",
         className,
       )}

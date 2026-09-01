@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { BentoCard } from "@/components/ui";
-import { ProjectVisual } from "../../shared/project-visual";
+import { DeviceMockup } from "../../shared/device-mockup";
 import {
   prefetchProjectsOverlay,
   useProjectsSession,
@@ -40,9 +40,12 @@ export function ProjectTile({ project, className }: ProjectTileProps) {
         }}
       >
         <div className="project-tile__body">
-          <ProjectVisual project={project} />
+          <DeviceMockup project={project} />
         </div>
-        <p className="project-tile__title">{project.shortTitle}</p>
+        <div className="project-tile__caption">
+          <p className="project-tile__kicker">{project.period}</p>
+          <p className="project-tile__title">{project.shortTitle}</p>
+        </div>
       </button>
     </BentoCard>
   );

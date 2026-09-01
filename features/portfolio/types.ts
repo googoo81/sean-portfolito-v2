@@ -25,6 +25,10 @@ export type Project = {
   videoFormat?: "reels";
   gallery?: ProjectImage[];
   galleryFormat?: "carousel";
+  mockup?: {
+    device: "iphone" | "macbook";
+    images?: string[];
+  };
 };
 
 export type HistoryItem = {
