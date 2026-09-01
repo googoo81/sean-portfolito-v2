@@ -599,24 +599,47 @@
 }
 
 .project-tile__body {
+  display: flex;
   min-height: 0;
   flex: 1;
+  margin: 0.75rem 0.75rem 0;
+  overflow: hidden;
+  border-radius: 1.15rem;
+  background: var(--project-studio);
+}
+
+.project-tile__body .device-mockup,
+.project-tile__body .project-visual {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-tile:hover .device-mockup,
+.project-tile:hover .project-visual,
+.project-tile:focus-visible .device-mockup,
+.project-tile:focus-visible .project-visual {
+  transform: scale(1.045);
+}
+
+.project-tile__body .project-visual--media img,
+.project-tile__body .project-visual--media video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .project-tile__caption,
 .project-tile-compact__caption {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  padding: 2.75rem 1.1rem 1.05rem;
-  background: var(--project-caption-scrim);
+  padding: 0.9rem 0.4rem 1.05rem;
   pointer-events: none;
 }
 
 .project-tile__caption {
-  padding: 3.5rem 1.35rem 1.25rem;
+  padding: 1rem 1.25rem 1.2rem;
 }
 
 .project-tile__kicker,
@@ -641,27 +664,24 @@
 
 .project-tile-compact {
   position: relative;
-  display: block;
+  display: flex;
   width: 100%;
+  flex-direction: column;
   overflow: hidden;
-  border: 1px solid var(--project-card-line);
+  padding: 0.7rem 0.7rem 0;
   border-radius: 1.35rem;
-  background: var(--project-card);
   text-align: left;
   color: inherit;
   cursor: pointer;
-  box-shadow: var(--project-card-shadow);
   transition:
     transform 280ms cubic-bezier(0.22, 1.2, 0.36, 1),
     border-color 200ms ease,
-    box-shadow 280ms ease,
     background-color 240ms ease;
 }
 
 .project-tile-compact:hover,
 .project-tile-compact:focus-visible {
-  border-color: var(--project-card-line-hover);
-  box-shadow: var(--project-card-shadow-hover);
+  background: var(--soft-hover);
   transform: translateY(-3px);
 }
 
@@ -671,7 +691,10 @@
 }
 
 .project-tile-compact__media {
+  overflow: hidden;
   aspect-ratio: 4 / 3;
+  border-radius: 0.95rem;
+  background: var(--project-studio);
 }
 
 .project-tile-compact .project-visual,
@@ -702,34 +725,6 @@
   white-space: nowrap;
 }
 
-html[data-theme="light"] .project-tile-compact {
-  display: flex;
-  flex-direction: column;
-  padding: 0.7rem 0.7rem 0;
-}
-
-html[data-theme="light"] .project-tile-compact__media {
-  overflow: hidden;
-  border-radius: 0.95rem;
-}
-
-html[data-theme="light"] .project-tile__body {
-  margin: 0.75rem 0.75rem 0;
-  overflow: hidden;
-  border-radius: 1.15rem;
-}
-
-html[data-theme="light"] .project-tile__caption,
-html[data-theme="light"] .project-tile-compact__caption {
-  position: static;
-  padding: 0.9rem 0.4rem 1.05rem;
-  background: none;
-}
-
-html[data-theme="light"] .project-tile__caption {
-  padding: 1rem 1.25rem 1.2rem;
-}
-
 html[data-reduced-motion="true"] .project-tile-compact:hover,
 html[data-reduced-motion="true"] .project-tile-compact:focus-visible,
 html[data-lite-motion="true"] .project-tile-compact:hover,
@@ -739,12 +734,28 @@ html[data-lite-motion="true"] .project-tile-compact:focus-visible {
 
 html[data-reduced-motion="true"] .project-tile-compact:hover .project-visual,
 html[data-reduced-motion="true"] .project-tile-compact:hover .device-mockup,
-html[data-reduced-motion="true"] .project-tile-compact:focus-visible .project-visual,
-html[data-reduced-motion="true"] .project-tile-compact:focus-visible .device-mockup,
+html[data-reduced-motion="true"]
+  .project-tile-compact:focus-visible
+  .project-visual,
+html[data-reduced-motion="true"]
+  .project-tile-compact:focus-visible
+  .device-mockup,
 html[data-lite-motion="true"] .project-tile-compact:hover .project-visual,
 html[data-lite-motion="true"] .project-tile-compact:hover .device-mockup,
-html[data-lite-motion="true"] .project-tile-compact:focus-visible .project-visual,
-html[data-lite-motion="true"] .project-tile-compact:focus-visible .device-mockup {
+html[data-lite-motion="true"]
+  .project-tile-compact:focus-visible
+  .project-visual,
+html[data-lite-motion="true"]
+  .project-tile-compact:focus-visible
+  .device-mockup,
+html[data-reduced-motion="true"] .project-tile:hover .project-visual,
+html[data-reduced-motion="true"] .project-tile:hover .device-mockup,
+html[data-reduced-motion="true"] .project-tile:focus-visible .project-visual,
+html[data-reduced-motion="true"] .project-tile:focus-visible .device-mockup,
+html[data-lite-motion="true"] .project-tile:hover .project-visual,
+html[data-lite-motion="true"] .project-tile:hover .device-mockup,
+html[data-lite-motion="true"] .project-tile:focus-visible .project-visual,
+html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
   transform: none;
 }
 

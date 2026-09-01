@@ -16,7 +16,7 @@ export function ProjectTileCompact({
   onSelect,
 }: ProjectTileCompactProps) {
   const kind = kindOf(project.meta);
-  const className = "project-tile-compact";
+  const className = "project-tile-compact glass-chip";
 
   const content = (
     <>

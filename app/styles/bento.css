@@ -179,7 +179,6 @@ html[data-lite-motion="true"] .bento-projects:hover {
 .bento-featured:hover,
 .bento-featured:focus-within {
   z-index: 3;
-  background: var(--soft-hover);
   scale: 1.045;
 }
 
