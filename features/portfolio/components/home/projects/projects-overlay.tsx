@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
@@ -22,7 +22,7 @@ import {
   writeProjectsListHash,
 } from "./projects-hash";
 import { useProjectsWindow } from "./use-projects-window";
-import type { ProjectsOrigin } from "./projects-origin";
+import { restoreProjectsOrigin, type ProjectsOrigin } from "./projects-origin";
 import type { Project } from "@/features/portfolio/types";
 
 export type { ProjectsOrigin };
@@ -131,19 +131,38 @@ export function ProjectsOverlay({
     };
   }, [handleClose, open, projects]);
 
-  const fromCard = {
-    left: origin.x,
-    top: origin.y,
-    width: origin.width,
-    height: origin.height,
-    borderRadius: CARD_RADIUS,
-  };
+  const morphOrigin = useMemo(() => {
+    if (!open && origin.kind != null) {
+      return restoreProjectsOrigin(origin.kind);
+    }
 
-  const openFrame = {
-    left: frame.x,
-    top: frame.y,
-    width: frame.width,
-    height: frame.height,
+    return origin;
+  }, [open, origin]);
+
+  const fromCard = useMemo(() => {
+    const originCenterX = morphOrigin.x + morphOrigin.width / 2;
+    const originCenterY = morphOrigin.y + morphOrigin.height / 2;
+    const targetCenterX = frame.x + frame.width / 2;
+    const targetCenterY = frame.y + frame.height / 2;
+
+    return {
+      x: originCenterX - targetCenterX,
+      y: originCenterY - targetCenterY,
+      scaleX: Math.max(morphOrigin.width / frame.width, 0.04),
+      scaleY: Math.max(morphOrigin.height / frame.height, 0.04),
+      originX: 0.5,
+      originY: 0.5,
+      borderRadius: CARD_RADIUS,
+    };
+  }, [morphOrigin, frame]);
+
+  const shownWindow = {
+    x: 0,
+    y: 0,
+    scaleX: 1,
+    scaleY: 1,
+    originX: 0.5,
+    originY: 0.5,
     borderRadius: isMaximized ? 0 : WINDOW_RADIUS,
   };
 
@@ -174,9 +193,17 @@ export function ProjectsOverlay({
         role="dialog"
         aria-modal="true"
         aria-labelledby="projects-overlay-title"
-        className="projects-overlay__window projects-shell"
-        initial={reducedMotion ? openFrame : fromCard}
-        animate={open ? openFrame : fromCard}
+        className={`projects-overlay__window projects-shell${
+          dragging || reducedMotion ? "" : " projects-overlay__window--smooth"
+        }`}
+        style={{
+          left: frame.x,
+          top: frame.y,
+          width: frame.width,
+          height: frame.height,
+        }}
+        initial={reducedMotion ? shownWindow : fromCard}
+        animate={open ? shownWindow : fromCard}
         transition={
           reducedMotion || dragging
             ? { duration: 0 }

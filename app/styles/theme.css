@@ -24,6 +24,17 @@
   --project-caption-title: #f7f7f8;
   --project-caption-meta: #a8a8ad;
   --project-caption-dot: rgb(255 255 255 / 0.42);
+  --fs-label: 0.75rem;
+  --fs-meta: 0.8125rem;
+  --fs-body: 0.875rem;
+  --fs-title: 0.9375rem;
+  --fs-display: 1.375rem;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --ls-label: 0.1em;
+  --ls-tight: -0.02em;
+  --lh-body: 1.55;
   color-scheme: dark;
 }
 
@@ -44,10 +55,10 @@ html[data-theme="light"] {
   --theme-toggle-icon: #1c1c1e;
   --glass-highlight: rgba(255, 255, 255, 0.8);
   --wallpaper: none;
-  --notes-paper: #f7f3e8;
-  --notes-ink: #3a3a3a;
-  --notes-glass: rgba(255, 255, 255, 0.42);
-  --notes-glass-item: rgba(0, 0, 0, 0.08);
+  --notes-paper: var(--surface);
+  --notes-ink: var(--foreground);
+  --notes-glass: var(--background);
+  --notes-glass-item: var(--soft-hover);
   --project-studio: #f3f3f5;
   --project-caption-title: var(--foreground);
   --project-caption-meta: var(--muted);

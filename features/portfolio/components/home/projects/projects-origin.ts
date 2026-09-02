@@ -1,21 +1,32 @@
+export type ProjectsOriginKind = "featured" | "cell";
+
 export type ProjectsOrigin = {
   x: number;
   y: number;
   width: number;
   height: number;
+  kind?: ProjectsOriginKind;
 };
 
 export function readProjectsOrigin(node: HTMLElement | null): ProjectsOrigin | null {
-  const bounds = node?.getBoundingClientRect();
-  if (!bounds) {
+  const target = node?.closest<HTMLElement>(".bento-card") ?? node;
+  const bounds = target?.getBoundingClientRect();
+  if (!bounds || !target) {
     return null;
   }
+
+  const attr =
+    target.getAttribute("data-projects-origin") ??
+    target.querySelector("[data-projects-origin]")?.getAttribute("data-projects-origin");
+  const kind: ProjectsOriginKind | undefined =
+    attr === "featured" || attr === "cell" ? attr : undefined;
 
   return {
     x: bounds.left,
     y: bounds.top,
     width: bounds.width,
     height: bounds.height,
+    kind,
   };
 }
 

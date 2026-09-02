@@ -123,9 +123,9 @@
   gap: 8px;
   margin: 0;
   overflow: hidden;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.02em;
   color: var(--foreground);
   pointer-events: none;
   text-overflow: ellipsis;
@@ -346,8 +346,8 @@
 .projects-overlay__filter {
   padding: 0.375rem 0.75rem;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
   line-height: 1.2;
   color: var(--muted);
   cursor: pointer;
@@ -710,18 +710,18 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
   color: var(--project-caption-meta);
 }
 
 .project-tile__title,
 .project-tile-compact__title {
   margin-top: 0.2rem;
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-size: var(--fs-title);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-tight);
   color: var(--project-caption-title);
 }
 
@@ -902,16 +902,18 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
 }
 
 .article__title {
-  font-size: 1.875rem;
-  font-weight: 500;
-  line-height: 1.375;
-  letter-spacing: -0.025em;
+  font-size: 1.625rem;
+  font-weight: var(--fw-semibold);
+  line-height: 1.35;
+  letter-spacing: var(--ls-tight);
   color: var(--foreground);
 }
 
 .article__meta {
-  margin-top: 1rem;
-  font-size: 0.875rem;
+  margin-top: 0.85rem;
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-regular);
+  line-height: 1.45;
   color: var(--muted);
 }
 
@@ -925,9 +927,11 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
 }
 
 .article__heading {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--foreground);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .article__links {
@@ -952,8 +956,8 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
   margin-top: 0.5rem;
   padding-left: 1.25rem;
   list-style: disc;
-  font-size: 0.875rem;
-  line-height: 1.625;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--muted);
 }
 
@@ -974,15 +978,10 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
 
 @media (min-width: 640px) {
   .project-tile__title {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   .article__title {
-    font-size: 2.25rem;
-  }
-
-  .article__actions,
-  .prose {
-    font-size: 1rem;
+    font-size: 1.875rem;
   }
 }
