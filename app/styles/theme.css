@@ -78,7 +78,7 @@ body {
   background-attachment: fixed;
   background-size: cover;
   color: var(--foreground);
-  font-family: var(--font-ibm-plex-sans-kr), system-ui, sans-serif;
+  font-family: var(--font-suit), system-ui, sans-serif;
   transition:
     background-color 240ms ease,
     color 240ms ease;
