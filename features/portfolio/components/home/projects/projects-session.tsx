@@ -115,6 +115,10 @@ export function ProjectsSessionProvider({
   }, [reveal]);
 
   const openProjects = useDebouncedCallback((options: OpenProjectsOptions) => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
     reveal(options.origin, false);
     beginProjectsSession();
     if (options.slug) {

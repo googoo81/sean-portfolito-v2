@@ -92,33 +92,35 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
           <ProjectsGridCell className="bento-projects" />
 
           <BentoCard className="bento-history">
-            <p className="eyebrow">🧑‍💻 Histories & Certificates.</p>
-            <div className="bento-fill-end bento-history__grid">
-              <ul className="bento-history__list">
-                {portfolio.education.map((item) => (
-                  <li key={item.school}>
-                    <p className="bento-history__title">{item.school}</p>
-                    <p className="bento-history__meta">{item.period}</p>
-                  </li>
-                ))}
-                {portfolio.certificates.map((item) => (
-                  <li key={item.name}>
-                    <p className="bento-history__title">{item.name}</p>
-                    <p className="bento-history__meta">{item.date}</p>
-                  </li>
-                ))}
-              </ul>
-              <ul className="bento-history__list">
-                {portfolio.histories.map((item) => (
-                  <li key={item.company}>
-                    <p className="bento-history__title">{item.company}</p>
-                    <p className="bento-history__meta">
-                      {item.role} · {item.period}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="eyebrow">🧑‍💻 Histories.</p>
+            <ul className="bento-fill-end bento-history__grid">
+              {portfolio.education.map((item) => (
+                <li key={item.school}>
+                  <p className="bento-history__title">{item.school}</p>
+                  <p className="bento-history__meta">{item.period}</p>
+                </li>
+              ))}
+              {portfolio.histories.map((item) => (
+                <li key={item.company}>
+                  <p className="bento-history__title">{item.company}</p>
+                  <p className="bento-history__meta">
+                    {item.role} · {item.period}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </BentoCard>
+
+          <BentoCard className="bento-certs">
+            <p className="eyebrow">📜 Certificates.</p>
+            <ul className="bento-history__grid">
+              {portfolio.certificates.map((item) => (
+                <li key={item.name}>
+                  <p className="bento-history__title">{item.name}</p>
+                  <p className="bento-history__meta">{item.date}</p>
+                </li>
+              ))}
+            </ul>
           </BentoCard>
         </div>
 

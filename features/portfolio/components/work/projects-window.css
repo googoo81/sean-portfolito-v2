@@ -328,6 +328,59 @@
   padding: 1.25rem 1.25rem 1.5rem;
 }
 
+.projects-overlay__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  grid-column: 1 / -1;
+}
+
+.projects-overlay__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.projects-overlay__filter {
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.projects-overlay__filter:hover {
+  background: var(--soft-hover);
+  color: var(--foreground);
+}
+
+.projects-overlay__filter.is-active {
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
+}
+
+.projects-overlay__filter:focus {
+  outline: none;
+}
+
+.projects-overlay__filter:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+.projects-overlay__empty {
+  grid-column: 1 / -1;
+  margin: 2.5rem 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-align: center;
+}
+
 .projects-overlay__article {
   display: flex;
   flex-direction: column;
@@ -593,9 +646,19 @@
   min-height: 16rem;
   flex-direction: column;
   overflow: hidden;
+  border-radius: inherit;
   text-align: left;
   color: inherit;
   cursor: pointer;
+}
+
+.project-tile:focus {
+  outline: none;
+}
+
+.project-tile:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: -3px;
 }
 
 .project-tile__body {
@@ -683,6 +746,10 @@
 .project-tile-compact:focus-visible {
   background: var(--soft-hover);
   transform: translateY(-3px);
+}
+
+.project-tile-compact:focus {
+  outline: none;
 }
 
 .project-tile-compact:focus-visible {
@@ -774,7 +841,17 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
   justify-content: center;
   gap: 1rem;
   padding: 1.25rem;
+  border-radius: inherit;
   cursor: pointer;
+}
+
+.projects-cell:focus {
+  outline: none;
+}
+
+.projects-cell:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: -3px;
 }
 
 .projects-overlay__go {

@@ -63,6 +63,32 @@ export function SocialTile({
     return () => window.clearTimeout(copiedTimer.current);
   }, []);
 
+  useEffect(() => {
+    const blurSocialFocus = () => {
+      const active = document.activeElement;
+      if (
+        active instanceof HTMLElement &&
+        active.closest(".social-chip")
+      ) {
+        active.blur();
+      }
+    };
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") {
+        blurSocialFocus();
+      }
+    };
+
+    window.addEventListener("pageshow", blurSocialFocus);
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      window.removeEventListener("pageshow", blurSocialFocus);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
+
   const handleCopy = useDebouncedCallback((id: SocialIconId, value: string) => {
     void copyToClipboard(value)
       .then(() => {
@@ -134,7 +160,10 @@ export function SocialTile({
               type="button"
               className="social-chip__action"
               aria-label={copied ? "copied!" : link.copyLabel}
-              onClick={() => handleCopy(link.icon, link.copyValue)}
+              onClick={(event) => {
+                event.currentTarget.blur();
+                handleCopy(link.icon, link.copyValue);
+              }}
             >
               {copied ? (
                 <span className="social-chip__copied">copied!</span>
@@ -149,6 +178,9 @@ export function SocialTile({
               href={link.href}
               aria-label={link.openLabel}
               className={cn("social-chip__action", "social-chip__action--open")}
+              onClick={(event) => {
+                event.currentTarget.blur();
+              }}
               {...(link.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}

@@ -14,20 +14,23 @@ type ProjectDetailViewProps = {
 export function ProjectDetailBody({ project }: { project: Project }) {
   const carousel =
     project.galleryFormat === "carousel" ? (project.gallery ?? []) : [];
+  const showHero = carousel.length > 0 || Boolean(project.video);
 
   return (
     <div className="projects-overlay__detail projects-overlay__article">
-      <div className="glass-chip projects-overlay__chip">
-        {carousel.length > 0 ? (
-          <InstagramCarousel images={carousel} />
-        ) : (
-          <ProjectVisual
-            project={project}
-            preferVideo
-            className="projects-overlay__hero"
-          />
-        )}
-      </div>
+      {showHero ? (
+        <div className="glass-chip projects-overlay__chip">
+          {carousel.length > 0 ? (
+            <InstagramCarousel images={carousel} />
+          ) : (
+            <ProjectVisual
+              project={project}
+              preferVideo
+              className="projects-overlay__hero"
+            />
+          )}
+        </div>
+      ) : null}
       <div className="glass-chip projects-overlay__chip projects-overlay__article-body">
         <ProjectArticle project={project} />
       </div>

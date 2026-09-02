@@ -219,6 +219,7 @@ html[data-lite-motion="true"] .bento-featured:active {
 }
 
 .bento-history,
+.bento-certs,
 .bento-stack,
 .bento-skills,
 .bento-cta {
@@ -227,6 +228,11 @@ html[data-lite-motion="true"] .bento-featured:active {
 
 .bento-history {
   justify-content: space-between;
+  overflow-y: auto;
+}
+
+.bento-certs {
+  justify-content: flex-start;
   overflow-y: auto;
 }
 
@@ -245,15 +251,13 @@ html[data-lite-motion="true"] .bento-featured:active {
 
 .bento-history__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem 2rem;
-  margin-top: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.25rem;
 }
 
-.bento-history__list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.bento-history__grid > li {
+  min-width: 0;
 }
 
 .bento-history__title {
@@ -327,10 +331,16 @@ html[data-lite-motion="true"] .bento-featured:active {
   }
 
   .bento-history,
+  .bento-certs,
   .bento-stack,
   .bento-skills,
   .bento-cta {
     padding: 1.75rem;
+  }
+
+  .bento-history .bento-history__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
   }
 
   .skill-chip {
@@ -414,7 +424,12 @@ html[data-lite-motion="true"] .bento-featured:active {
   }
 
   .bento-history {
-    flex: 1 1 0;
+    flex: 1.7 1 0;
+    min-width: 0;
+  }
+
+  .bento-certs {
+    flex: 0.7 1 0;
     min-width: 0;
   }
 

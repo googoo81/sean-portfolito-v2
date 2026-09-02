@@ -57,7 +57,7 @@ export const portfolio: Portfolio = {
       slug: "meta-comedy",
       shortTitle: "메타코미디클럽",
       title: "온라인 관심을 공연 예매로 연결한 인스타그램 7장 카드뉴스",
-      meta: "팀 프로젝트 | 담당: 브랜드 분석 · 콘텐츠 구조 설계 · 카피 · 디자인",
+      meta: "개인 프로젝트 | 담당: 브랜드 분석 · 콘텐츠 구조 설계 · 카피 · 디자인",
       tools: "Figma · 생성형 AI",
       period: "2026.06",
       situation:
@@ -75,47 +75,6 @@ export const portfolio: Portfolio = {
         alt: "메타코미디클럽 인스타그램 피드 목업",
         fit: "contain",
       },
-      galleryFormat: "carousel",
-      gallery: [
-        {
-          src: "/project/metacomedy/slide/01.png",
-          alt: "야, 도파민, 안부족해? 메타코미디클럽 카드뉴스 표지",
-        },
-        {
-          src: "/project/metacomedy/slide/02.png",
-          alt: "뭐하는 곳인지 앎? 라이브 코미디 공연장 소개",
-        },
-        {
-          src: "/project/metacomedy/slide/03.png",
-          alt: "메코클 유튜브 톤을 소개하는 카드",
-        },
-        {
-          src: "/project/metacomedy/slide/04.png",
-          alt: "부족한 도파민은 실제로 봐야지, 현장 경험 카드",
-        },
-        {
-          src: "/project/metacomedy/slide/05.png",
-          alt: "스탠드업부터 캐릭터 코미디까지 공연 유형 카드",
-        },
-        {
-          src: "/project/metacomedy/slide/06.png",
-          alt: "첫 방문도 괜찮은 메코클 입문 안내 카드",
-        },
-        {
-          src: "/project/metacomedy/slide/07.png",
-          alt: "공연 일정 확인하고 예매하라는 카드",
-        },
-        {
-          src: "/project/metacomedy/slide/08.png",
-          alt: "META COMEDY CLUB 로고 카드",
-        },
-      ],
-      links: [
-        {
-          label: "인스타그램 게시물 보기",
-          href: "https://www.instagram.com/p/DZeNhpsEfmM/?img_index=1",
-        },
-      ],
     },
     {
       slug: "bareway",
@@ -140,14 +99,6 @@ export const portfolio: Portfolio = {
         alt: "배리웨이 인스타그램 릴스 목업",
         fit: "contain",
       },
-      video: "/project/variway/main.mov",
-      videoFormat: "reels",
-      links: [
-        {
-          label: "캠페인 PPT",
-          href: "/project/variway/ppt.pdf",
-        },
-      ],
     },
     {
       slug: "musinsa",
@@ -155,7 +106,7 @@ export const portfolio: Portfolio = {
       title: "계절감과 스트리트 무드를 담은 무신사 룩북 콘텐츠",
       meta: "개인 프로젝트 | 담당: 콘텐츠 기획 · 촬영 연출 · 영상/이미지 제작",
       tools: "CapCut · 생성형 AI",
-      period: "2026.08",
+      period: "2026.06",
       situation:
         "무신사 스타일 콘텐츠는 상품을 나열하기보다 옷이 입힌 장면과 분위기로 설득해야 했습니다. 비 오는 거리와 맑은 낮을 오가며, 자전거·콘 같은 도시 소품을 반복 등장시켜 하나의 룩북 영상으로 읽히게 하는 것이 목표였습니다.",
       actions: [
@@ -171,8 +122,6 @@ export const portfolio: Portfolio = {
         alt: "무신사 룩북 릴스 목업",
         fit: "contain",
       },
-      video: "/project/musinsa/main.mov",
-      videoFormat: "reels",
     },
   ],
   histories: [
@@ -185,6 +134,11 @@ export const portfolio: Portfolio = {
       company: "웅진씽크빅",
       role: "FrontEnd Developer",
       period: "2025.03.12 – 2025.11.30",
+    },
+    {
+      company: "SPARTACLUB · 내일배움캠프",
+      role: "Student",
+      period: "2026.04.20 – 2026.09.14",
     },
   ],
   education: [
