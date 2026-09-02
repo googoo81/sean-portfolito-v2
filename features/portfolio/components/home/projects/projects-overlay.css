@@ -15,7 +15,9 @@
   z-index: 1;
   overflow: hidden;
   min-height: 0;
+  contain: layout style paint;
   transform-origin: center center;
+  will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   background: var(--surface);
@@ -23,12 +25,17 @@
   box-shadow: 0 1px 0 var(--glass-highlight) inset;
 }
 
+html[data-projects-settled] .projects-overlay__window {
+  will-change: auto;
+}
+
 .projects-overlay__window--smooth {
   transition:
     left 0.36s cubic-bezier(0.22, 1, 0.36, 1),
     top 0.36s cubic-bezier(0.22, 1, 0.36, 1),
     width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
-    height 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    height 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.36s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .projects-overlay__face,
@@ -133,6 +140,6 @@ html[data-projects-open] .bento-featured {
   scale: 1;
 }
 
-html[data-projects-open] main {
+html[data-projects-settled] main {
   filter: blur(4px);
 }

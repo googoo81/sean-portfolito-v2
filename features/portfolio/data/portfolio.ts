@@ -104,8 +104,8 @@ export const portfolio: Portfolio = {
       slug: "musinsa",
       shortTitle: "무신사",
       title: "계절감과 스트리트 무드를 담은 무신사 룩북 콘텐츠",
-      meta: "개인 프로젝트 | 담당: 콘텐츠 기획 · 촬영 연출 · 영상/이미지 제작",
-      tools: "CapCut · 생성형 AI",
+      meta: "개인 프로젝트(공모전) | 담당: 콘텐츠 기획 · 촬영 연출 · 영상/이미지 제작",
+      tools: "CapCut · KlingAI",
       period: "2026.06",
       situation:
         "무신사 스타일 콘텐츠는 상품을 나열하기보다 옷이 입힌 장면과 분위기로 설득해야 했습니다. 비 오는 거리와 맑은 낮을 오가며, 자전거·콘 같은 도시 소품을 반복 등장시켜 하나의 룩북 영상으로 읽히게 하는 것이 목표였습니다.",
