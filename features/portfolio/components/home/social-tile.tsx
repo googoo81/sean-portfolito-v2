@@ -7,6 +7,7 @@ import {
   type SocialIconId,
 } from "@/features/portfolio/constants";
 import { cn, toTelHref } from "@/lib/format";
+import { blurActiveElement } from "@/lib/blur-active-element";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import type { PortfolioContact } from "@/features/portfolio/types";
 
@@ -64,15 +65,7 @@ export function SocialTile({
   }, []);
 
   useEffect(() => {
-    const blurSocialFocus = () => {
-      const active = document.activeElement;
-      if (
-        active instanceof HTMLElement &&
-        active.closest(".social-chip")
-      ) {
-        active.blur();
-      }
-    };
+    const blurSocialFocus = () => blurActiveElement(".social-chip");
 
     const onVisible = () => {
       if (document.visibilityState === "visible") {

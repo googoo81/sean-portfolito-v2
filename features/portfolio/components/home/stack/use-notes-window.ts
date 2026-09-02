@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { StackItem } from "@/features/portfolio/types";
+import { useFrameDrag } from "@/features/portfolio/components/shared/use-frame-drag";
 import {
   clampFrame,
   clampSidebarWidth,
@@ -40,7 +41,6 @@ function getNoteDraft(item: StackItem): NoteDraft {
 export function useNotesWindow(open: boolean, item: StackItem) {
   const frameRef = useRef<WindowFrame | null>(null);
   const restoredFrameRef = useRef<WindowFrame | null>(rememberedRestoredFrame);
-  const dragRef = useRef<DragState | null>(null);
 
   const [frame, setFrame] = useState<WindowFrame>(() =>
     clampFrame(rememberedFrame ?? getNotesWindowTarget()),
@@ -59,7 +59,27 @@ export function useNotesWindow(open: boolean, item: StackItem) {
     body: item.note,
   };
 
-  const [dragging, setDragging] = useState(false);
+  const { dragging, beginDrag } = useFrameDrag<DragState>((drag, dx, dy) => {
+    if (drag.mode === "move") {
+      setFrame(
+        clampFrame({
+          ...drag.start,
+          x: drag.start.x + dx,
+          y: drag.start.y + dy,
+        }),
+      );
+      return;
+    }
+
+    if (drag.mode === "sidebar") {
+      setSidebarWidth(
+        clampSidebarWidth(drag.startSidebarWidth + dx, drag.start.width),
+      );
+      return;
+    }
+
+    setFrame(resizeFrame(drag.start, drag.mode, dx, dy));
+  });
 
   useEffect(() => {
     frameRef.current = frame;
@@ -71,79 +91,35 @@ export function useNotesWindow(open: boolean, item: StackItem) {
     rememberedSidebarWidth = sidebarWidth;
   }, [sidebarWidth]);
 
-  useEffect(() => {
-    const onPointerMove = (event: globalThis.PointerEvent) => {
-      const drag = dragRef.current;
-      if (!drag) {
-        return;
-      }
-
-      const dx = event.clientX - drag.pointerX;
-      const dy = event.clientY - drag.pointerY;
-
-      if (drag.mode === "move") {
-        setFrame(
-          clampFrame({
-            ...drag.start,
-            x: drag.start.x + dx,
-            y: drag.start.y + dy,
-          }),
-        );
-        return;
-      }
-
-      if (drag.mode === "sidebar") {
-        setSidebarWidth(
-          clampSidebarWidth(drag.startSidebarWidth + dx, drag.start.width),
-        );
-        return;
-      }
-
-      setFrame(resizeFrame(drag.start, drag.mode, dx, dy));
-    };
-
-    const onPointerUp = () => {
-      dragRef.current = null;
-      setDragging(false);
-    };
-
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", onPointerUp);
-    window.addEventListener("pointercancel", onPointerUp);
-
-    return () => {
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerUp);
-      window.removeEventListener("pointercancel", onPointerUp);
-    };
-  }, []);
-
-  const beginDrag = (
-    event: PointerEvent<HTMLElement>,
-    mode: DragState["mode"],
-  ) => {
-    if (event.button !== 0 || !open) {
-      return false;
-    }
-
-    dragRef.current = {
-      pointerX: event.clientX,
-      pointerY: event.clientY,
-      start: frame,
-      startSidebarWidth: sidebarWidth,
-      mode,
-    };
-    setDragging(true);
-    return true;
-  };
-
   const startMove = (event: PointerEvent<HTMLElement>) => {
-    beginDrag(event, "move");
+    beginDrag(
+      event,
+      {
+        pointerX: event.clientX,
+        pointerY: event.clientY,
+        start: frame,
+        startSidebarWidth: sidebarWidth,
+        mode: "move",
+      },
+      open,
+    );
   };
 
   const startResize =
     (edge: ResizeEdge) => (event: PointerEvent<HTMLElement>) => {
-      if (!beginDrag(event, edge)) {
+      if (
+        !beginDrag(
+          event,
+          {
+            pointerX: event.clientX,
+            pointerY: event.clientY,
+            start: frame,
+            startSidebarWidth: sidebarWidth,
+            mode: edge,
+          },
+          open,
+        )
+      ) {
         return;
       }
 
@@ -152,7 +128,19 @@ export function useNotesWindow(open: boolean, item: StackItem) {
     };
 
   const startSidebarResize = (event: PointerEvent<HTMLElement>) => {
-    if (!beginDrag(event, "sidebar")) {
+    if (
+      !beginDrag(
+        event,
+        {
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          start: frame,
+          startSidebarWidth: sidebarWidth,
+          mode: "sidebar",
+        },
+        open,
+      )
+    ) {
       return;
     }
 

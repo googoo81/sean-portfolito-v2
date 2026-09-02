@@ -11,6 +11,7 @@ import {
 } from "react";
 import dynamic from "next/dynamic";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import { blurActiveElement } from "@/lib/blur-active-element";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import {
   beginProjectsSession,
@@ -115,9 +116,7 @@ export function ProjectsSessionProvider({
   }, [reveal]);
 
   const openProjects = useDebouncedCallback((options: OpenProjectsOptions) => {
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
+    blurActiveElement();
 
     reveal(options.origin, false);
     beginProjectsSession();

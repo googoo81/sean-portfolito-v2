@@ -8,6 +8,7 @@ import { DockIcon } from "./dock-icon";
 import type { NotesOrigin } from "./notes-window";
 import { closeNotesHistory, parseNotesHash, syncNotesSession, writeNotesHash } from "./notes-hash";
 import { DOCK_GAP, DOCK_MAX_SIZE } from "./dock-config";
+import { blurActiveElement } from "@/lib/blur-active-element";
 import type { StackItem } from "@/features/portfolio/types";
 
 const NotesOverlay = dynamic(
@@ -110,6 +111,8 @@ export function StackRow({ items }: StackRowProps) {
   }, [items]);
 
   const openNotes = useCallback((origin: NotesOrigin, item: StackItem) => {
+    blurActiveElement();
+
     setSkipEnter(false);
     setNotesItem(item);
     setNotesOrigin(origin);
@@ -118,6 +121,8 @@ export function StackRow({ items }: StackRowProps) {
   }, []);
 
   const closeNotes = useCallback(() => {
+    blurActiveElement();
+
     setNotesOpen(false);
     closeNotesHistory();
   }, []);

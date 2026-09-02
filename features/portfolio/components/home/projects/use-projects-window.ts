@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useFrameDrag } from "@/features/portfolio/components/shared/use-frame-drag";
 import {
   clampFrame,
   resizeFrame,
@@ -53,24 +54,39 @@ export function isProjectsMaximized(frame: WindowFrame) {
   );
 }
 
+function initialFrame(): WindowFrame {
+  if (typeof window === "undefined") {
+    return { x: 0, y: 0, width: 0, height: 0 };
+  }
+
+  if (!rememberedFrame) {
+    return fullscreenFrame();
+  }
+
+  return isProjectsMaximized(rememberedFrame)
+    ? fullscreenFrame()
+    : clampFrame(rememberedFrame);
+}
+
 export function useProjectsWindow(open: boolean) {
   const frameRef = useRef<WindowFrame | null>(null);
   const restoredFrameRef = useRef<WindowFrame | null>(rememberedRestoredFrame);
-  const dragRef = useRef<DragState | null>(null);
-  const [frame, setFrame] = useState<WindowFrame>(() => {
-    if (typeof window === "undefined") {
-      return { x: 0, y: 0, width: 0, height: 0 };
+  const [frame, setFrame] = useState<WindowFrame>(initialFrame);
+
+  const { dragging, beginDrag } = useFrameDrag<DragState>((drag, dx, dy) => {
+    if (drag.mode === "move") {
+      setFrame(
+        clampFrame({
+          ...drag.start,
+          x: drag.start.x + dx,
+          y: drag.start.y + dy,
+        }),
+      );
+      return;
     }
 
-    if (!rememberedFrame) {
-      return fullscreenFrame();
-    }
-
-    return isProjectsMaximized(rememberedFrame)
-      ? fullscreenFrame()
-      : clampFrame(rememberedFrame);
+    setFrame(resizeFrame(drag.start, drag.mode, dx, dy));
   });
-  const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
     frameRef.current = frame;
@@ -99,64 +115,6 @@ export function useProjectsWindow(open: boolean) {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  useEffect(() => {
-    const onPointerMove = (event: globalThis.PointerEvent) => {
-      const drag = dragRef.current;
-      if (!drag) {
-        return;
-      }
-
-      const dx = event.clientX - drag.pointerX;
-      const dy = event.clientY - drag.pointerY;
-
-      if (drag.mode === "move") {
-        setFrame(
-          clampFrame({
-            ...drag.start,
-            x: drag.start.x + dx,
-            y: drag.start.y + dy,
-          }),
-        );
-        return;
-      }
-
-      setFrame(resizeFrame(drag.start, drag.mode, dx, dy));
-    };
-
-    const onPointerUp = () => {
-      dragRef.current = null;
-      setDragging(false);
-    };
-
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", onPointerUp);
-    window.addEventListener("pointercancel", onPointerUp);
-
-    return () => {
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerUp);
-      window.removeEventListener("pointercancel", onPointerUp);
-    };
-  }, []);
-
-  const beginDrag = (
-    event: PointerEvent<HTMLElement>,
-    mode: DragState["mode"],
-  ) => {
-    if (event.button !== 0 || !open) {
-      return false;
-    }
-
-    dragRef.current = {
-      pointerX: event.clientX,
-      pointerY: event.clientY,
-      start: frame,
-      mode,
-    };
-    setDragging(true);
-    return true;
-  };
-
   const startMove = (event: PointerEvent<HTMLElement>) => {
     if ((event.target as HTMLElement).closest("button, a")) {
       return;
@@ -166,12 +124,32 @@ export function useProjectsWindow(open: boolean) {
       return;
     }
 
-    beginDrag(event, "move");
+    beginDrag(
+      event,
+      {
+        pointerX: event.clientX,
+        pointerY: event.clientY,
+        start: frame,
+        mode: "move",
+      },
+      open,
+    );
   };
 
   const startResize =
     (edge: ResizeEdge) => (event: PointerEvent<HTMLElement>) => {
-      if (!beginDrag(event, edge)) {
+      if (
+        !beginDrag(
+          event,
+          {
+            pointerX: event.clientX,
+            pointerY: event.clientY,
+            start: frame,
+            mode: edge,
+          },
+          open,
+        )
+      ) {
         return;
       }
 
