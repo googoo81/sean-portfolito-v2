@@ -66,10 +66,15 @@ export type PortfolioContact = {
   medium: string;
 };
 
+export type SkillItem = {
+  label: string;
+  description: string;
+};
+
 export type Portfolio = {
   intro: PortfolioIntro;
   contact: PortfolioContact;
-  skills: string[];
+  skills: SkillItem[];
   stack: readonly StackItem[];
   featuredSlug: string;
   projects: Project[];

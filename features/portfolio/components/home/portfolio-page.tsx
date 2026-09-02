@@ -4,6 +4,7 @@ import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./projects/project-tile";
 import { ProjectsGridCell } from "./projects/projects-grid-cell";
 import { ProjectsSessionProvider } from "./projects/projects-session";
+import { SkillsTile } from "./skills-tile";
 import { SocialTile } from "./social-tile";
 import { StackRow } from "./stack";
 import type { Portfolio } from "@/features/portfolio/types";
@@ -137,13 +138,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
             <BentoCard className="bento-skills">
               <p className="eyebrow">🛠️ Skills.</p>
-              <div className="skill-list">
-                {portfolio.skills.map((label) => (
-                  <span key={label} className="skill-chip glass-chip">
-                    {label}
-                  </span>
-                ))}
-              </div>
+              <SkillsTile skills={portfolio.skills} />
             </BentoCard>
 
             <BentoCard className="bento-cta">
