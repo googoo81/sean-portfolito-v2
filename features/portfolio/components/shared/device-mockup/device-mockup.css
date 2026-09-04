@@ -13,15 +13,8 @@
   height: 100%;
 }
 
-.device-mockup canvas,
 .device-mockup .project-visual {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-.device-mockup canvas {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
 }

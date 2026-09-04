@@ -11,6 +11,7 @@ import {
 } from "react";
 import dynamic from "next/dynamic";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import { blurActiveElement } from "@/lib/blur-active-element";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import {
   beginProjectsSession,
@@ -21,10 +22,7 @@ import {
   writeProjectsDetailHash,
   writeProjectsListHash,
 } from "./projects-hash";
-import {
-  restoreProjectsOrigin,
-  type ProjectsOrigin,
-} from "./projects-origin";
+import { restoreProjectsOrigin, type ProjectsOrigin } from "./projects-origin";
 import type { Project } from "@/features/portfolio/types";
 
 const ProjectsOverlay = dynamic(
@@ -46,9 +44,7 @@ type ProjectsSessionValue = {
   openProjects: (options: OpenProjectsOptions) => void;
 };
 
-const ProjectsSessionContext = createContext<ProjectsSessionValue | null>(
-  null,
-);
+const ProjectsSessionContext = createContext<ProjectsSessionValue | null>(null);
 
 export function useProjectsSession() {
   const value = useContext(ProjectsSessionContext);
@@ -72,12 +68,35 @@ export function ProjectsSessionProvider({
   const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
   const [skipEnter, setSkipEnter] = useState(false);
   const originRef = useRef(origin);
+  const openRef = useRef(open);
   originRef.current = origin;
+  openRef.current = open;
 
   const reveal = useCallback((nextOrigin: ProjectsOrigin, instant: boolean) => {
     setSkipEnter(instant);
     setOrigin(nextOrigin);
     setOpen(true);
+  }, []);
+
+  useEffect(() => {
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (
+        callback: IdleRequestCallback,
+        options?: IdleRequestOptions,
+      ) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+
+    if (typeof idleWindow.requestIdleCallback === "function") {
+      const idleId = idleWindow.requestIdleCallback(
+        () => prefetchProjectsOverlay(),
+        { timeout: 1500 },
+      );
+      return () => idleWindow.cancelIdleCallback?.(idleId);
+    }
+
+    const timeoutId = window.setTimeout(() => prefetchProjectsOverlay(), 400);
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {
@@ -99,11 +118,13 @@ export function ProjectsSessionProvider({
     const onPopState = () => {
       if (isProjectsHash()) {
         restoreProjectsSession();
-        reveal(
-          originRef.current ??
-            restoreProjectsOrigin(parseProjectsSlug() ? "featured" : "cell"),
-          true,
-        );
+        if (!openRef.current) {
+          reveal(
+            originRef.current ??
+              restoreProjectsOrigin(parseProjectsSlug() ? "featured" : "cell"),
+            true,
+          );
+        }
         return;
       }
 
@@ -115,6 +136,8 @@ export function ProjectsSessionProvider({
   }, [reveal]);
 
   const openProjects = useDebouncedCallback((options: OpenProjectsOptions) => {
+    blurActiveElement();
+
     reveal(options.origin, false);
     beginProjectsSession();
     if (options.slug) {
@@ -125,6 +148,7 @@ export function ProjectsSessionProvider({
   });
 
   const handleClose = useCallback(() => {
+    setSkipEnter(false);
     setOpen(false);
     closeProjectsHistory();
   }, []);
@@ -141,7 +165,8 @@ export function ProjectsSessionProvider({
           open={open}
           origin={origin}
           projects={projects}
-          reducedMotion={reducedMotion || skipEnter}
+          reducedMotion={reducedMotion}
+          skipEnter={skipEnter}
           onClose={handleClose}
           onExited={handleExited}
         />

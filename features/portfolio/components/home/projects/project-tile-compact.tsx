@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DeviceMockup } from "../../shared/device-mockup";
+import { projectKindLabel } from "@/features/portfolio/lib/project-list";
 import type { Project } from "@/features/portfolio/types";
 
 type ProjectTileCompactProps = {
@@ -7,15 +8,11 @@ type ProjectTileCompactProps = {
   onSelect?: (project: Project) => void;
 };
 
-function kindOf(meta: string) {
-  return meta.split("|")[0]?.trim() ?? "";
-}
-
 export function ProjectTileCompact({
   project,
   onSelect,
 }: ProjectTileCompactProps) {
-  const kind = kindOf(project.meta);
+  const kind = projectKindLabel(project.meta);
   const className = "project-tile-compact glass-chip";
 
   const content = (

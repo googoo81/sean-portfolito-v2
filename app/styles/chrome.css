@@ -44,20 +44,20 @@
 }
 
 .eyebrow {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .eyebrow--sm {
-  font-size: 0.65rem;
+  font-size: var(--fs-label);
 }
 
 .prose {
-  font-size: 0.875rem;
-  line-height: 1.625;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--muted);
 }
 

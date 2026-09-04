@@ -101,6 +101,7 @@ export function DockIcon({
       },
       item,
     );
+    iconRef.current?.blur();
   });
 
   return (

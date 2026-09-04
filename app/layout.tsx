@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_KR } from "next/font/google";
+import localFont from "next/font/local";
 import { MotionPreference } from "@/components/ui";
 import { getThemeInitScript } from "@/lib/theme";
 import "./globals.css";
 
-const ibmPlexSansKr = IBM_Plex_Sans_KR({
-  variable: "--font-ibm-plex-sans-kr",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const suit = localFont({
+  src: "../public/fonts/SUIT-Variable-ttf/SUIT-Variable.ttf",
+  variable: "--font-suit",
+  display: "swap",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ko"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={ibmPlexSansKr.variable}
+      className={suit.variable}
     >
       <head>
         <script

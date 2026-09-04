@@ -1,4 +1,5 @@
 import { cn } from "@/lib/format";
+import { ProjectVideo } from "./project-video";
 import type { Project } from "@/features/portfolio/types";
 
 type ProjectVisualProps = {
@@ -36,14 +37,10 @@ export function ProjectVisual({
       )}
     >
       {video ? (
-        <video
+        <ProjectVideo
           src={video}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label={cover?.alt ?? `${project?.shortTitle} 영상`}
+          label={cover?.alt ?? `${project?.shortTitle} 영상`}
+          interactive={preferVideo}
         />
       ) : (
         <img src={encodeURI(cover?.src ?? "")} alt={cover?.alt ?? ""} />

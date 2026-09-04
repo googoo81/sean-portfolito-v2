@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
@@ -32,6 +32,7 @@ type ProjectsOverlayProps = {
   origin: ProjectsOrigin;
   projects: readonly Project[];
   reducedMotion?: boolean;
+  skipEnter?: boolean;
   onClose: () => void;
   onExited: () => void;
 };
@@ -48,18 +49,21 @@ const WINDOW_ZOOM = {
   ease: [0.22, 1, 0.36, 1],
 } as const;
 
-const CARD_RADIUS = 32;
 const WINDOW_RADIUS = 20;
+const shownWindow = { x: 0, y: 0, scale: 1 };
 
 export function ProjectsOverlay({
   open,
   origin,
   projects,
   reducedMotion = false,
+  skipEnter = false,
   onClose,
   onExited,
 }: ProjectsOverlayProps) {
   const exitedRef = useRef(false);
+  const closeStartedAtRef = useRef(0);
+  const skipOpenMotion = reducedMotion || skipEnter;
   const handleClose = useDebouncedCallback(onClose);
   const {
     frame,
@@ -73,6 +77,8 @@ export function ProjectsOverlay({
     parseProjectsSlug(),
   );
   const [wasOpen, setWasOpen] = useState(open);
+  const [settled, setSettled] = useState(skipOpenMotion);
+  const [contentReady, setContentReady] = useState(skipOpenMotion);
   const selected = selectedSlug
     ? (projects.find((project) => project.slug === selectedSlug) ?? null)
     : null;
@@ -92,8 +98,48 @@ export function ProjectsOverlay({
     return () => {
       document.body.style.overflow = previousOverflow;
       document.documentElement.removeAttribute("data-projects-open");
+      document.documentElement.removeAttribute("data-projects-settled");
     };
   }, []);
+
+  useEffect(() => {
+    if (!open) {
+      setSettled(false);
+      document.documentElement.removeAttribute("data-projects-settled");
+      return;
+    }
+
+    const delay = skipOpenMotion ? 0 : Math.round(WINDOW_ZOOM.duration * 1000);
+    const id = window.setTimeout(() => {
+      setSettled(true);
+      setContentReady(true);
+      document.documentElement.setAttribute("data-projects-settled", "");
+    }, delay);
+
+    return () => window.clearTimeout(id);
+  }, [open, skipOpenMotion]);
+
+  useEffect(() => {
+    if (open) {
+      exitedRef.current = false;
+      return;
+    }
+
+    closeStartedAtRef.current = performance.now();
+    const delay = reducedMotion
+      ? 0
+      : Math.round(WINDOW_CLOSE.duration * 1000) + 80;
+    const id = window.setTimeout(() => {
+      if (exitedRef.current) {
+        return;
+      }
+
+      exitedRef.current = true;
+      onExited();
+    }, delay);
+
+    return () => window.clearTimeout(id);
+  }, [open, onExited, reducedMotion]);
 
   useEffect(() => {
     if (!open) {
@@ -131,21 +177,22 @@ export function ProjectsOverlay({
     };
   }, [handleClose, open, projects]);
 
-  const fromCard = {
-    left: origin.x,
-    top: origin.y,
-    width: origin.width,
-    height: origin.height,
-    borderRadius: CARD_RADIUS,
-  };
+  const fromCard = useMemo(() => {
+    const originCenterX = origin.x + origin.width / 2;
+    const originCenterY = origin.y + origin.height / 2;
+    const targetCenterX = frame.x + frame.width / 2;
+    const targetCenterY = frame.y + frame.height / 2;
 
-  const openFrame = {
-    left: frame.x,
-    top: frame.y,
-    width: frame.width,
-    height: frame.height,
-    borderRadius: isMaximized ? 0 : WINDOW_RADIUS,
-  };
+    return {
+      x: originCenterX - targetCenterX,
+      y: originCenterY - targetCenterY,
+      scale: Math.max(
+        origin.width / frame.width,
+        origin.height / frame.height,
+        0.04,
+      ),
+    };
+  }, [origin, frame]);
 
   const handleSelect = useDebouncedCallback((project: Project) => {
     setSelectedSlug(project.slug);
@@ -155,6 +202,20 @@ export function ProjectsOverlay({
   const handleBackToList = () => {
     setSelectedSlug(undefined);
     writeProjectsListHash();
+  };
+
+  const finishExit = () => {
+    if (open || exitedRef.current) {
+      return;
+    }
+
+    const elapsed = performance.now() - closeStartedAtRef.current;
+    if (elapsed < WINDOW_CLOSE.duration * 1000 * 0.8 && !reducedMotion) {
+      return;
+    }
+
+    exitedRef.current = true;
+    onExited();
   };
 
   if (!frame.width) {
@@ -174,9 +235,20 @@ export function ProjectsOverlay({
         role="dialog"
         aria-modal="true"
         aria-labelledby="projects-overlay-title"
-        className="projects-overlay__window projects-shell"
-        initial={reducedMotion ? openFrame : fromCard}
-        animate={open ? openFrame : fromCard}
+        className={`projects-overlay__window projects-shell${
+          settled && !dragging && !reducedMotion
+            ? " projects-overlay__window--smooth"
+            : ""
+        }`}
+        style={{
+          left: frame.x,
+          top: frame.y,
+          width: frame.width,
+          height: frame.height,
+          borderRadius: isMaximized ? 0 : WINDOW_RADIUS,
+        }}
+        initial={skipOpenMotion ? shownWindow : fromCard}
+        animate={open ? shownWindow : fromCard}
         transition={
           reducedMotion || dragging
             ? { duration: 0 }
@@ -184,19 +256,7 @@ export function ProjectsOverlay({
               ? WINDOW_ZOOM
               : WINDOW_CLOSE
         }
-        onAnimationComplete={() => {
-          if (open) {
-            exitedRef.current = false;
-            return;
-          }
-
-          if (exitedRef.current) {
-            return;
-          }
-
-          exitedRef.current = true;
-          onExited();
-        }}
+        onAnimationComplete={finishExit}
       >
         {RESIZE_EDGES.map((edge) => (
           <div
@@ -208,55 +268,54 @@ export function ProjectsOverlay({
         <motion.div
           className="projects-overlay__face"
           initial={{ opacity: 1 }}
-          animate={{ opacity: open ? 0 : 1 }}
+          animate={{ opacity: open && contentReady ? 0 : 1 }}
           transition={{ duration: reducedMotion ? 0 : 0.18 }}
         >
           <p className="project-kicker">💻 Projects.</p>
         </motion.div>
-        <motion.div
-          className="projects-overlay__content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: open ? 1 : 0 }}
-          style={{ pointerEvents: open ? "auto" : "none" }}
-          transition={{
-            duration: reducedMotion ? 0 : 0.22,
-            delay: open && !reducedMotion ? 0.14 : 0,
-          }}
-        >
-          <WindowTitlebar
-            title={selected ? selected.shortTitle : "Projects."}
-            titleId="projects-overlay-title"
-            onClose={handleClose}
-            onZoom={toggleMaximize}
-            onMovePointerDown={startMove}
-            maximized={isMaximized}
+        {contentReady ? (
+          <motion.div
+            className="projects-overlay__content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: open ? 1 : 0 }}
+            style={{ pointerEvents: open ? "auto" : "none" }}
+            transition={{ duration: reducedMotion ? 0 : 0.2 }}
           >
-            <HistoryNav
-              canBack={canProjectsBack()}
-              canForward={canProjectsForward()}
-              onBack={() => history.back()}
-              onForward={() => history.forward()}
-            />
-          </WindowTitlebar>
-          <div className="projects-overlay__body projects-overlay__body--split">
-            <ProjectsSplitShell
-              projects={projects}
-              activeSlug={selected?.slug}
-              onSelect={handleSelect}
-              onBackToList={handleBackToList}
-              scrollKey={selected?.slug ?? "list"}
+            <WindowTitlebar
+              title={selected ? selected.shortTitle : "Projects."}
+              titleId="projects-overlay-title"
+              onClose={handleClose}
+              onZoom={toggleMaximize}
+              onMovePointerDown={startMove}
+              maximized={isMaximized}
             >
-              {selected ? (
-                <ProjectDetailBody project={selected} />
-              ) : (
-                <ProjectListBody
-                  projects={projects}
-                  onSelect={handleSelect}
-                />
-              )}
-            </ProjectsSplitShell>
-          </div>
-        </motion.div>
+              <HistoryNav
+                canBack={canProjectsBack()}
+                canForward={canProjectsForward()}
+                onBack={() => history.back()}
+                onForward={() => history.forward()}
+              />
+            </WindowTitlebar>
+            <div className="projects-overlay__body projects-overlay__body--split">
+              <ProjectsSplitShell
+                projects={projects}
+                activeSlug={selected?.slug}
+                onSelect={handleSelect}
+                onBackToList={handleBackToList}
+                scrollKey={selected?.slug ?? "list"}
+              >
+                {selected ? (
+                  <ProjectDetailBody project={selected} />
+                ) : (
+                  <ProjectListBody
+                    projects={projects}
+                    onSelect={handleSelect}
+                  />
+                )}
+              </ProjectsSplitShell>
+            </div>
+          </motion.div>
+        ) : null}
       </motion.div>
     </div>,
     document.body,

@@ -6,7 +6,7 @@ type ProjectArticleProps = {
 };
 
 function stillsOf(project: Project): ProjectImage[] {
-  if (project.galleryFormat === "carousel") {
+  if (project.galleryFormat === "carousel" || project.galleryFormat === "deck") {
     return [];
   }
 
@@ -19,9 +19,16 @@ function pdfLinksOf(project: Project) {
   );
 }
 
+function outboundLinksOf(project: Project) {
+  return (
+    project.links?.filter((link) => !/\.pdf(?:$|\?)/i.test(link.href)) ?? []
+  );
+}
+
 export function ProjectArticle({ project }: ProjectArticleProps) {
   const stills = stillsOf(project);
   const pdfs = pdfLinksOf(project);
+  const outbound = outboundLinksOf(project);
 
   return (
     <div className="article">
@@ -35,11 +42,11 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </p>
       </header>
 
-      {project.links && project.links.length > 0 ? (
+      {outbound.length > 0 ? (
         <div>
           <h2 className="article__heading">Links</h2>
           <ul className="article__links">
-            {project.links.map((link) => (
+            {outbound.map((link) => (
               <li key={link.href}>
                 <ExternalLink href={encodeURI(link.href)} className="article__link">
                   {link.label}
@@ -49,6 +56,25 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           </ul>
         </div>
       ) : null}
+
+      <div>
+        <h2 className="article__heading">Situation & Hypothesis</h2>
+        <Prose>{project.situation}</Prose>
+      </div>
+
+      <div>
+        <h2 className="article__heading">Action</h2>
+        <ul className="article__actions">
+          {project.actions.map((action) => (
+            <li key={action}>{action}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="article__heading">Result & Reflection</h2>
+        <Prose className="article__result">{project.result}</Prose>
+      </div>
 
       {stills.length > 0 ? (
         <div>
@@ -67,34 +93,21 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         <div>
           <h2 className="article__heading">Deck</h2>
           {pdfs.map((pdf) => (
-            <iframe
-              key={pdf.href}
-              src={encodeURI(pdf.href)}
-              title={pdf.label}
-              className="article__pdf"
-            />
+            <div key={pdf.href} className="article__pdf-block">
+              <iframe
+                src={encodeURI(pdf.href)}
+                title={pdf.label}
+                className="article__pdf-frame"
+              />
+              <div className="article__pdf-footer">
+                <ExternalLink href={encodeURI(pdf.href)} className="article__link">
+                  {pdf.label} ↗
+                </ExternalLink>
+              </div>
+            </div>
           ))}
         </div>
       ) : null}
-
-      <div>
-        <h2 className="article__heading">Situation & Task</h2>
-        <Prose>{project.situation}</Prose>
-      </div>
-
-      <div>
-        <h2 className="article__heading">Action</h2>
-        <ul className="article__actions">
-          {project.actions.map((action) => (
-            <li key={action}>{action}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h2 className="article__heading">Result & Next Action</h2>
-        <Prose className="article__result">{project.result}</Prose>
-      </div>
     </div>
   );
 }

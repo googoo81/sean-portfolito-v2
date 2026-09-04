@@ -6,6 +6,7 @@
 @import "../features/portfolio/components/home/intro-about.css";
 @import "../features/portfolio/components/home/profile-tile.css";
 @import "../features/portfolio/components/home/social-tile.css";
+@import "../features/portfolio/components/home/skills-tile.css";
 @import "../features/portfolio/components/home/projects/projects-overlay.css";
 @import "../features/portfolio/components/work/projects-window.css";
 @import "../features/portfolio/components/shared/device-mockup/device-mockup.css";

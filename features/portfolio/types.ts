@@ -24,11 +24,7 @@ export type Project = {
   video?: string;
   videoFormat?: "reels";
   gallery?: ProjectImage[];
-  galleryFormat?: "carousel";
-  mockup?: {
-    device: "iphone" | "macbook";
-    images?: string[];
-  };
+  galleryFormat?: "carousel" | "deck";
 };
 
 export type HistoryItem = {
@@ -70,10 +66,15 @@ export type PortfolioContact = {
   medium: string;
 };
 
+export type SkillItem = {
+  label: string;
+  description: string;
+};
+
 export type Portfolio = {
   intro: PortfolioIntro;
   contact: PortfolioContact;
-  skills: string[];
+  skills: SkillItem[];
   stack: readonly StackItem[];
   featuredSlug: string;
   projects: Project[];
