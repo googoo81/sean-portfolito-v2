@@ -74,8 +74,8 @@ html[data-theme="light"] .skill-panel {
     transform 160ms ease;
   clip-path: shape(
     from bottom left,
-    curve to var(--tabGirth) calc(100% - var(--tabGirth)) with
-      var(--tabGirth) 100%,
+    curve to var(--tabGirth) calc(100% - var(--tabGirth)) with var(--tabGirth)
+      100%,
     vline to var(--tabGirth),
     curve to calc(var(--tabGirth) * 2) 0 with var(--tabGirth) 0,
     hline to calc(100% - calc(var(--tabGirth) * 2)),
