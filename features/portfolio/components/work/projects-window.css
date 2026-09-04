@@ -465,11 +465,131 @@
 }
 
 .project-visual--media img,
-.project-visual--media video {
+.project-visual--media video,
+.project-visual--media .project-video {
   width: 100%;
   height: 100%;
   max-width: none;
+}
+
+.project-visual--media img,
+.project-visual--media video {
   object-fit: cover;
+}
+
+.project-video {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.project-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  vertical-align: top;
+}
+
+.project-video--interactive video {
+  cursor: pointer;
+}
+
+.project-video__chrome {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.project-video__btn {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.55);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.project-video__btn:hover {
+  background: rgb(0 0 0 / 0.72);
+}
+
+.project-video__btn:focus {
+  outline: none;
+}
+
+.project-video__btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.project-video__timeline {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.55);
+  color: #fff;
+  backdrop-filter: blur(8px);
+}
+
+.project-video__time {
+  flex-shrink: 0;
+  min-width: 2.1rem;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+
+.project-video__scrub {
+  position: relative;
+  flex: 1;
+  height: 0.85rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.project-video__scrub::before {
+  content: "";
+  width: 100%;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.28);
+}
+
+.project-video__scrub-fill {
+  position: absolute;
+  left: 0;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: #fff;
+  pointer-events: none;
+}
+
+.project-video__scrub:focus {
+  outline: none;
+}
+
+.project-video__scrub:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .project-visual--contain {

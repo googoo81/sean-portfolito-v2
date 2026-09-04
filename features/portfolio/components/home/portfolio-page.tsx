@@ -137,7 +137,6 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             </BentoCard>
 
             <BentoCard className="bento-skills">
-              <p className="eyebrow">🛠️ Skills.</p>
               <SkillsTile skills={portfolio.skills} />
             </BentoCard>
 

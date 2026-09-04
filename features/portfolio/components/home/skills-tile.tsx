@@ -25,27 +25,33 @@ export function SkillsTile({ skills }: SkillsTileProps) {
 
   return (
     <div className="skill-panel">
-      <div className="skill-list" role="radiogroup" aria-label="Skills">
-        {skills.map((skill) => {
-          const selected = skill.label === active.label;
+      <div className="skill-header">
+        <p className="eyebrow skill-header__title">🛠️ Skills.</p>
+        <div className="skill-tabs" role="radiogroup" aria-label="Skills">
+          {skills.map((skill, index) => {
+            const selected = skill.label === active.label;
 
-          return (
-            <button
-              key={skill.label}
-              type="button"
-              role="radio"
-              aria-checked={selected}
-              className={cn("skill-chip glass-chip", selected && "is-active")}
-              onClick={() => setActiveLabel(skill.label)}
-            >
-              {skill.label}
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={skill.label}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                className={cn("skill-tab", selected && "is-active")}
+                style={{ zIndex: selected ? skills.length + 2 : index + 1 }}
+                onClick={() => setActiveLabel(skill.label)}
+              >
+                <span className="skill-tab__label">{skill.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <p key={active.label} className="skill-desc">
-        {active.description}
-      </p>
+      <div className="skill-body">
+        <p key={active.label} className="skill-desc">
+          {active.description}
+        </p>
+      </div>
     </div>
   );
 }
