@@ -1,19 +1,5 @@
 import { STACK_ITEMS } from "@/features/portfolio/constants";
-import type { Portfolio, ProjectImage } from "@/features/portfolio/types";
-
-function numberedSlides(
-  dir: string,
-  count: number,
-  altPrefix: string,
-): ProjectImage[] {
-  return Array.from({ length: count }, (_, index) => {
-    const n = String(index + 1).padStart(2, "0");
-    return {
-      src: `${dir}/${n}.png`,
-      alt: `${altPrefix} ${index + 1}`,
-    };
-  });
-}
+import type { Portfolio } from "@/features/portfolio/types";
 
 export const portfolio: Portfolio = {
   intro: {
@@ -69,67 +55,7 @@ export const portfolio: Portfolio = {
   ],
   projects: [
     {
-      slug: "team-sparta",
-      shortTitle: "팀스파르타",
-      title:
-        "세그먼트별 매체·KPI를 나눈 팀스파르타 신규 유입 기획안",
-      meta: "팀 프로젝트 · 운영 전 기획안 | 담당: 브랜드 분석 · 타깃 설정 · 캠페인 전략 및 소재 기획",
-      tools: "Notion · Figma",
-      period: "2026.05",
-      situation:
-        "AI·개발 교육 시장은 ‘커리큘럼·취업률’ 메시지가 비슷했고, 바이브 코딩(+1,457%)·업무 자동화(+420%) 검색이 급증하는 국면이었습니다. 네이버 데이터랩·구글 트렌드·썸트렌드로 트렌드를 교차 검증한 뒤, 스펙 확보형 대학생·직무 전환 희망 직장인·프리랜서·1인 창업자의 페인/니즈가 다르다는 가설을 세웠습니다. 운영 전 기획안으로서, 인구통계·심리·행동 기준으로 세그먼트를 나누고 매체와 가정 KPI까지 함께 설계하는 것이 과제였습니다.",
-      actions: [
-        "스파르타클럽·패스트캠퍼스·클래스101을 Problem–Promise–Proof–Personality로 비교해 자사 USP(포기하지 않게 만드는 밀착 학습)를 정리",
-        "3개 세그먼트별 페인·니즈와 페르소나(김페르소나/허윤서/이훈이)를 잡고 핵심 메시지를 분리",
-        "대학생→인스타(메인 KPI: 공유수), 직무 전환→네이버 블로그(메인: 노출수), 1인 창업→유튜브·구글(링크 CTR 5%·상담 전환 2% 등)로 매체 플래닝",
-        "공통 크리에이티브 KPI로 도달 10만+·저장·공유 5천+·랜딩 유입 3천+를 가정값으로 장표에 고정하고 에브리타임·블라인드·인스타 등 채널 노출안을 제시",
-      ],
-      result:
-        "세그먼트–메시지–매체–가정 KPI가 한 장표에 묶인 신규 유입 캠페인 기획안을 완성했습니다. 운영 전이므로 실측은 없고, ‘누구를 나눌지’가 카피·매체·지표를 어떻게 바꿨는지를 보여주는 데 초점을 뒀습니다. 회고: 페르소나의 취미·생활 맥락(야구·브이로그 등)을 매체·카피 결정 한 줄과 더 촘촘히 매핑하면, 세그먼트 근거의 설득력이 더 올라갑니다.",
-      cover: {
-        src: "/project/sparta/mockup.png",
-        alt: "팀스파르타 신규 유입 마케팅 기획안 목업",
-        fit: "contain",
-      },
-      links: [
-        {
-          label: "캠페인 기획안 (PDF)",
-          href: "/project/sparta/ppt.pdf",
-        },
-      ],
-    },
-    {
-      slug: "meta-comedy",
-      shortTitle: "메타코미디클럽",
-      title: "‘요즘 웃긴 거, 어디서 봐?’ 온·오프 연결 7장 카드뉴스",
-      meta: "개인 과제 · 정보형 캐러셀 | 담당: 브랜드 분석 · 콘텐츠 구조 설계 · 카피 · 디자인",
-      tools: "Figma · 생성형 AI",
-      period: "2026.06",
-      situation:
-        "메타코미디클럽은 유튜브 기반 코미디와 홍대 공연장을 함께 운영하지만, 인스타만 보면 ‘어떤 곳인지·처음 가도 되는지·어디서 예매하는지’가 한 흐름으로 잡히기 어려웠습니다. 타깃은 웃긴 콘텐츠는 좋아하지만 코미디 공연장 방문 경험이 없는 2030 인스타 이용자로 잡았습니다. ‘요즘 웃긴 거, 어디서 봐?’를 테마로, 온라인 웃음을 오프라인 관람·예매까지 단계적으로 이어주는 7장 정보형 카드뉴스를 만드는 것이 과제였습니다.",
-      actions: [
-        "브랜드 USP를 ‘온라인에서 발견한 코미디를 오프라인 공연 경험까지 연결하는 IP 플랫폼’으로 정리하고, 인스타 캐러셀의 체류·저장 특성에 맞춰 정보형 구성을 설계",
-        "표지 후킹 → 브랜드 소개 → 유튜브 콘텐츠 → 온·오프 연결 → 공연 유형 → 첫 방문 안심 → 주말 놀거리·예매 안내 순의 7장 스토리라인 작성",
-        "실제 코미디언 이미지와 그린 포인트로 현장감·톤을 맞추고, 카드별 헤드라인·본문·캡션(#메타코미디클럽 #홍대놀거리 등)을 제작",
-        "랜딩은 네이버 예약(홍대 공연 일정·예매)로 연결해 ‘이번 주말, 웃으러 가볼까?’ 메시지와 예매 동선을 맞춤",
-      ],
-      result:
-        "테마가 잡힌 7장 카드뉴스 1종과 캡션·랜딩 연결안을 완성했습니다. 다만 마지막 장에 예매 CTA가 약해(튜터 피드백), 관심에서 행동으로 끊겼습니다. 회고: 정보 나열보다 먼저 ‘끝내고 싶은 행동’을 고정했어야 했습니다. 보완안은 마지막 장에 ‘공연 바로 예매하러 가기 → 아래 캡션 참고’를 두고, 앞 카드가 그 행동으로 모이는지부터 다시 점검하는 것입니다.",
-      cover: {
-        src: "/project/metacomedy/mockup.png",
-        alt: "메타코미디클럽 인스타그램 피드 목업",
-        fit: "contain",
-      },
-      gallery: numberedSlides(
-        "/project/metacomedy/slide",
-        8,
-        "메타코미디클럽 카드뉴스",
-      ),
-      galleryFormat: "carousel",
-    },
-    {
-      slug: "bareway",
-      shortTitle: "배리웨이",
+      slug: "bareway",      shortTitle: "배리웨이",
       title: "월 1,000만 원 미디어믹스로 설계한 재구매 캠페인",
       meta: "팀 프로젝트 · 운영 전 기획안 | 담당: 콘텐츠 전략 · 릴스/광고 소재 · 디자인",
       tools: "Figma · CapCut · 생성형 AI",
