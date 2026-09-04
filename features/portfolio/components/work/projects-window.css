@@ -891,16 +891,6 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
   height: auto;
 }
 
-.article__pdf {
-  display: block;
-  width: 100%;
-  height: min(70dvh, 36rem);
-  margin-top: 0.5rem;
-  border: 0;
-  border-radius: 1rem;
-  background: var(--soft);
-}
-
 .article__title {
   font-size: 1.625rem;
   font-weight: var(--fw-semibold);
@@ -950,6 +940,28 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
 
 .article__link:hover {
   text-decoration-color: var(--foreground);
+}
+
+.article__pdf-block {
+  margin-top: 0.5rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: var(--soft);
+}
+
+.article__pdf-frame {
+  display: block;
+  width: 100%;
+  height: 70dvh;
+  min-height: 480px;
+  border: 0;
+}
+
+.article__pdf-footer {
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-meta);
 }
 
 .article__actions {

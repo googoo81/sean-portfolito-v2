@@ -24,7 +24,7 @@ export type Project = {
   video?: string;
   videoFormat?: "reels";
   gallery?: ProjectImage[];
-  galleryFormat?: "carousel";
+  galleryFormat?: "carousel" | "deck";
 };
 
 export type HistoryItem = {
