@@ -84,7 +84,7 @@ export const portfolioEn: Portfolio = {
       links: [
         {
           label: "Campaign plan (PDF)",
-          href: "/project/variway/ppt.pdf",
+          href: "/project/variway/ppt.en.pdf",
         },
       ],
     },
