@@ -13,7 +13,11 @@
 html[data-theme="light"] .skill-panel {
   --skill-folder: color-mix(in srgb, var(--foreground) 5%, var(--surface));
   --skill-tab: color-mix(in srgb, var(--foreground) 6%, var(--background));
-  --skill-tab-hover: color-mix(in srgb, var(--foreground) 9%, var(--background));
+  --skill-tab-hover: color-mix(
+    in srgb,
+    var(--foreground) 9%,
+    var(--background)
+  );
 }
 
 .skill-header {
@@ -78,11 +82,6 @@ html[data-theme="light"] .skill-panel {
   margin-left: -1px;
 }
 
-.skill-tab:not(.is-active):not(:hover):not(:focus-visible)
-  + .skill-tab:not(.is-active):not(:hover):not(:focus-visible) {
-  box-shadow: inset 1px 0 0
-    color-mix(in srgb, var(--foreground) 14%, transparent);
-}
 
 .skill-tab:hover,
 .skill-tab:focus-visible {

@@ -53,10 +53,10 @@ async function copyToClipboard(value: string) {
 
 export function SocialTile({
   github,
-  medium,
+  linkedin,
   phone,
   email,
-}: Pick<PortfolioContact, "github" | "medium" | "phone" | "email">) {
+}: Pick<PortfolioContact, "github" | "linkedin" | "phone" | "email">) {
   const [copiedId, setCopiedId] = useState<SocialIconId | null>(null);
   const copiedTimer = useRef<number>(0);
 
@@ -107,12 +107,12 @@ export function SocialTile({
       external: true,
     },
     {
-      href: medium,
-      label: "Medium",
-      icon: "medium",
-      copyValue: medium,
-      copyLabel: "Medium 링크 복사",
-      openLabel: "Medium으로 이동",
+      href: linkedin,
+      label: "LinkedIn",
+      icon: "linkedin",
+      copyValue: linkedin,
+      copyLabel: "LinkedIn 링크 복사",
+      openLabel: "LinkedIn으로 이동",
       external: true,
     },
     {

@@ -63,7 +63,7 @@ export type PortfolioContact = {
   phone: string;
   email: string;
   github: string;
-  medium: string;
+  linkedin: string;
 };
 
 export type SkillItem = {
