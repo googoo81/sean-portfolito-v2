@@ -11,8 +11,9 @@
 }
 
 html[data-theme="light"] .skill-panel {
-  --skill-tab: color-mix(in srgb, var(--foreground) 6%, #e8e4d8);
-  --skill-tab-hover: color-mix(in srgb, var(--foreground) 9%, #e8e4d8);
+  --skill-folder: color-mix(in srgb, var(--foreground) 5%, var(--surface));
+  --skill-tab: color-mix(in srgb, var(--foreground) 6%, var(--background));
+  --skill-tab-hover: color-mix(in srgb, var(--foreground) 9%, var(--background));
 }
 
 .skill-header {
