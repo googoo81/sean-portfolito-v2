@@ -1,6 +1,6 @@
-import type { Project } from "@/features/portfolio/types";
+import type { Project, ProjectKind } from "@/features/portfolio/types";
 
-export type ProjectKindFilter = "all" | "team" | "personal";
+export type ProjectKindFilter = "all" | ProjectKind;
 export type ProjectSort = "newest" | "oldest";
 
 export function projectKindLabel(meta: string) {
@@ -15,11 +15,7 @@ export function matchesKindFilter(
     return true;
   }
 
-  const label = projectKindLabel(project.meta);
-  if (kind === "team") {
-    return label.startsWith("팀");
-  }
-  return label.startsWith("개인");
+  return project.kind === kind;
 }
 
 export function filterAndSortProjects(

@@ -9,10 +9,13 @@ export type ProjectImage = {
   fit?: "contain";
 };
 
+export type ProjectKind = "team" | "personal";
+
 export type Project = {
   slug: string;
   shortTitle: string;
   title: string;
+  kind: ProjectKind;
   meta: string;
   tools: string;
   period: string;

@@ -3,6 +3,7 @@
 import { useRef, useState, type PointerEvent } from "react";
 import { cn } from "@/lib/format";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
+import { useUi } from "@/features/portfolio/i18n";
 import type { ProjectImage } from "@/features/portfolio/types";
 
 type InstagramCarouselProps = {
@@ -14,6 +15,7 @@ export function InstagramCarousel({
   images,
   className,
 }: InstagramCarouselProps) {
+  const ui = useUi();
   const reducedMotion = usePrefersReducedMotion();
   const [index, setIndex] = useState(0);
   const dragRef = useRef<{ id: number; x: number } | null>(null);
@@ -75,7 +77,7 @@ export function InstagramCarousel({
         <button
           type="button"
           className="project-carousel__btn project-carousel__btn--prev"
-          aria-label="이전 카드"
+          aria-label={ui.carousel.prev}
           onPointerDown={(event) => event.stopPropagation()}
           onClick={() => go(index - 1)}
         />
@@ -84,7 +86,7 @@ export function InstagramCarousel({
         <button
           type="button"
           className="project-carousel__btn project-carousel__btn--next"
-          aria-label="다음 카드"
+          aria-label={ui.carousel.next}
           onPointerDown={(event) => event.stopPropagation()}
           onClick={() => go(index + 1)}
         />

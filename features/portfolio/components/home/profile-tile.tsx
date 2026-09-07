@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { BentoCard } from "@/components/ui";
+import { useUi } from "@/features/portfolio/i18n";
 
 const PROFILE_PHOTOS = {
   dark: "/Image/profile/dark.webp",
@@ -12,12 +15,14 @@ type ProfileTileProps = {
 };
 
 export function ProfileTile({ className, name }: ProfileTileProps) {
+  const ui = useUi();
+
   return (
     <BentoCard className={className}>
       <div
         className="profile-tile"
         role="img"
-        aria-label={`${name} 프로필 사진`}
+        aria-label={ui.profilePhotoAria(name)}
       >
         <Image
           src={PROFILE_PHOTOS.dark}
@@ -32,6 +37,7 @@ export function ProfileTile({ className, name }: ProfileTileProps) {
           src={PROFILE_PHOTOS.light}
           alt=""
           fill
+          priority
           sizes="(orientation: landscape) 25vw, 100vw"
           draggable={false}
           className="profile-tile__photo profile-tile__photo--light"

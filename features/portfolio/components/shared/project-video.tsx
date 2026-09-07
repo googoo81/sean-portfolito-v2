@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useUi } from "@/features/portfolio/i18n";
 import { cn } from "@/lib/format";
 
 type ProjectVideoProps = {
@@ -27,6 +28,7 @@ export function ProjectVideo({
   className,
   interactive = false,
 }: ProjectVideoProps) {
+  const ui = useUi();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
@@ -152,7 +154,7 @@ export function ProjectVideo({
             <button
               type="button"
               className="project-video__btn"
-              aria-label={playing ? "일시정지" : "재생"}
+              aria-label={playing ? ui.video.pause : ui.video.play}
               onClick={(event) => {
                 event.stopPropagation();
                 void togglePlay();
@@ -164,7 +166,7 @@ export function ProjectVideo({
             <button
               type="button"
               className="project-video__btn"
-              aria-label={muted ? "소리 켜기" : "소리 끄기"}
+              aria-label={muted ? ui.video.unmute : ui.video.mute}
               onClick={(event) => {
                 event.stopPropagation();
                 setMuted((value) => !value);
@@ -181,7 +183,7 @@ export function ProjectVideo({
             <div
               className="project-video__scrub"
               role="slider"
-              aria-label="재생 위치"
+              aria-label={ui.video.seek}
               aria-valuemin={0}
               aria-valuemax={Math.round(duration)}
               aria-valuenow={Math.round(current)}

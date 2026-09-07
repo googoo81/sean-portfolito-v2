@@ -1,4 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/format";
+import { useUi } from "@/features/portfolio/i18n";
 import { ProjectVideo } from "./project-video";
 import type { Project } from "@/features/portfolio/types";
 
@@ -13,6 +16,7 @@ export function ProjectVisual({
   className,
   preferVideo = false,
 }: ProjectVisualProps) {
+  const ui = useUi();
   const cover = project?.cover;
   const video =
     project?.video && (preferVideo || !cover) ? project.video : undefined;
@@ -21,7 +25,7 @@ export function ProjectVisual({
   if (!video && !cover) {
     return (
       <div className={cn("project-visual", className)}>
-        <p>미리보기 이미지</p>
+        <p>{ui.video.previewFallback}</p>
       </div>
     );
   }
@@ -39,7 +43,10 @@ export function ProjectVisual({
       {video ? (
         <ProjectVideo
           src={video}
-          label={cover?.alt ?? `${project?.shortTitle} 영상`}
+          label={
+            cover?.alt ??
+            ui.video.fallbackLabel(project?.shortTitle ?? "")
+          }
           interactive={preferVideo}
         />
       ) : (

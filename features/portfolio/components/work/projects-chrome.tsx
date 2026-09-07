@@ -3,6 +3,7 @@
 import type { PointerEvent, ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useUi } from "@/features/portfolio/i18n";
 import { useHistoryPager } from "./use-history-pager";
 
 const glyph = "no-pointer";
@@ -125,7 +126,8 @@ function TrafficLights({
   onZoom?: () => void;
   maximized?: boolean;
 }) {
-  const zoomLabel = maximized ? "창 크기 복원" : "전체 화면";
+  const ui = useUi();
+  const zoomLabel = maximized ? ui.chrome.restore : ui.chrome.maximize;
   const zoomIcon = maximized ? <ExpandLightIcon /> : <ZoomLightIcon />;
 
   return (
@@ -136,13 +138,13 @@ function TrafficLights({
     >
       <TrafficLight
         kind="close"
-        label="닫기"
+        label={ui.chrome.close}
         closeHref={closeHref}
         onClose={onClose}
       />
       <TrafficLight
         kind="min"
-        label="홈으로"
+        label={ui.chrome.home}
         closeHref={closeHref}
         onClose={onClose}
       />
@@ -178,6 +180,7 @@ export function HistoryNav({
   canBack?: boolean;
   canForward: boolean;
 }) {
+  const ui = useUi();
   return (
     <div
       className="projects-overlay__nav"
@@ -186,7 +189,7 @@ export function HistoryNav({
     >
       <button
         type="button"
-        aria-label="뒤로"
+        aria-label={ui.chrome.back}
         className="projects-overlay__nav-btn"
         disabled={!canBack}
         onClick={onBack}
@@ -195,7 +198,7 @@ export function HistoryNav({
       </button>
       <button
         type="button"
-        aria-label="앞으로"
+        aria-label={ui.chrome.forward}
         className="projects-overlay__nav-btn"
         disabled={!canForward}
         onClick={onForward}

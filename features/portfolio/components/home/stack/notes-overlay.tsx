@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import type { StackItem } from "@/features/portfolio/types";
+import { useUi } from "@/features/portfolio/i18n";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import { NotesSidebar } from "./notes-sidebar";
 import { RESIZE_EDGES, type NotesOrigin } from "./notes-window";
@@ -49,6 +50,7 @@ export function NotesOverlay({
   onSelectItem,
   onReorder,
 }: NotesOverlayProps) {
+  const ui = useUi();
   const exitedRef = useRef(false);
   const onCloseRef = useRef(onClose);
   const handleClose = useDebouncedCallback(onClose);
@@ -177,15 +179,15 @@ export function NotesOverlay({
             <input
               value={draft.title}
               onChange={(event) => updateDraft("title", event.target.value)}
-              aria-label="메모 제목"
-              placeholder="제목"
+              aria-label={ui.notes.titleAria}
+              placeholder={ui.notes.titlePlaceholder}
               className="notes-overlay__input"
             />
             <textarea
               value={draft.body}
               onChange={(event) => updateDraft("body", event.target.value)}
-              aria-label="메모 내용"
-              placeholder="메모를 입력하세요"
+              aria-label={ui.notes.bodyAria}
+              placeholder={ui.notes.bodyPlaceholder}
               className="notes-overlay__textarea"
             />
           </div>

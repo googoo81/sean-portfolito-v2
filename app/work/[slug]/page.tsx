@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getPortfolio, getProjectBySlug } from "@/features/portfolio";
-import { ProjectDetailView } from "@/features/portfolio/components/work/project-detail-view";
-import { WorkWindow } from "@/features/portfolio/components/work/projects-chrome";
+import { LocaleProvider } from "@/features/portfolio/i18n";
+import { WorkDetailClient } from "@/features/portfolio/components/work/work-detail-client";
 
 export function generateStaticParams() {
   return getPortfolio().projects.map((project) => ({ slug: project.slug }));
@@ -23,16 +23,14 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">) {
 
 export default async function WorkPage({ params }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
-  const { projects } = getPortfolio();
-  const project = getProjectBySlug(slug);
 
-  if (!project) {
+  if (!getProjectBySlug(slug)) {
     notFound();
   }
 
   return (
-    <WorkWindow title={project.shortTitle}>
-      <ProjectDetailView project={project} projects={projects} />
-    </WorkWindow>
+    <LocaleProvider>
+      <WorkDetailClient slug={slug} />
+    </LocaleProvider>
   );
 }
