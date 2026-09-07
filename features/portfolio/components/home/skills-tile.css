@@ -2,8 +2,8 @@
   --skill-folder: color-mix(in srgb, var(--foreground) 9%, var(--surface));
   --skill-tab: color-mix(in srgb, var(--foreground) 4.5%, #2a2a2e);
   --skill-tab-hover: color-mix(in srgb, var(--foreground) 7%, #2a2a2e);
-  --tabGirth: 14px;
-  --tabOverlap: calc(var(--tabGirth) * 1.65);
+  --tab-radius: 10px;
+  --tab-curve: 10px;
   display: flex;
   min-height: 0;
   flex: 1;
@@ -11,8 +11,9 @@
 }
 
 html[data-theme="light"] .skill-panel {
-  --skill-tab: color-mix(in srgb, var(--foreground) 6%, #e8e4d8);
-  --skill-tab-hover: color-mix(in srgb, var(--foreground) 9%, #e8e4d8);
+  --skill-folder: color-mix(in srgb, var(--foreground) 5%, var(--surface));
+  --skill-tab: color-mix(in srgb, var(--foreground) 6%, var(--background));
+  --skill-tab-hover: color-mix(in srgb, var(--foreground) 9%, var(--background));
 }
 
 .skill-header {
@@ -20,9 +21,8 @@ html[data-theme="light"] .skill-panel {
   z-index: 2;
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
+  gap: 0.55rem;
   min-width: 0;
-  margin-bottom: -1px;
 }
 
 .skill-header__title {
@@ -38,6 +38,7 @@ html[data-theme="light"] .skill-panel {
   flex: 1;
   flex-wrap: nowrap;
   align-items: flex-end;
+  align-self: flex-end;
   justify-content: flex-end;
   gap: 0;
   margin: 0;
@@ -52,6 +53,7 @@ html[data-theme="light"] .skill-panel {
 }
 
 .skill-tab {
+  --tab-bg: var(--skill-tab);
   position: relative;
   display: flex;
   flex: 0 1 auto;
@@ -59,51 +61,79 @@ html[data-theme="light"] .skill-panel {
   justify-content: center;
   min-width: 0;
   max-width: 8.5rem;
+  height: 2.1rem;
   margin: 0 0 -1px;
-  margin-left: calc(var(--tabOverlap) * -1);
-  padding: 0.42rem calc(var(--tabGirth) * 2.1) 0.55rem;
+  padding: 0.35rem 0.95rem 0.4rem;
   border: 0;
-  background: var(--skill-tab);
+  border-radius: var(--tab-radius) var(--tab-radius) 0 0;
+  background: var(--tab-bg);
   color: var(--muted);
   font: inherit;
   white-space: nowrap;
   cursor: pointer;
-  transition:
-    background-color 160ms ease,
-    color 160ms ease,
-    transform 160ms ease;
-  clip-path: shape(
-    from bottom left,
-    curve to var(--tabGirth) calc(100% - var(--tabGirth)) with var(--tabGirth)
-      100%,
-    vline to var(--tabGirth),
-    curve to calc(var(--tabGirth) * 2) 0 with var(--tabGirth) 0,
-    hline to calc(100% - calc(var(--tabGirth) * 2)),
-    curve to calc(100% - var(--tabGirth)) var(--tabGirth) with
-      calc(100% - var(--tabGirth)) 0,
-    vline to calc(100% - var(--tabGirth)),
-    curve to 100% 100% with calc(100% - var(--tabGirth)) 100%
-  );
 }
 
-.skill-tab:first-child {
-  margin-left: 0;
+/* Inactive tabs: slight overlap + Chrome-like vertical hairline */
+.skill-tab + .skill-tab {
+  margin-left: -1px;
+}
+
+.skill-tab:not(.is-active):not(:hover):not(:focus-visible)
+  + .skill-tab:not(.is-active):not(:hover):not(:focus-visible) {
+  box-shadow: inset 1px 0 0
+    color-mix(in srgb, var(--foreground) 14%, transparent);
 }
 
 .skill-tab:hover,
 .skill-tab:focus-visible {
   z-index: 9;
-  background: var(--skill-tab-hover);
+  --tab-bg: var(--skill-tab-hover);
+  background: var(--tab-bg);
   color: var(--foreground);
-  transform: translateY(1px);
 }
 
 .skill-tab.is-active {
   z-index: 10;
-  background: var(--skill-folder);
+  --tab-bg: var(--skill-folder);
+  background: var(--tab-bg);
   color: var(--foreground);
-  transform: translateY(1px);
-  padding-bottom: 0.7rem;
+  height: 2.25rem;
+  padding-bottom: 0.5rem;
+  box-shadow: none;
+}
+
+/* Chrome shoulders — only on the active tab */
+.skill-tab.is-active::before,
+.skill-tab.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: var(--tab-curve);
+  height: var(--tab-curve);
+  pointer-events: none;
+}
+
+.skill-tab.is-active::before {
+  left: calc(var(--tab-curve) * -1);
+  background: radial-gradient(
+    circle at 0 0,
+    transparent calc(var(--tab-curve) - 0.5px),
+    var(--tab-bg) var(--tab-curve)
+  );
+}
+
+.skill-tab.is-active::after {
+  right: calc(var(--tab-curve) * -1);
+  background: radial-gradient(
+    circle at 100% 0,
+    transparent calc(var(--tab-curve) - 0.5px),
+    var(--tab-bg) var(--tab-curve)
+  );
+}
+
+/* Flush to panel edge — no right shoulder on the last tab */
+.skill-tab.is-active:last-child::after {
+  content: none;
 }
 
 .skill-tab:focus {
@@ -116,6 +146,8 @@ html[data-theme="light"] .skill-panel {
 }
 
 .skill-tab__label {
+  position: relative;
+  z-index: 1;
   display: -webkit-box;
   overflow: hidden;
   max-width: 100%;
@@ -137,16 +169,12 @@ html[data-theme="light"] .skill-panel {
   flex: 1;
   min-height: 0;
   align-items: center;
+  margin-top: -1px;
   padding: 1rem 1.05rem 1.1rem;
   border: 1px solid var(--line);
-  border-top: 0;
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 1rem;
+  border-top-right-radius: 0;
   background: var(--skill-folder);
-}
-
-/* When the first tab isn't flush left, round the body's exposed top-left */
-.skill-body {
-  border-top-left-radius: 1rem;
 }
 
 .skill-desc {
@@ -172,70 +200,30 @@ html[data-theme="light"] .skill-panel {
   }
 }
 
-@supports not (clip-path: shape(from top left, hline to 0)) {
-  .skill-tab {
-    margin-left: 0.15rem;
-    max-width: none;
-    padding-inline: 0.75rem;
-    border-start-start-radius: calc(var(--tabGirth) * 1.2);
-    border-start-end-radius: calc(var(--tabGirth) * 1.2);
-    clip-path: none;
-  }
-
-  .skill-tab:first-child {
-    margin-left: 0;
-  }
-
-  .skill-tabs {
-    gap: 0.15rem;
-  }
-
-  .skill-body {
-    border-top: 1px solid var(--line);
-    border-radius: 1rem 0 1rem 1rem;
-  }
-}
-
 html[data-reduced-motion="true"] .skill-desc,
 html[data-lite-motion="true"] .skill-desc {
   animation: none;
 }
 
-html[data-reduced-motion="true"] .skill-tab,
-html[data-lite-motion="true"] .skill-tab {
-  transition: none;
-}
-
-html[data-reduced-motion="true"] .skill-tab:hover,
-html[data-reduced-motion="true"] .skill-tab:focus-visible,
-html[data-reduced-motion="true"] .skill-tab.is-active,
-html[data-lite-motion="true"] .skill-tab:hover,
-html[data-lite-motion="true"] .skill-tab:focus-visible,
-html[data-lite-motion="true"] .skill-tab.is-active {
-  transform: none;
-}
-
 @media (max-width: 40rem) {
   .skill-panel {
-    --tabGirth: 11px;
-    --tabOverlap: calc(var(--tabGirth) * 1.45);
+    --tab-radius: 8px;
+    --tab-curve: 8px;
   }
 
   .skill-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.2rem;
-  }
-
-  .skill-header__title {
-    padding-bottom: 0;
+    gap: 0.35rem;
   }
 
   .skill-tabs {
+    align-self: stretch;
     justify-content: flex-start;
   }
 
   .skill-tab {
     max-width: 7.25rem;
+    padding-inline: 0.7rem;
   }
 }
