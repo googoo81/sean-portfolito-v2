@@ -1,13 +1,17 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BentoCard } from "@/components/ui";
 import { useUi } from "@/features/portfolio/i18n";
+import { useLiteMotion } from "@/lib/use-lite-motion";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import {
   prefetchProjectsOverlay,
   useProjectsSession,
 } from "./projects-session";
 import { readProjectsOrigin } from "./projects-origin";
+
+const OPENED_STORAGE_KEY = "projects-opened";
 
 type ProjectsGridCellProps = {
   className?: string;
@@ -29,13 +33,68 @@ function GoArrow() {
   );
 }
 
+function hasOpenedProjects() {
+  try {
+    return localStorage.getItem(OPENED_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markProjectsOpened() {
+  try {
+    localStorage.setItem(OPENED_STORAGE_KEY, "1");
+  } catch {
+    // ignore quota / private mode
+  }
+}
+
+function resetOpenedStorage() {
+  try {
+    localStorage.removeItem(OPENED_STORAGE_KEY);
+  } catch {
+    // ignore quota / private mode
+  }
+}
+
 export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
   const ui = useUi();
   const cardRef = useRef<HTMLButtonElement>(null);
   const { open, openProjects } = useProjectsSession();
+  const reducedMotion = usePrefersReducedMotion();
+  const liteMotion = useLiteMotion();
+  const [cue, setCue] = useState(false);
+  const [storageReady, setStorageReady] = useState(false);
+
+  useEffect(() => {
+    resetOpenedStorage();
+    setStorageReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!storageReady || reducedMotion || liteMotion || open || hasOpenedProjects()) {
+      return;
+    }
+
+    const startId = window.setTimeout(() => setCue(true), 5000);
+
+    return () => {
+      window.clearTimeout(startId);
+    };
+  }, [storageReady, reducedMotion, liteMotion, open]);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+    markProjectsOpened();
+    setCue(false);
+  }, [open]);
 
   return (
-    <BentoCard className={className}>
+    <BentoCard
+      className={`${className ?? ""}${cue ? " bento-projects--cue" : ""}`.trim()}
+    >
       <button
         ref={cardRef}
         type="button"
