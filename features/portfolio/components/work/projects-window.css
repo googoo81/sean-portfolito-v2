@@ -112,6 +112,23 @@
   height: 1rem;
 }
 
+.project-index__item--image {
+  background: transparent;
+}
+
+.project-index__item--image:hover,
+.project-index__item--image.is-active {
+  background: transparent;
+}
+
+.project-index__thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
 .projects-overlay__title {
   position: absolute;
   left: 50%;
@@ -241,6 +258,8 @@
 
 .project-index__icon {
   display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
   font-size: 13px;

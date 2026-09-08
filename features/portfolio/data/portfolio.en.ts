@@ -21,7 +21,7 @@ export const portfolioEn: Portfolio = {
       "https://www.linkedin.com/in/%ED%98%84%EC%9A%B0-%EC%86%A1-a058b528a/",
   },
   stack: getStackItems("en"),
-  featuredSlug: "bareway",
+  featuredSlug: "chicment",
   skills: [
     {
       label: "Brand analysis",
@@ -63,6 +63,7 @@ export const portfolioEn: Portfolio = {
       meta: "Team project · Pre-launch plan | Role: content strategy · Reels/ad creatives · design",
       tools: "Figma · CapCut · Generative AI",
       period: "2026.07",
+      icon: "/project/variway/icon.png",
       situation:
         "Even in a protein-shake market (~₩5.8T), competitors repeated taste, value, and nutrition specs — while Bareway lacked a clear repurchase strategy. For persona ‘Kim Bare’ (23, job-seeking marketer into fashion, home workouts, and body care), we hypothesized that mood and routine messaging would recall the brand better than specs alone. The brief was a pre-launch plan: Meta, Kakao DA, and Naver SA creatives, assumed KPIs, and a ₩10M monthly media mix.",
       actions: [
@@ -89,6 +90,38 @@ export const portfolioEn: Portfolio = {
       ],
     },
     {
+      slug: "chicment",
+      shortTitle: "Chicment",
+      title:
+        "Interactive content that turns vague taste into clear first-luxury criteria",
+      kind: "team",
+      meta: "Team project · Instagram ads | Role: content strategy · interactive planning · ad & landing iteration",
+      tools: "Figma · CapCut · Meta Ads",
+      period: "2026.08",
+      icon: "/project/chicment/icon.png",
+      situation:
+        "First-luxury shoppers in their 20s–30s can find brand and product info easily, but lack personal criteria for “is this right for me?” Chicment already held trusted wear-and-use reviews, yet a community-heavy structure and information volume raised the entry bar for new users. The core insight: “I know what I like, but I can’t explain why.” The brief was to connect Chicment’s real-use credibility to content first-time buyers would try without pressure.",
+      actions: [
+        "Designed a funnel of ad → taste test → result → Chicment reviews via PICKGAM, a 30-second interactive test that surfaces taste criteria through five intuitive choices",
+        "Round 1: curiosity short-form hit 5.77% CTR, but 80% first-screen bounce and 4.7% final CTA exposed a bottleneck — users didn’t see why they should take the test now",
+        "Reframed the message from ‘fun taste quiz’ to ‘reduce first-luxury failure,’ and improved question-led copy, problem framing, ‘check real reviews’ CTA, toned-down UI, and live participant social proof",
+        "Round 2: info creatives fell 5.77%→1.95% CTR while curiosity rose 1.72%→4.67% — concluding continuity between ad promise and landing value beats hook intensity alone",
+      ],
+      result:
+        "Early test entry remained unfinished business, but among users who started the test, CTA reach rose 26%→66% and final CTA click 4.7%→6.2% — strengthening the late-funnel path into Chicment. Reflection: ads and landing must read as one experience; problem stated in the ad → reason to participate → result → CTA as one message mattered more than spiking CTR with shock hooks. We used traffic → drop-off → hypothesis → content fix → retest as the decision loop.",
+      cover: {
+        src: "/project/chicment/mockup.png",
+        alt: "Chicment PICKGAM interactive content mockup",
+        fit: "contain",
+      },
+      links: [
+        {
+          label: "Chicment New Customer Acquisition Project",
+          href: "/project/chicment/ppt.en.pdf",
+        },
+      ],
+    },
+    {
       slug: "musinsa",
       shortTitle: "Musinsa",
       title: "AI ad film for Mujinjang Black Friday momentum",
@@ -96,6 +129,7 @@ export const portfolioEn: Portfolio = {
       meta: "Personal project (contest) · Eliminated in prelims | Role: concept · AI film direction · edit",
       tools: "CapCut · KlingAI",
       period: "2026.06",
+      icon: "/project/musinsa/icon.png",
       situation:
         "Musinsa’s ‘Mujinjang success AI film contest’ asked for a 5–30s AI ad announcing Mujinjang Black Friday. The hypothesis: a discount card alone won’t stop the scroll — season mood and brand tone must remain in short cuts. Street scenes shifting between clear and rainy weather, with repeating props like bikes and cones, aimed to read like a lookbook as much as a promo.",
       actions: [

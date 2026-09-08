@@ -23,6 +23,7 @@ export type Project = {
   actions: string[];
   result: string;
   links?: ProjectLink[];
+  icon?: string;
   cover?: ProjectImage;
   video?: string;
   videoFormat?: "reels";
