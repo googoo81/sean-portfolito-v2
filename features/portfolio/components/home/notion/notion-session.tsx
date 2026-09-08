@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type ReactNode,
@@ -14,6 +15,7 @@ import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { notionPageIdFromUrl } from "@/lib/notion";
+import { usePortfolio } from "@/features/portfolio/i18n";
 import {
   fallbackProjectsOrigin,
   type ProjectsOrigin,
@@ -26,6 +28,11 @@ import {
   restoreNotionSession,
   writeNotionHash,
 } from "./notion-hash";
+import {
+  collectNotionTabs,
+  loadNotionTabMeta,
+  type NotionTab,
+} from "./notion-tabs";
 
 const NotionOverlay = dynamic(
   () => import("./notion-overlay").then((mod) => mod.NotionOverlay),
@@ -61,17 +68,77 @@ function notionUrlFromPageId(pageId: string) {
   return `https://www.notion.so/${pageId.replaceAll("-", "")}`;
 }
 
+function compactPageId(pageId: string) {
+  return pageId.replaceAll("-", "");
+}
+
 export function NotionSessionProvider({ children }: { children: ReactNode }) {
+  const portfolio = usePortfolio();
   const reducedMotion = usePrefersReducedMotion();
   const [open, setOpen] = useState(false);
   const [pageId, setPageId] = useState<string | null>(null);
   const [pageUrl, setPageUrl] = useState("");
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
+  const [skipEnter, setSkipEnter] = useState(false);
+  const [tabs, setTabs] = useState<NotionTab[]>(() =>
+    collectNotionTabs(portfolio),
+  );
   const openRef = useRef(open);
   const originRef = useRef(origin);
+  const pageIdRef = useRef(pageId);
+  const tabsRef = useRef(tabs);
   openRef.current = open;
   originRef.current = origin;
+  pageIdRef.current = pageId;
+  tabsRef.current = tabs;
+
+  const baseTabs = useMemo(() => collectNotionTabs(portfolio), [portfolio]);
+  const baseTabsRef = useRef(baseTabs);
+  baseTabsRef.current = baseTabs;
+
+  useEffect(() => {
+    setTabs((prev) => {
+      const metaById = new Map(prev.map((tab) => [tab.pageId, tab]));
+      return baseTabs.map((tab) => {
+        const prior = metaById.get(tab.pageId);
+        return prior
+          ? { ...tab, title: prior.title, iconUrl: prior.iconUrl }
+          : tab;
+      });
+    });
+  }, [baseTabs]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void Promise.all(
+      baseTabs.map(async (tab) => {
+        const meta = await loadNotionTabMeta(tab.pageId);
+        return { pageId: tab.pageId, ...meta };
+      }),
+    ).then((metas) => {
+      if (cancelled) {
+        return;
+      }
+      setTabs((prev) => {
+        let changed = false;
+        const next = prev.map((tab) => {
+          const meta = metas.find((item) => item.pageId === tab.pageId);
+          if (!meta?.iconUrl || meta.iconUrl === tab.iconUrl) {
+            return tab;
+          }
+          changed = true;
+          return { ...tab, iconUrl: meta.iconUrl };
+        });
+        return changed ? next : prev;
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [baseTabs]);
 
   const reveal = useCallback(
     (
@@ -81,8 +148,11 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
         title: string;
         origin: ProjectsOrigin;
       },
+      instant: boolean,
     ) => {
-      setPageId(next.pageId);
+      const compact = compactPageId(next.pageId);
+      setSkipEnter(instant);
+      setPageId(compact);
       setPageUrl(next.pageUrl);
       setTitle(next.title);
       setOrigin(next.origin);
@@ -120,12 +190,17 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
       }
 
       restoreNotionSession();
-      reveal({
-        pageId: restoredId,
-        pageUrl: notionUrlFromPageId(restoredId),
-        title: "Notion",
-        origin: fallbackProjectsOrigin(),
-      });
+      const compact = compactPageId(restoredId);
+      const known = baseTabsRef.current.find((tab) => tab.pageId === compact);
+      reveal(
+        {
+          pageId: compact,
+          pageUrl: known?.url ?? notionUrlFromPageId(compact),
+          title: known?.title ?? "Notion",
+          origin: fallbackProjectsOrigin(),
+        },
+        true,
+      );
     });
 
     return () => cancelAnimationFrame(frame);
@@ -136,13 +211,36 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
       if (isNotionHash()) {
         restoreNotionSession();
         const restoredId = parseNotionPageId();
-        if (restoredId && !openRef.current) {
-          reveal({
-            pageId: restoredId,
-            pageUrl: notionUrlFromPageId(restoredId),
-            title: "Notion",
-            origin: originRef.current ?? fallbackProjectsOrigin(),
-          });
+        if (!restoredId) {
+          return;
+        }
+
+        const compact = compactPageId(restoredId);
+        const known =
+          tabsRef.current.find((tab) => tab.pageId === compact) ??
+          baseTabsRef.current.find((tab) => tab.pageId === compact);
+
+        if (!openRef.current) {
+          reveal(
+            {
+              pageId: compact,
+              pageUrl: known?.url ?? notionUrlFromPageId(compact),
+              title: known?.title ?? "Notion",
+              origin: originRef.current ?? fallbackProjectsOrigin(),
+            },
+            true,
+          );
+          return;
+        }
+
+        if (pageIdRef.current === compact) {
+          return;
+        }
+
+        setPageId(compact);
+        setPageUrl(known?.url ?? notionUrlFromPageId(compact));
+        if (known?.title) {
+          setTitle(known.title);
         }
         return;
       }
@@ -161,18 +259,50 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    const compact = compactPageId(id);
     blurActiveElement();
-    reveal({
-      pageId: id,
-      pageUrl: options.url,
-      title: options.title,
-      origin: options.origin ?? fallbackProjectsOrigin(),
-    });
+
+    if (openRef.current) {
+      setPageId(compact);
+      setPageUrl(options.url);
+      setTitle(options.title);
+      writeNotionHash(compact);
+      return;
+    }
+
+    reveal(
+      {
+        pageId: compact,
+        pageUrl: options.url,
+        title: options.title,
+        origin: options.origin ?? fallbackProjectsOrigin(),
+      },
+      false,
+    );
     beginNotionSession();
-    writeNotionHash(id);
+    writeNotionHash(compact);
   });
 
+  const switchTab = useCallback((tab: NotionTab) => {
+    const compact = compactPageId(tab.pageId);
+    if (pageIdRef.current === compact) {
+      return;
+    }
+    setPageId(compact);
+    setPageUrl(tab.url);
+    setTitle(tab.title);
+    writeNotionHash(compact);
+  }, []);
+
+  const handleTitle = useCallback((forPageId: string, nextTitle: string) => {
+    const compact = compactPageId(forPageId);
+    if (pageIdRef.current === compact) {
+      setTitle((current) => (current === nextTitle ? current : nextTitle));
+    }
+  }, []);
+
   const handleClose = useCallback(() => {
+    setSkipEnter(false);
     setOpen(false);
     closeNotionHistory();
   }, []);
@@ -193,10 +323,14 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
           pageId={pageId}
           pageUrl={pageUrl}
           title={title}
+          tabs={tabs}
           origin={origin}
           reducedMotion={reducedMotion}
+          skipEnter={skipEnter}
           onClose={handleClose}
           onExited={handleExited}
+          onSelectTab={switchTab}
+          onTitle={handleTitle}
         />
       ) : null}
     </NotionSessionContext.Provider>

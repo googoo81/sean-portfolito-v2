@@ -3,6 +3,7 @@
 import {
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ComponentProps,
   type ComponentType,
@@ -46,6 +47,8 @@ export function NotionContent({
   const [recordMap, setRecordMap] = useState<ExtendedRecordMap | null>(null);
   const [error, setError] = useState(false);
   const [theme, setTheme] = useState<Theme>("dark");
+  const onTitleRef = useRef(onTitle);
+  onTitleRef.current = onTitle;
 
   useEffect(() => {
     setTheme(getCurrentTheme());
@@ -79,7 +82,7 @@ export function NotionContent({
         setRecordMap(map);
         const title = getPageTitle(map)?.trim();
         if (title) {
-          onTitle?.(title);
+          onTitleRef.current?.(title);
         }
       })
       .catch(() => {
@@ -91,7 +94,7 @@ export function NotionContent({
     return () => {
       cancelled = true;
     };
-  }, [pageId, onTitle]);
+  }, [pageId]);
 
   const components = useMemo(() => {
     function Header({ block }: NotionHeaderProps) {

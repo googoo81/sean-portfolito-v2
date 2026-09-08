@@ -54,6 +54,7 @@ export type UiStrings = {
     loading: string;
     error: string;
     openInNotion: string;
+    tabsAria: string;
   };
   video: {
     play: string;
@@ -125,6 +126,7 @@ export const uiStrings: Record<Locale, UiStrings> = {
       loading: "불러오는 중…",
       error: "Notion 페이지를 불러오지 못했습니다.",
       openInNotion: "Notion에서 열기",
+      tabsAria: "Notion 페이지 탭",
     },
     video: {
       play: "재생",
@@ -194,6 +196,7 @@ export const uiStrings: Record<Locale, UiStrings> = {
       loading: "Loading…",
       error: "Couldn’t load this Notion page.",
       openInNotion: "Open in Notion",
+      tabsAria: "Notion page tabs",
     },
     video: {
       play: "Play",
