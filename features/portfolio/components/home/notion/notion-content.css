@@ -28,6 +28,7 @@ html[data-theme="dark"] .notion-overlay.projects-overlay .projects-overlay__wind
   z-index: 3;
   display: flex;
   align-items: center;
+  gap: 4px;
   height: 44px;
   padding: 0 14px;
   background: #f7f6f3;
@@ -47,6 +48,33 @@ html[data-theme="dark"] .notion-overlay__chrome {
 
 .notion-overlay__chrome .projects-overlay__lights {
   flex-shrink: 0;
+}
+
+.notion-overlay__chrome .projects-overlay__nav-btn {
+  color: rgba(55, 53, 47, 0.85);
+}
+
+.notion-overlay__chrome .projects-overlay__nav-btn:disabled {
+  color: rgba(55, 53, 47, 0.28);
+  cursor: default;
+}
+
+.notion-overlay__chrome .projects-overlay__nav-btn:hover:not(:disabled) {
+  background: rgba(55, 53, 47, 0.08);
+}
+
+html[data-theme="dark"] .notion-overlay__chrome .projects-overlay__nav-btn {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+html[data-theme="dark"] .notion-overlay__chrome .projects-overlay__nav-btn:disabled {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+html[data-theme="dark"]
+  .notion-overlay__chrome
+  .projects-overlay__nav-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .notion-overlay__scroll {

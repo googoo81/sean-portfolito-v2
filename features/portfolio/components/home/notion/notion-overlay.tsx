@@ -8,6 +8,7 @@ import { useUi } from "@/features/portfolio/i18n";
 import {
   CloseLightIcon,
   ExpandLightIcon,
+  HistoryNav,
   MinLightIcon,
   ZoomLightIcon,
 } from "@/features/portfolio/components/work/projects-chrome";
@@ -15,6 +16,7 @@ import { RESIZE_EDGES } from "@/features/portfolio/components/home/stack/notes-w
 import { useProjectsWindow } from "@/features/portfolio/components/home/projects/use-projects-window";
 import type { ProjectsOrigin } from "@/features/portfolio/components/home/projects/projects-origin";
 import { NotionContent } from "./notion-content";
+import { canNotionBack, canNotionForward } from "./notion-hash";
 import "../projects/projects-overlay.css";
 import "./notion-content.css";
 
@@ -94,6 +96,13 @@ function NotionBrowserChrome({
           {maximized ? <ExpandLightIcon /> : <ZoomLightIcon />}
         </button>
       </div>
+
+      <HistoryNav
+        canBack={canNotionBack()}
+        canForward={canNotionForward()}
+        onBack={() => history.back()}
+        onForward={() => history.forward()}
+      />
     </div>
   );
 }

@@ -18,6 +18,14 @@ import {
   fallbackProjectsOrigin,
   type ProjectsOrigin,
 } from "@/features/portfolio/components/home/projects/projects-origin";
+import {
+  beginNotionSession,
+  closeNotionHistory,
+  isNotionHash,
+  parseNotionPageId,
+  restoreNotionSession,
+  writeNotionHash,
+} from "./notion-hash";
 
 const NotionOverlay = dynamic(
   () => import("./notion-overlay").then((mod) => mod.NotionOverlay),
@@ -49,6 +57,10 @@ export function useNotionSession() {
   return value;
 }
 
+function notionUrlFromPageId(pageId: string) {
+  return `https://www.notion.so/${pageId.replaceAll("-", "")}`;
+}
+
 export function NotionSessionProvider({ children }: { children: ReactNode }) {
   const reducedMotion = usePrefersReducedMotion();
   const [open, setOpen] = useState(false);
@@ -57,7 +69,27 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
   const openRef = useRef(open);
+  const originRef = useRef(origin);
   openRef.current = open;
+  originRef.current = origin;
+
+  const reveal = useCallback(
+    (
+      next: {
+        pageId: string;
+        pageUrl: string;
+        title: string;
+        origin: ProjectsOrigin;
+      },
+    ) => {
+      setPageId(next.pageId);
+      setPageUrl(next.pageUrl);
+      setTitle(next.title);
+      setOrigin(next.origin);
+      setOpen(true);
+    },
+    [],
+  );
 
   useEffect(() => {
     const idleWindow = window as Window & {
@@ -80,6 +112,48 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(timeoutId);
   }, []);
 
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const restoredId = parseNotionPageId();
+      if (!restoredId || !isNotionHash()) {
+        return;
+      }
+
+      restoreNotionSession();
+      reveal({
+        pageId: restoredId,
+        pageUrl: notionUrlFromPageId(restoredId),
+        title: "Notion",
+        origin: fallbackProjectsOrigin(),
+      });
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [reveal]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      if (isNotionHash()) {
+        restoreNotionSession();
+        const restoredId = parseNotionPageId();
+        if (restoredId && !openRef.current) {
+          reveal({
+            pageId: restoredId,
+            pageUrl: notionUrlFromPageId(restoredId),
+            title: "Notion",
+            origin: originRef.current ?? fallbackProjectsOrigin(),
+          });
+        }
+        return;
+      }
+
+      setOpen(false);
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [reveal]);
+
   const openNotion = useDebouncedCallback((options: OpenNotionOptions) => {
     const id = notionPageIdFromUrl(options.url);
     if (!id) {
@@ -88,15 +162,19 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
     }
 
     blurActiveElement();
-    setPageId(id);
-    setPageUrl(options.url);
-    setTitle(options.title);
-    setOrigin(options.origin ?? fallbackProjectsOrigin());
-    setOpen(true);
+    reveal({
+      pageId: id,
+      pageUrl: options.url,
+      title: options.title,
+      origin: options.origin ?? fallbackProjectsOrigin(),
+    });
+    beginNotionSession();
+    writeNotionHash(id);
   });
 
   const handleClose = useCallback(() => {
     setOpen(false);
+    closeNotionHistory();
   }, []);
 
   const handleExited = useCallback(() => {
