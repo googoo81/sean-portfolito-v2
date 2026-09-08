@@ -1,15 +1,25 @@
 "use client";
 
-import { BentoCard, BentoGrid, LocaleToggle, ThemeToggle } from "@/components/ui";
+import { BentoCard, BentoGrid, ExternalLink, LocaleToggle, ThemeToggle } from "@/components/ui";
 import { getFeaturedProject } from "@/features/portfolio/lib";
 import { usePortfolio, useUi } from "@/features/portfolio/i18n";
 import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./projects/project-tile";
 import { ProjectsGridCell } from "./projects/projects-grid-cell";
-import { ProjectsSessionProvider } from "./projects/projects-session";
+import {
+  ProjectsSessionProvider,
+  useProjectsSession,
+} from "./projects/projects-session";
+import { restoreProjectsOrigin } from "./projects/projects-origin";
+import {
+  NotionSessionProvider,
+  useNotionSession,
+} from "./notion/notion-session";
 import { SkillsTile } from "./skills-tile";
 import { SocialTile } from "./social-tile";
 import { StackRow } from "./stack";
+import { isNotionUrl } from "@/lib/notion";
+import type { EducationItem, HistoryItem } from "@/features/portfolio/types";
 
 function ProcessArrow() {
   return (
@@ -30,6 +40,89 @@ function ProcessArrow() {
   );
 }
 
+function HistoryLinkedTitle({
+  label,
+  href,
+  projectsFilter,
+}: {
+  label: string;
+  href?: string;
+  projectsFilter?: HistoryItem["projectsFilter"];
+}) {
+  const { openProjects } = useProjectsSession();
+  const { openNotion } = useNotionSession();
+
+  if (projectsFilter) {
+    return (
+      <button
+        type="button"
+        className="bento-history__link"
+        onClick={() => {
+          openProjects({
+            origin: restoreProjectsOrigin("cell"),
+            kind: projectsFilter,
+          });
+        }}
+      >
+        <span className="bento-history__link-text">{label}</span>
+      </button>
+    );
+  }
+
+  if (href && isNotionUrl(href)) {
+    return (
+      <button
+        type="button"
+        className="bento-history__link"
+        onClick={(event) => {
+          const bounds = event.currentTarget.getBoundingClientRect();
+          openNotion({
+            url: href,
+            title: label,
+            origin: {
+              x: bounds.left,
+              y: bounds.top,
+              width: bounds.width,
+              height: bounds.height,
+            },
+          });
+        }}
+      >
+        <span className="bento-history__link-text">{label}</span>
+      </button>
+    );
+  }
+
+  if (href) {
+    return (
+      <ExternalLink href={href} className="bento-history__link">
+        <span className="bento-history__link-text">{label}</span>
+        <span className="bento-history__link-mark" aria-hidden>
+          ↗
+        </span>
+      </ExternalLink>
+    );
+  }
+
+  return label;
+}
+
+function EducationTitle({ item }: { item: EducationItem }) {
+  return (
+    <HistoryLinkedTitle label={item.school} href={item.href} />
+  );
+}
+
+function WorkHistoryTitle({ item }: { item: HistoryItem }) {
+  return (
+    <HistoryLinkedTitle
+      label={item.company}
+      href={item.href}
+      projectsFilter={item.projectsFilter}
+    />
+  );
+}
+
 export function PortfolioPage() {
   const portfolio = usePortfolio();
   const ui = useUi();
@@ -38,7 +131,8 @@ export function PortfolioPage() {
   return (
     <main className="bento-page">
       <ProjectsSessionProvider projects={portfolio.projects}>
-        <BentoGrid>
+        <NotionSessionProvider>
+          <BentoGrid>
           <BentoCard className="bento-intro">
             <h1 className="intro-title">
               {portfolio.intro.headline.split("\n").map((line) => (
@@ -101,13 +195,17 @@ export function PortfolioPage() {
               <ul className="bento-fill-end bento-history__grid">
                 {portfolio.education.map((item) => (
                   <li key={item.school}>
-                    <p className="bento-history__title">{item.school}</p>
+                    <p className="bento-history__title">
+                      <EducationTitle item={item} />
+                    </p>
                     <p className="bento-history__meta">{item.period}</p>
                   </li>
                 ))}
                 {portfolio.histories.map((item) => (
                   <li key={item.company}>
-                    <p className="bento-history__title">{item.company}</p>
+                    <p className="bento-history__title">
+                      <WorkHistoryTitle item={item} />
+                    </p>
                     <p className="bento-history__meta">
                       {item.role} · {item.period}
                     </p>
@@ -148,7 +246,8 @@ export function PortfolioPage() {
               </div>
             </BentoCard>
           </div>
-        </BentoGrid>
+          </BentoGrid>
+        </NotionSessionProvider>
       </ProjectsSessionProvider>
     </main>
   );

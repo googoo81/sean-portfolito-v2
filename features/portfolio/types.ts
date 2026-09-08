@@ -34,11 +34,15 @@ export type HistoryItem = {
   company: string;
   role: string;
   period: string;
+  href?: string;
+  /** Opens the projects list filtered to this kind instead of an external link. */
+  projectsFilter?: ProjectKind;
 };
 
 export type EducationItem = {
   school: string;
   period: string;
+  href?: string;
 };
 
 export type CertificateItem = {

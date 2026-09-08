@@ -24,6 +24,7 @@ import {
 import { useProjectsWindow } from "./use-projects-window";
 import type { ProjectsOrigin } from "./projects-origin";
 import type { Project } from "@/features/portfolio/types";
+import type { ProjectKindFilter } from "@/features/portfolio/lib/project-list";
 
 export type { ProjectsOrigin };
 
@@ -31,6 +32,7 @@ type ProjectsOverlayProps = {
   open: boolean;
   origin: ProjectsOrigin;
   projects: readonly Project[];
+  initialKind?: ProjectKindFilter;
   reducedMotion?: boolean;
   skipEnter?: boolean;
   onClose: () => void;
@@ -56,6 +58,7 @@ export function ProjectsOverlay({
   open,
   origin,
   projects,
+  initialKind = "all",
   reducedMotion = false,
   skipEnter = false,
   onClose,
@@ -308,7 +311,9 @@ export function ProjectsOverlay({
                   <ProjectDetailBody project={selected} />
                 ) : (
                   <ProjectListBody
+                    key={initialKind}
                     projects={projects}
+                    initialKind={initialKind}
                     onSelect={handleSelect}
                   />
                 )}

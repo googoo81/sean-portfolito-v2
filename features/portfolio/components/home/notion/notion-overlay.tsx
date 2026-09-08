@@ -1,0 +1,211 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { motion } from "motion/react";
+import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import { WindowTitlebar } from "@/features/portfolio/components/work/projects-chrome";
+import { RESIZE_EDGES } from "@/features/portfolio/components/home/stack/notes-window";
+import { useProjectsWindow } from "@/features/portfolio/components/home/projects/use-projects-window";
+import type { ProjectsOrigin } from "@/features/portfolio/components/home/projects/projects-origin";
+import { NotionContent } from "./notion-content";
+import "../projects/projects-overlay.css";
+
+type NotionOverlayProps = {
+  open: boolean;
+  pageId: string;
+  title: string;
+  origin: ProjectsOrigin;
+  reducedMotion?: boolean;
+  onClose: () => void;
+  onExited: () => void;
+};
+
+const WINDOW_CLOSE = {
+  type: "tween",
+  duration: 0.28,
+  ease: [0.32, 0, 0.67, 0],
+} as const;
+
+const WINDOW_ZOOM = {
+  type: "tween",
+  duration: 0.36,
+  ease: [0.22, 1, 0.36, 1],
+} as const;
+
+const WINDOW_RADIUS = 20;
+const shownWindow = { x: 0, y: 0, scale: 1 };
+
+export function NotionOverlay({
+  open,
+  pageId,
+  title,
+  origin,
+  reducedMotion = false,
+  onClose,
+  onExited,
+}: NotionOverlayProps) {
+  const exitedRef = useRef(false);
+  const handleClose = useDebouncedCallback(onClose);
+  const {
+    frame,
+    dragging,
+    isMaximized,
+    startMove,
+    startResize,
+    toggleMaximize,
+  } = useProjectsWindow(open);
+  const [displayTitle, setDisplayTitle] = useState(title);
+  const [settled, setSettled] = useState(reducedMotion);
+  const [contentReady, setContentReady] = useState(reducedMotion);
+
+  useEffect(() => {
+    setDisplayTitle(title);
+  }, [title, pageId]);
+
+  const fromCard = useMemo(() => {
+    const originCenterX = origin.x + origin.width / 2;
+    const originCenterY = origin.y + origin.height / 2;
+    const targetCenterX = frame.x + frame.width / 2;
+    const targetCenterY = frame.y + frame.height / 2;
+
+    return {
+      x: originCenterX - targetCenterX,
+      y: originCenterY - targetCenterY,
+      scale: Math.max(
+        Math.min(origin.width / Math.max(frame.width, 1), 1),
+        0.08,
+      ),
+    };
+  }, [origin, frame]);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.setAttribute("data-notion-open", "");
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.documentElement.removeAttribute("data-notion-open");
+      document.documentElement.removeAttribute("data-notion-settled");
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!open) {
+      setSettled(false);
+      document.documentElement.removeAttribute("data-notion-settled");
+      return;
+    }
+
+    const delay = reducedMotion ? 0 : Math.round(WINDOW_ZOOM.duration * 1000);
+    const id = window.setTimeout(() => {
+      setSettled(true);
+      setContentReady(true);
+      document.documentElement.setAttribute("data-notion-settled", "");
+    }, delay);
+
+    return () => window.clearTimeout(id);
+  }, [open, reducedMotion]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [handleClose]);
+
+  const finishExit = () => {
+    if (open || exitedRef.current) {
+      return;
+    }
+    exitedRef.current = true;
+    onExited();
+  };
+
+  if (!frame.width) {
+    return null;
+  }
+
+  return createPortal(
+    <div className="projects-overlay notion-overlay">
+      <motion.div
+        className="projects-overlay__backdrop"
+        initial={{ opacity: reducedMotion ? 1 : 0 }}
+        animate={{ opacity: open ? 1 : 0 }}
+        transition={{ duration: reducedMotion ? 0 : 0.24, ease: "easeOut" }}
+        onClick={open ? handleClose : undefined}
+      />
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="notion-overlay-title"
+        className={`projects-overlay__window projects-shell${
+          settled && !dragging && !reducedMotion
+            ? " projects-overlay__window--smooth"
+            : ""
+        }`}
+        style={{
+          left: frame.x,
+          top: frame.y,
+          width: frame.width,
+          height: frame.height,
+          borderRadius: isMaximized ? 0 : WINDOW_RADIUS,
+        }}
+        initial={reducedMotion ? shownWindow : fromCard}
+        animate={open ? shownWindow : fromCard}
+        transition={
+          reducedMotion || dragging
+            ? { duration: 0 }
+            : open
+              ? WINDOW_ZOOM
+              : WINDOW_CLOSE
+        }
+        onAnimationComplete={finishExit}
+      >
+        {RESIZE_EDGES.map((edge) => (
+          <div
+            key={edge}
+            className={`projects-overlay__handle projects-overlay__handle--${edge}`}
+            onPointerDown={startResize(edge)}
+          />
+        ))}
+        <motion.div
+          className="projects-overlay__face"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: open && contentReady ? 0 : 1 }}
+          transition={{ duration: reducedMotion ? 0 : 0.18 }}
+        >
+          <p className="project-kicker">📝 Notion.</p>
+        </motion.div>
+        {contentReady ? (
+          <motion.div
+            className="projects-overlay__content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: open ? 1 : 0 }}
+            style={{ pointerEvents: open ? "auto" : "none" }}
+            transition={{ duration: reducedMotion ? 0 : 0.2 }}
+          >
+            <WindowTitlebar
+              title={displayTitle}
+              titleId="notion-overlay-title"
+              onClose={handleClose}
+              onZoom={toggleMaximize}
+              onMovePointerDown={startMove}
+              maximized={isMaximized}
+            >
+              <span />
+            </WindowTitlebar>
+            <div className="projects-overlay__body notion-overlay__scroll">
+              <NotionContent pageId={pageId} onTitle={setDisplayTitle} />
+            </div>
+          </motion.div>
+        ) : null}
+      </motion.div>
+    </div>,
+    document.body,
+  );
+}

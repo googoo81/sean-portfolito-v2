@@ -50,6 +50,10 @@ export type UiStrings = {
     bodyAria: string;
     bodyPlaceholder: string;
   };
+  notion: {
+    loading: string;
+    error: string;
+  };
   video: {
     play: string;
     pause: string;
@@ -93,7 +97,7 @@ export const uiStrings: Record<Locale, UiStrings> = {
     },
     projectFilter: {
       all: "전체",
-      team: "팀",
+      team: "팀스파르타",
       personal: "개인",
       kindAria: "프로젝트 유형",
       newest: "최신순",
@@ -115,6 +119,10 @@ export const uiStrings: Record<Locale, UiStrings> = {
       titlePlaceholder: "제목",
       bodyAria: "메모 내용",
       bodyPlaceholder: "메모를 입력하세요",
+    },
+    notion: {
+      loading: "불러오는 중…",
+      error: "Notion 페이지를 불러오지 못했습니다.",
     },
     video: {
       play: "재생",
@@ -157,7 +165,7 @@ export const uiStrings: Record<Locale, UiStrings> = {
     },
     projectFilter: {
       all: "All",
-      team: "Team",
+      team: "Team Sparta",
       personal: "Personal",
       kindAria: "Project type",
       newest: "Newest",
@@ -179,6 +187,10 @@ export const uiStrings: Record<Locale, UiStrings> = {
       titlePlaceholder: "Title",
       bodyAria: "Note body",
       bodyPlaceholder: "Start writing…",
+    },
+    notion: {
+      loading: "Loading…",
+      error: "Couldn’t load this Notion page.",
     },
     video: {
       play: "Play",

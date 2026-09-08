@@ -24,6 +24,7 @@ import {
 } from "./projects-hash";
 import { restoreProjectsOrigin, type ProjectsOrigin } from "./projects-origin";
 import type { Project } from "@/features/portfolio/types";
+import type { ProjectKindFilter } from "@/features/portfolio/lib/project-list";
 
 const ProjectsOverlay = dynamic(
   () => import("./projects-overlay").then((mod) => mod.ProjectsOverlay),
@@ -37,6 +38,7 @@ export function prefetchProjectsOverlay() {
 type OpenProjectsOptions = {
   origin: ProjectsOrigin;
   slug?: string;
+  kind?: ProjectKindFilter;
 };
 
 type ProjectsSessionValue = {
@@ -66,6 +68,7 @@ export function ProjectsSessionProvider({
   const reducedMotion = usePrefersReducedMotion();
   const [open, setOpen] = useState(false);
   const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
+  const [listKind, setListKind] = useState<ProjectKindFilter>("all");
   const [skipEnter, setSkipEnter] = useState(false);
   const originRef = useRef(origin);
   const openRef = useRef(open);
@@ -138,6 +141,7 @@ export function ProjectsSessionProvider({
   const openProjects = useDebouncedCallback((options: OpenProjectsOptions) => {
     blurActiveElement();
 
+    setListKind(options.kind ?? "all");
     reveal(options.origin, false);
     beginProjectsSession();
     if (options.slug) {
@@ -155,6 +159,7 @@ export function ProjectsSessionProvider({
 
   const handleExited = useCallback(() => {
     setOrigin(null);
+    setListKind("all");
   }, []);
 
   return (
@@ -165,6 +170,7 @@ export function ProjectsSessionProvider({
           open={open}
           origin={origin}
           projects={projects}
+          initialKind={listKind}
           reducedMotion={reducedMotion}
           skipEnter={skipEnter}
           onClose={handleClose}

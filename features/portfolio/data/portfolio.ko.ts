@@ -120,22 +120,26 @@ export const portfolioKo: Portfolio = {
       company: "Sionic AI",
       role: "FrontEnd Developer, Designer",
       period: "2024.10.02 – 2025.02.07",
+      href: "https://night-sunday-f95.notion.site/In-Sionic-3a68c8fcce8a81d58004feb295854713",
     },
     {
       company: "웅진씽크빅",
       role: "FrontEnd Developer",
       period: "2025.03.12 – 2025.11.30",
+      href: "https://night-sunday-f95.notion.site/In-3a68c8fcce8a813ab4d4da80aca3bdcc",
     },
     {
       company: "SPARTACLUB · 내일배움캠프",
       role: "Student",
       period: "2026.04.20 – 2026.09.14",
+      projectsFilter: "team",
     },
   ],
   education: [
     {
       school: "광주소프트웨어마이스터고등학교",
       period: "2022.03 – 2025.02",
+      href: "https://night-sunday-f95.notion.site/In-School-3a68c8fcce8a81a48a74c7b99185ed70",
     },
   ],
   certificates: [
