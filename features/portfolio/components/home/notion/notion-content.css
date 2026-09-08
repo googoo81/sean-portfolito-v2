@@ -1,8 +1,52 @@
 .notion-overlay__status {
   margin: 0;
-  padding: 2rem 1.25rem;
-  color: var(--muted);
+  padding: 2.5rem 1.5rem;
+  color: var(--fg-color-2, rgba(55, 53, 47, 0.4));
+  font-family: var(--notion-font);
   font-size: 0.95rem;
+  text-align: center;
+}
+
+.notion-overlay.projects-overlay .projects-overlay__window {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 24px 80px rgba(15, 15, 15, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.55) inset;
+}
+
+html[data-theme="dark"] .notion-overlay.projects-overlay .projects-overlay__window {
+  background: #2f3437;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.notion-overlay__chrome {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 14px;
+  background: #f7f6f3;
+  border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+  cursor: grab;
+  user-select: none;
+}
+
+.notion-overlay__chrome:active {
+  cursor: grabbing;
+}
+
+html[data-theme="dark"] .notion-overlay__chrome {
+  background: #373c3f;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.notion-overlay__chrome .projects-overlay__lights {
+  flex-shrink: 0;
 }
 
 .notion-overlay__scroll {
@@ -10,42 +54,77 @@
   min-height: 0;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  background: var(--background);
+  background: #fff;
+  color: rgb(55, 53, 47);
+}
+
+html[data-theme="dark"] .notion-overlay__scroll {
+  background: #2f3437;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .notion-overlay__scroll .notion-overlay__renderer.notion {
-  --fg-color: var(--foreground);
-  --fg-color-0: color-mix(in srgb, var(--foreground) 8%, transparent);
-  --fg-color-1: color-mix(in srgb, var(--foreground) 16%, transparent);
-  --fg-color-2: color-mix(in srgb, var(--foreground) 28%, transparent);
-  --fg-color-3: color-mix(in srgb, var(--foreground) 42%, transparent);
-  --fg-color-4: color-mix(in srgb, var(--foreground) 58%, transparent);
-  --fg-color-5: var(--muted);
-  --fg-color-6: var(--foreground);
-  --bg-color: var(--background);
-  --bg-color-0: color-mix(in srgb, var(--foreground) 4%, var(--background));
-  --bg-color-1: color-mix(in srgb, var(--foreground) 7%, var(--background));
-  --bg-color-2: color-mix(in srgb, var(--foreground) 11%, var(--background));
-  background: transparent;
+  font-family: var(--notion-font);
+  --notion-max-width: 720px;
 }
 
 .notion-overlay__scroll .notion-frame {
-  min-height: unset !important;
-  padding-bottom: 3rem;
+  min-height: 100% !important;
+  padding-bottom: 4rem;
+  background: inherit;
 }
 
-.notion-overlay__scroll .notion-page-content {
-  padding-inline: clamp(1rem, 4vw, 2.5rem) !important;
-  width: min(100%, 920px);
-  margin-inline: auto;
+.notion-overlay__scroll .notion-page-scroller {
+  min-height: calc(100% - var(--notion-header-height)) !important;
 }
 
-.notion-overlay__scroll .notion-page-cover {
-  max-height: 220px !important;
+.notion-overlay__scroll .notion-page {
+  padding-bottom: 2rem;
+}
+
+.notion-overlay__scroll .notion-title {
+  font-size: clamp(2rem, 4vw, 2.5rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em;
+}
+
+.notion-overlay__scroll .notion-header {
+  border-bottom: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+html[data-theme="dark"] .notion-overlay__scroll .notion-header {
+  background: rgba(47, 52, 55, 0.92);
 }
 
 .notion-overlay__scroll a.notion-link {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+  transition: background 120ms ease;
+}
+
+.notion-overlay__scroll .notion-simple-table,
+.notion-overlay__scroll .notion-table {
+  font-size: 14px;
+}
+
+.notion-overlay__scroll .notion-callout {
+  border-radius: 4px;
+}
+
+.notion-overlay__scroll .notion-asset-wrapper-image {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.notion-overlay__scroll .notion-bookmark {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .notion-overlay__scroll .notion-title {
+    font-size: 1.75rem !important;
+  }
 }

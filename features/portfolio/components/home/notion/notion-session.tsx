@@ -53,6 +53,7 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
   const reducedMotion = usePrefersReducedMotion();
   const [open, setOpen] = useState(false);
   const [pageId, setPageId] = useState<string | null>(null);
+  const [pageUrl, setPageUrl] = useState("");
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState<ProjectsOrigin | null>(null);
   const openRef = useRef(open);
@@ -88,6 +89,7 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
 
     blurActiveElement();
     setPageId(id);
+    setPageUrl(options.url);
     setTitle(options.title);
     setOrigin(options.origin ?? fallbackProjectsOrigin());
     setOpen(true);
@@ -99,6 +101,7 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
 
   const handleExited = useCallback(() => {
     setPageId(null);
+    setPageUrl("");
     setOrigin(null);
     setTitle("");
   }, []);
@@ -106,10 +109,11 @@ export function NotionSessionProvider({ children }: { children: ReactNode }) {
   return (
     <NotionSessionContext.Provider value={{ open, openNotion }}>
       {children}
-      {pageId && origin ? (
+      {pageId && origin && pageUrl ? (
         <NotionOverlay
           open={open}
           pageId={pageId}
+          pageUrl={pageUrl}
           title={title}
           origin={origin}
           reducedMotion={reducedMotion}

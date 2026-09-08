@@ -1,19 +1,27 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
-import { WindowTitlebar } from "@/features/portfolio/components/work/projects-chrome";
+import { useUi } from "@/features/portfolio/i18n";
+import {
+  CloseLightIcon,
+  ExpandLightIcon,
+  MinLightIcon,
+  ZoomLightIcon,
+} from "@/features/portfolio/components/work/projects-chrome";
 import { RESIZE_EDGES } from "@/features/portfolio/components/home/stack/notes-window";
 import { useProjectsWindow } from "@/features/portfolio/components/home/projects/use-projects-window";
 import type { ProjectsOrigin } from "@/features/portfolio/components/home/projects/projects-origin";
 import { NotionContent } from "./notion-content";
 import "../projects/projects-overlay.css";
+import "./notion-content.css";
 
 type NotionOverlayProps = {
   open: boolean;
   pageId: string;
+  pageUrl: string;
   title: string;
   origin: ProjectsOrigin;
   reducedMotion?: boolean;
@@ -33,12 +41,67 @@ const WINDOW_ZOOM = {
   ease: [0.22, 1, 0.36, 1],
 } as const;
 
-const WINDOW_RADIUS = 20;
+const WINDOW_RADIUS = 12;
 const shownWindow = { x: 0, y: 0, scale: 1 };
+
+function NotionBrowserChrome({
+  maximized,
+  onClose,
+  onZoom,
+  onMovePointerDown,
+}: {
+  maximized: boolean;
+  onClose: () => void;
+  onZoom: () => void;
+  onMovePointerDown: (event: PointerEvent<HTMLElement>) => void;
+}) {
+  const ui = useUi();
+  const zoomLabel = maximized ? ui.chrome.restore : ui.chrome.maximize;
+
+  return (
+    <div
+      className="notion-overlay__chrome"
+      onPointerDown={onMovePointerDown}
+      onDoubleClick={onZoom}
+    >
+      <div
+        className="projects-overlay__lights"
+        onPointerDown={(event) => event.stopPropagation()}
+        onDoubleClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          aria-label={ui.chrome.close}
+          className="projects-overlay__light projects-overlay__light--close"
+          onClick={onClose}
+        >
+          <CloseLightIcon />
+        </button>
+        <button
+          type="button"
+          aria-label={ui.chrome.home}
+          className="projects-overlay__light projects-overlay__light--min"
+          onClick={onClose}
+        >
+          <MinLightIcon />
+        </button>
+        <button
+          type="button"
+          aria-label={zoomLabel}
+          className="projects-overlay__light projects-overlay__light--zoom"
+          onClick={onZoom}
+        >
+          {maximized ? <ExpandLightIcon /> : <ZoomLightIcon />}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function NotionOverlay({
   open,
   pageId,
+  pageUrl,
   title,
   origin,
   reducedMotion = false,
@@ -142,8 +205,9 @@ export function NotionOverlay({
       <motion.div
         role="dialog"
         aria-modal="true"
+        aria-label={displayTitle}
         aria-labelledby="notion-overlay-title"
-        className={`projects-overlay__window projects-shell${
+        className={`projects-overlay__window${
           settled && !dragging && !reducedMotion
             ? " projects-overlay__window--smooth"
             : ""
@@ -189,18 +253,22 @@ export function NotionOverlay({
             style={{ pointerEvents: open ? "auto" : "none" }}
             transition={{ duration: reducedMotion ? 0 : 0.2 }}
           >
-            <WindowTitlebar
-              title={displayTitle}
-              titleId="notion-overlay-title"
+            <NotionBrowserChrome
+              maximized={isMaximized}
               onClose={handleClose}
               onZoom={toggleMaximize}
               onMovePointerDown={startMove}
-              maximized={isMaximized}
-            >
-              <span />
-            </WindowTitlebar>
-            <div className="projects-overlay__body notion-overlay__scroll">
-              <NotionContent pageId={pageId} onTitle={setDisplayTitle} />
+            />
+            <h2 id="notion-overlay-title" className="sr-only">
+              {displayTitle}
+            </h2>
+            <div className="notion-overlay__scroll">
+              <NotionContent
+                pageId={pageId}
+                pageUrl={pageUrl}
+                onTitle={setDisplayTitle}
+                onHome={handleClose}
+              />
             </div>
           </motion.div>
         ) : null}
