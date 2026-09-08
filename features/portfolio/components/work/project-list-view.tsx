@@ -21,9 +21,12 @@ type ProjectListViewProps = {
 export function ProjectListBody({
   projects,
   onSelect,
-}: Pick<ProjectListViewProps, "projects" | "onSelect">) {
+  initialKind = "all",
+}: Pick<ProjectListViewProps, "projects" | "onSelect"> & {
+  initialKind?: ProjectKindFilter;
+}) {
   const ui = useUi();
-  const [kind, setKind] = useState<ProjectKindFilter>("all");
+  const [kind, setKind] = useState<ProjectKindFilter>(initialKind);
   const [sort, setSort] = useState<ProjectSort>("newest");
   const visible = useMemo(
     () => filterAndSortProjects(projects, kind, sort),
