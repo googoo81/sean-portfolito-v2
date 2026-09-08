@@ -65,6 +65,9 @@ function HistoryLinkedTitle({
         }}
       >
         <span className="bento-history__link-text">{label}</span>
+        <span className="bento-history__link-mark" aria-hidden>
+          ↗
+        </span>
       </button>
     );
   }
@@ -89,6 +92,9 @@ function HistoryLinkedTitle({
         }}
       >
         <span className="bento-history__link-text">{label}</span>
+        <span className="bento-history__link-mark" aria-hidden>
+          ↗
+        </span>
       </button>
     );
   }
