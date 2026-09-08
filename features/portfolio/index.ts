@@ -7,6 +7,7 @@ export type {
   PortfolioIntro,
   Project,
   ProjectImage,
+  ProjectKind,
   ProjectLink,
   SkillItem,
   StackItem,

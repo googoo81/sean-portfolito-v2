@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { BentoCard } from "@/components/ui";
+import { useUi } from "@/features/portfolio/i18n";
 import { DeviceMockup } from "../../shared/device-mockup";
 import {
   prefetchProjectsOverlay,
@@ -16,6 +17,7 @@ type ProjectTileProps = {
 };
 
 export function ProjectTile({ project, className }: ProjectTileProps) {
+  const ui = useUi();
   const cardRef = useRef<HTMLButtonElement>(null);
   const { open, openProjects } = useProjectsSession();
 
@@ -24,7 +26,7 @@ export function ProjectTile({ project, className }: ProjectTileProps) {
       <button
         ref={cardRef}
         type="button"
-        aria-label={`${project.shortTitle} 열기`}
+        aria-label={ui.openProjectAria(project.shortTitle)}
         aria-expanded={open}
         data-projects-origin="featured"
         className="project-tile"

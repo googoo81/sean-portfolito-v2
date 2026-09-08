@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/format";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import { useUi } from "@/features/portfolio/i18n";
 import {
   applyTheme,
   getCurrentTheme,
@@ -15,7 +16,11 @@ type ThemeToggleProps = {
   className?: string;
 };
 
-function syncToggle(button: HTMLButtonElement | null, theme: Theme) {
+function syncToggle(
+  button: HTMLButtonElement | null,
+  theme: Theme,
+  labels: { toLight: string; toDark: string },
+) {
   if (!button) {
     return;
   }
@@ -24,23 +29,30 @@ function syncToggle(button: HTMLButtonElement | null, theme: Theme) {
   button.setAttribute("aria-pressed", String(isDark));
   button.setAttribute(
     "aria-label",
-    isDark ? "라이트 모드로 전환" : "다크 모드로 전환",
+    isDark ? labels.toLight : labels.toDark,
   );
 }
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const ui = useUi();
 
   useEffect(() => {
-    syncToggle(buttonRef.current, getCurrentTheme());
-  }, []);
+    syncToggle(buttonRef.current, getCurrentTheme(), {
+      toLight: ui.themeToLight,
+      toDark: ui.themeToDark,
+    });
+  }, [ui.themeToLight, ui.themeToDark]);
 
   const toggleTheme = useDebouncedCallback(() => {
     const nextTheme = getOppositeTheme(getCurrentTheme());
 
     applyTheme(nextTheme);
     persistTheme(nextTheme);
-    syncToggle(buttonRef.current, nextTheme);
+    syncToggle(buttonRef.current, nextTheme, {
+      toLight: ui.themeToLight,
+      toDark: ui.themeToDark,
+    });
   });
 
   return (
@@ -48,11 +60,11 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       ref={buttonRef}
       type="button"
       onClick={toggleTheme}
-      aria-label="테마 전환"
+      aria-label={ui.themeToggleAria}
       aria-pressed="false"
       className={cn("theme-toggle glass", className)}
     >
-      <span className="sr-only">흑백 테마 전환</span>
+      <span className="sr-only">{ui.themeToggleSr}</span>
       <span className="theme-toggle__thumb glass-chip">
         <svg
           viewBox="0 0 24 24"

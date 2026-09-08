@@ -3,7 +3,7 @@ const SOCIAL_ACTION_DIR = "/svg/actions";
 
 export const SOCIAL_ICONS = {
   github: `${SOCIAL_ICON_DIR}/github.svg`,
-  medium: `${SOCIAL_ICON_DIR}/medium.svg`,
+  linkedin: `${SOCIAL_ICON_DIR}/linkedin.svg`,
   phone: `${SOCIAL_ICON_DIR}/phone.svg`,
   mail: `${SOCIAL_ICON_DIR}/mail.svg`,
 } as const;

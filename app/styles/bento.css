@@ -250,6 +250,14 @@ html[data-lite-motion="true"] .bento-featured:active {
   justify-content: center;
 }
 
+.bento-cta__toggles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
 .bento-history__grid {
   display: grid;
   grid-template-columns: 1fr;

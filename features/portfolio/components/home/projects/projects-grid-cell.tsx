@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { BentoCard } from "@/components/ui";
+import { useUi } from "@/features/portfolio/i18n";
 import {
   prefetchProjectsOverlay,
   useProjectsSession,
@@ -29,6 +30,7 @@ function GoArrow() {
 }
 
 export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
+  const ui = useUi();
   const cardRef = useRef<HTMLButtonElement>(null);
   const { open, openProjects } = useProjectsSession();
 
@@ -37,7 +39,7 @@ export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
       <button
         ref={cardRef}
         type="button"
-        aria-label="모든 프로젝트"
+        aria-label={ui.allProjectsAria}
         aria-expanded={open}
         data-projects-origin="cell"
         className="projects-cell"

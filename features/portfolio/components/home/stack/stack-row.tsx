@@ -9,6 +9,7 @@ import type { NotesOrigin } from "./notes-window";
 import { closeNotesHistory, parseNotesHash, syncNotesSession, writeNotesHash } from "./notes-hash";
 import { DOCK_GAP, DOCK_MAX_SIZE } from "./dock-config";
 import { blurActiveElement } from "@/lib/blur-active-element";
+import { useUi } from "@/features/portfolio/i18n";
 import type { StackItem } from "@/features/portfolio/types";
 
 const NotesOverlay = dynamic(
@@ -51,6 +52,7 @@ function fallbackNotesOrigin(): NotesOrigin {
 }
 
 export function StackRow({ items }: StackRowProps) {
+  const ui = useUi();
   const reducedMotion = usePrefersReducedMotion();
   const pointerX = useMotionValue(Number.POSITIVE_INFINITY);
   const [orderedItems, setOrderedItems] = useState<StackItem[]>(() => [
@@ -60,6 +62,19 @@ export function StackRow({ items }: StackRowProps) {
   const [notesOrigin, setNotesOrigin] = useState<NotesOrigin | null>(null);
   const [notesOpen, setNotesOpen] = useState(false);
   const [skipEnter, setSkipEnter] = useState(false);
+
+  useEffect(() => {
+    setOrderedItems((current) => {
+      const byId = new Map(items.map((item) => [item.id, item]));
+      const ordered = current
+        .map((item) => byId.get(item.id))
+        .filter((item): item is StackItem => Boolean(item));
+      return ordered.length === items.length ? ordered : [...items];
+    });
+    setNotesItem((current) =>
+      current ? (items.find((item) => item.id === current.id) ?? null) : null,
+    );
+  }, [items]);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -145,7 +160,7 @@ export function StackRow({ items }: StackRowProps) {
     <>
       <div
         role="list"
-        aria-label="사용 도구"
+        aria-label={ui.stackToolsAria}
         style={{ gap: DOCK_GAP, height: DOCK_MAX_SIZE }}
         className="bento-stack-dock"
         onPointerMove={
@@ -171,7 +186,7 @@ export function StackRow({ items }: StackRowProps) {
 
       <div
         role="list"
-        aria-label="사용 도구"
+        aria-label={ui.stackToolsAria}
         className="bento-stack-wrap"
         onPointerEnter={prefetchNotesOverlay}
       >

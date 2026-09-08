@@ -2,6 +2,7 @@
 
 import { useRef, type PointerEvent } from "react";
 import type { StackItem } from "@/features/portfolio/types";
+import { useUi } from "@/features/portfolio/i18n";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import {
   CloseLightIcon,
@@ -19,11 +20,12 @@ function TrafficLights({
   onZoom: () => void;
   maximized: boolean;
 }) {
+  const ui = useUi();
   return (
     <div className="projects-overlay__lights">
       <button
         type="button"
-        aria-label="닫기"
+        aria-label={ui.chrome.close}
         className="projects-overlay__light projects-overlay__light--close"
         onClick={onClose}
       >
@@ -31,7 +33,7 @@ function TrafficLights({
       </button>
       <button
         type="button"
-        aria-label="닫기"
+        aria-label={ui.chrome.close}
         className="projects-overlay__light projects-overlay__light--min"
         onClick={onClose}
       >
@@ -39,7 +41,7 @@ function TrafficLights({
       </button>
       <button
         type="button"
-        aria-label={maximized ? "창 크기 복원" : "전체 화면"}
+        aria-label={maximized ? ui.chrome.restore : ui.chrome.maximize}
         className="projects-overlay__light projects-overlay__light--zoom"
         onClick={onZoom}
       >

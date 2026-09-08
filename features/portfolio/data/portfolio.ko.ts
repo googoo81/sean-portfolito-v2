@@ -1,7 +1,7 @@
-import { STACK_ITEMS } from "@/features/portfolio/constants";
+import { getStackItems } from "@/features/portfolio/constants";
 import type { Portfolio } from "@/features/portfolio/types";
 
-export const portfolio: Portfolio = {
+export const portfolioKo: Portfolio = {
   intro: {
     headline: "기획한 아이디어를\n직접 구현하는 마케터",
     process: ["Strategy", "Content", "Execution"],
@@ -17,9 +17,10 @@ export const portfolio: Portfolio = {
     phone: "010-9052-4780",
     email: "officialhyeanwoo@gmail.com",
     github: "https://github.com/googoo81",
-    medium: "https://medium.com/@beautiful-tuna",
+    linkedin:
+      "https://www.linkedin.com/in/%ED%98%84%EC%9A%B0-%EC%86%A1-a058b528a/",
   },
-  stack: STACK_ITEMS,
+  stack: getStackItems("ko"),
   featuredSlug: "bareway",
   skills: [
     {
@@ -55,8 +56,10 @@ export const portfolio: Portfolio = {
   ],
   projects: [
     {
-      slug: "bareway",      shortTitle: "배리웨이",
+      slug: "bareway",
+      shortTitle: "배리웨이",
       title: "월 1,000만 원 미디어믹스로 설계한 재구매 캠페인",
+      kind: "team",
       meta: "팀 프로젝트 · 운영 전 기획안 | 담당: 콘텐츠 전략 · 릴스/광고 소재 · 디자인",
       tools: "Figma · CapCut · 생성형 AI",
       period: "2026.07",
@@ -89,6 +92,7 @@ export const portfolio: Portfolio = {
       slug: "musinsa",
       shortTitle: "무신사",
       title: "무진장 블랙프라이데이 흥행을 위한 AI 광고 영상",
+      kind: "personal",
       meta: "개인 프로젝트(공모전) · 예선 탈락 | 담당: 콘셉트 · AI 영상 연출 · 편집",
       tools: "CapCut · KlingAI",
       period: "2026.06",

@@ -9,10 +9,13 @@ export type ProjectImage = {
   fit?: "contain";
 };
 
+export type ProjectKind = "team" | "personal";
+
 export type Project = {
   slug: string;
   shortTitle: string;
   title: string;
+  kind: ProjectKind;
   meta: string;
   tools: string;
   period: string;
@@ -63,7 +66,7 @@ export type PortfolioContact = {
   phone: string;
   email: string;
   github: string;
-  medium: string;
+  linkedin: string;
 };
 
 export type SkillItem = {

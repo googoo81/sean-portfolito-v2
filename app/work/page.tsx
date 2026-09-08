@@ -1,6 +1,5 @@
-import { getPortfolio } from "@/features/portfolio";
-import { ProjectListView } from "@/features/portfolio/components/work/project-list-view";
-import { WorkWindow } from "@/features/portfolio/components/work/projects-chrome";
+import { LocaleProvider } from "@/features/portfolio/i18n";
+import { WorkIndexClient } from "@/features/portfolio/components/work/work-index-client";
 
 export const metadata = {
   title: "Projects | 송현우",
@@ -8,11 +7,9 @@ export const metadata = {
 };
 
 export default function WorkIndexPage() {
-  const { projects } = getPortfolio();
-
   return (
-    <WorkWindow title="Projects.">
-      <ProjectListView projects={projects} />
-    </WorkWindow>
+    <LocaleProvider>
+      <WorkIndexClient />
+    </LocaleProvider>
   );
 }

@@ -4,9 +4,9 @@ import { useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
+import { useUi } from "@/features/portfolio/i18n";
 import { cn } from "@/lib/format";
 import type { Project } from "@/features/portfolio/types";
-
 type ProjectIndexProps = {
   projects: readonly Project[];
   activeSlug?: string;
@@ -41,11 +41,12 @@ export function ProjectIndex({
   onSelect,
   onBackToList,
 }: ProjectIndexProps) {
+  const ui = useUi();
   return (
-    <nav className="project-index" aria-label="프로젝트 목록">
+    <nav className="project-index" aria-label={ui.chrome.projectList}>
       <ul className="project-index__list">
         <IndexSlot
-          label="프로젝트 목록"
+          label={ui.chrome.projectList}
           active={!activeSlug}
           href={onBackToList ? undefined : "/work"}
           onClick={onBackToList}

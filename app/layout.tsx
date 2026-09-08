@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { MotionPreference } from "@/components/ui";
+import { getLocaleInitScript } from "@/lib/locale";
 import { getThemeInitScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: getThemeInitScript(),
+            __html: `${getThemeInitScript()};${getLocaleInitScript()}`,
           }}
         />
       </head>

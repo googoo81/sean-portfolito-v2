@@ -2,22 +2,17 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/format";
+import { useUi } from "@/features/portfolio/i18n";
 import type { SkillItem } from "@/features/portfolio/types";
-
-const DEFAULT_SKILL = "브랜드 분석";
 
 type SkillsTileProps = {
   skills: readonly SkillItem[];
 };
 
 export function SkillsTile({ skills }: SkillsTileProps) {
-  const [activeLabel, setActiveLabel] = useState(
-    () =>
-      skills.find((skill) => skill.label === DEFAULT_SKILL)?.label ??
-      skills[0]?.label,
-  );
-  const active =
-    skills.find((skill) => skill.label === activeLabel) ?? skills[0];
+  const ui = useUi();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = skills[activeIndex] ?? skills[0];
 
   if (!active) {
     return null;
@@ -27,9 +22,9 @@ export function SkillsTile({ skills }: SkillsTileProps) {
     <div className="skill-panel">
       <div className="skill-header">
         <p className="eyebrow skill-header__title">🛠️ Skills.</p>
-        <div className="skill-tabs" role="radiogroup" aria-label="Skills">
+        <div className="skill-tabs" role="radiogroup" aria-label={ui.skillsAria}>
           {skills.map((skill, index) => {
-            const selected = skill.label === active.label;
+            const selected = index === activeIndex;
 
             return (
               <button
@@ -39,7 +34,7 @@ export function SkillsTile({ skills }: SkillsTileProps) {
                 aria-checked={selected}
                 className={cn("skill-tab", selected && "is-active")}
                 style={{ zIndex: selected ? skills.length + 2 : index + 1 }}
-                onClick={() => setActiveLabel(skill.label)}
+                onClick={() => setActiveIndex(index)}
               >
                 <span className="skill-tab__label">{skill.label}</span>
               </button>

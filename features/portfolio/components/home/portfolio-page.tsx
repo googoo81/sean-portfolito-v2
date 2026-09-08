@@ -1,5 +1,8 @@
-import { BentoCard, BentoGrid, ThemeToggle } from "@/components/ui";
+"use client";
+
+import { BentoCard, BentoGrid, LocaleToggle, ThemeToggle } from "@/components/ui";
 import { getFeaturedProject } from "@/features/portfolio/lib";
+import { usePortfolio, useUi } from "@/features/portfolio/i18n";
 import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./projects/project-tile";
 import { ProjectsGridCell } from "./projects/projects-grid-cell";
@@ -7,11 +10,6 @@ import { ProjectsSessionProvider } from "./projects/projects-session";
 import { SkillsTile } from "./skills-tile";
 import { SocialTile } from "./social-tile";
 import { StackRow } from "./stack";
-import type { Portfolio } from "@/features/portfolio/types";
-
-type PortfolioPageProps = {
-  portfolio: Portfolio;
-};
 
 function ProcessArrow() {
   return (
@@ -32,7 +30,9 @@ function ProcessArrow() {
   );
 }
 
-export function PortfolioPage({ portfolio }: PortfolioPageProps) {
+export function PortfolioPage() {
+  const portfolio = usePortfolio();
+  const ui = useUi();
   const featured = getFeaturedProject(portfolio);
 
   return (
@@ -47,8 +47,9 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
                 </span>
               ))}
               <span>
+                <span className="intro-title__rest">{ui.introNamePrefix}</span>
                 {portfolio.contact.name}
-                <span className="intro-title__rest"> 입니다.</span>
+                <span className="intro-title__rest">{ui.introNameSuffix}</span>
               </span>
             </h1>
           </BentoCard>
@@ -141,7 +142,10 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             </BentoCard>
 
             <BentoCard className="bento-cta">
-              <ThemeToggle />
+              <div className="bento-cta__toggles">
+                <LocaleToggle />
+                <ThemeToggle />
+              </div>
             </BentoCard>
           </div>
         </BentoGrid>

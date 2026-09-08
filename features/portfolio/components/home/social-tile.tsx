@@ -9,6 +9,7 @@ import {
 import { cn, toTelHref } from "@/lib/format";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import { useUi } from "@/features/portfolio/i18n";
 import type { PortfolioContact } from "@/features/portfolio/types";
 
 type SocialLink = {
@@ -53,10 +54,11 @@ async function copyToClipboard(value: string) {
 
 export function SocialTile({
   github,
-  medium,
+  linkedin,
   phone,
   email,
-}: Pick<PortfolioContact, "github" | "medium" | "phone" | "email">) {
+}: Pick<PortfolioContact, "github" | "linkedin" | "phone" | "email">) {
+  const ui = useUi();
   const [copiedId, setCopiedId] = useState<SocialIconId | null>(null);
   const copiedTimer = useRef<number>(0);
 
@@ -102,17 +104,17 @@ export function SocialTile({
       label: "Github",
       icon: "github",
       copyValue: github,
-      copyLabel: "Github 링크 복사",
-      openLabel: "Github로 이동",
+      copyLabel: ui.social.githubCopy,
+      openLabel: ui.social.githubOpen,
       external: true,
     },
     {
-      href: medium,
-      label: "Medium",
-      icon: "medium",
-      copyValue: medium,
-      copyLabel: "Medium 링크 복사",
-      openLabel: "Medium으로 이동",
+      href: linkedin,
+      label: "LinkedIn",
+      icon: "linkedin",
+      copyValue: linkedin,
+      copyLabel: ui.social.linkedinCopy,
+      openLabel: ui.social.linkedinOpen,
       external: true,
     },
     {
@@ -120,16 +122,16 @@ export function SocialTile({
       label: "Phone",
       icon: "phone",
       copyValue: phone,
-      copyLabel: "전화번호 복사",
-      openLabel: "전화 걸기",
+      copyLabel: ui.social.phoneCopy,
+      openLabel: ui.social.phoneOpen,
     },
     {
       href: `mailto:${email}`,
       label: "Email",
       icon: "mail",
       copyValue: email,
-      copyLabel: "이메일 주소 복사",
-      openLabel: "이메일 보내기",
+      copyLabel: ui.social.emailCopy,
+      openLabel: ui.social.emailOpen,
     },
   ];
 
