@@ -64,17 +64,27 @@ export const portfolioEn: Portfolio = {
       tools: "Figma · CapCut · Generative AI",
       period: "2026.07",
       icon: "/project/variway/icon.png",
-      situation:
-        "Even in a protein-shake market (~₩5.8T), competitors repeated taste, value, and nutrition specs — while Bareway lacked a clear repurchase strategy. For persona ‘Kim Bare’ (23, job-seeking marketer into fashion, home workouts, and body care), we hypothesized that mood and routine messaging would recall the brand better than specs alone. The brief was a pre-launch plan: Meta, Kakao DA, and Naver SA creatives, assumed KPIs, and a ₩10M monthly media mix.",
-      actions: [
-        "Compared USP and pricing across four competitors (Flymeal, EatTheFit, Kkobakkobab, Proteone) to find a taste × lifestyle gap",
-        "Split Meta (remarketing), Kakao (routine proximity), and Naver SA (search/conversion) along the first-buy → pause → repurchase journey",
+      problem:
+        "Even in a protein-shake market (~₩5.8T), competitors kept repeating taste, value, and nutrition specs. Bareway lacked a clear path from first purchase to brand recall and repurchase — the brief needed a content and media structure that answered “why drink again,” not only “what to buy.”",
+      strategy:
+        "For persona ‘Kim Bare’ (23, job-seeking marketer into fashion, home workouts, and body care), we chose mood and routine messaging over spec lists. Along first-buy → pause → repurchase, Meta owned remarketing, Kakao owned routine proximity, and Naver SA owned search/conversion. The plan assumed a ₩10M monthly mix that split “make them remember” vs “make them buy again” by channel.",
+      execution: [
+        "Compared USP and pricing across four competitors (Flymeal, EatTheFit, Kkobakkobab, Proteone) to map a taste × lifestyle gap",
         "Produced one taste × fashion Instagram Reel plus Kakao Bizboard and Naver PowerLink creatives",
-        "Media mix: Kakao Bizboard 70% (₩7M), Naver PowerLink 30% (₩1.5M × 2), Instagram Reels owned (paid 0%) for a ₩10M monthly plan",
-        "Locked assumed KPIs — Meta save 0.03–0.05% / share 0.3–0.5%, Naver CVR 12%+ / CTR 1.5%, Kakao CPA down / UTM / scroll depth",
+        "Built the media-mix deck — Kakao Bizboard 70% (₩7M), Naver PowerLink 30% (₩1.5M × 2), Instagram Reels owned (paid 0%)",
+        "Locked assumed channel KPIs at the creative stage — Meta save/share, Naver CVR/CTR, Kakao CPA/UTM/scroll depth",
       ],
-      result:
-        "Delivered a repurchase campaign plan with one Reel, Kakao Bizboard and Naver creatives, plus channel roles, budget, and assumed KPIs. 70% of paid budget sat on Kakao retargeting; Instagram worked as owned reminder — ‘recall’ vs ‘repurchase’ split by medium. Reflection: no live metrics yet, but pinning success criteria (e.g. Naver CVR 12% above ~11.5% prior purchase CVR) at the creative stage was the plan’s main persuasion point.",
+      closing: {
+        kind: "points",
+        label: "Project Point",
+        items: [
+          "Repurchase strategy grounded in market analysis",
+          "Creative strategy matched to intent by channel",
+          "SA keyword structure",
+          "DA and owned content planning",
+          "Budget-based media mix design",
+        ],
+      },
       cover: {
         src: "/project/variway/mockup.png",
         alt: "Bareway Instagram Reels mockup",
@@ -99,16 +109,21 @@ export const portfolioEn: Portfolio = {
       tools: "GA4 · Meta Ads · Cursor",
       period: "2026.08",
       icon: "/project/chicment/icon.png",
-      situation:
-        "First-luxury shoppers in their 20s–30s can find brand and product info easily, but lack personal criteria for “is this right for me?” Chicment already held trusted wear-and-use reviews, yet a community-heavy structure and information volume raised the entry bar for new users. The core insight: “I know what I like, but I can’t explain why.” The brief was to connect Chicment’s real-use credibility to content first-time buyers would try without pressure.",
-      actions: [
-        "Designed and built a funnel of ad → taste test → result → Chicment reviews via PICKGAM, a 30-second interactive test that surfaces taste criteria through five intuitive choices, and connected Instagram ads to the live landing",
-        "Round 1: curiosity short-form hit 5.77% CTR, but 80% first-screen bounce and 4.7% final CTA exposed a bottleneck — users didn’t see why they should take the test now",
-        "Reframed the message from ‘fun taste quiz’ to ‘reduce first-luxury failure,’ and improved question-led copy, problem framing, ‘check real reviews’ CTA, toned-down UI, and live participant social proof",
-        "Round 2: info creatives fell 5.77%→1.95% CTR while curiosity rose 1.72%→4.67% — concluding continuity between ad promise and landing value beats hook intensity alone",
+      problem:
+        "First-luxury shoppers in their 20s–30s can find brand and product info easily, but lack personal criteria for “is this right for me?” Chicment already held trusted wear-and-use reviews, yet a community-heavy structure and information volume raised the entry bar. The core gap: “I know what I like, but I can’t explain why.”",
+      strategy:
+        "Instead of one-way product recommendations, we built PICKGAM — a 30-second interactive test where users discover their own taste criteria through choice. The funnel was ad → taste test → result → Chicment real-use reviews, with message continuity from ad promise to landing reason-to-participate as the strategic spine.",
+      execution: [
+        "Planned and built the PICKGAM landing (five intuitive choices) and connected it to Instagram ads",
+        "Round 1: curiosity short-form reached 5.77% CTR, but 80% first-screen bounce and 4.7% final CTA exposed a bottleneck",
+        "Hypothesized that the first screen didn’t explain why to take the test now; reframed from ‘fun taste quiz’ to ‘reduce first-luxury failure’",
+        "Improved round-2 landing and creatives with question-led copy, problem framing, ‘check real reviews’ CTA, toned-down UI, and live participant proof",
+        "Compared round-2 splits — info creatives 5.77%→1.95% CTR vs curiosity 1.72%→4.67% — concluding ad–landing continuity beats hook intensity alone",
       ],
-      result:
-        "Early test entry remained unfinished business, but among users who started the test, CTA reach rose 26%→66% and final CTA click 4.7%→6.2% — strengthening the late-funnel path into Chicment. Reflection: ads and landing must read as one experience; problem stated in the ad → reason to participate → result → CTA as one message mattered more than spiking CTR with shock hooks. We used traffic → drop-off → hypothesis → content fix → retest as the decision loop.",
+      closing: {
+        kind: "outcome",
+        body: "Among users who started the test, CTA reach rose 26%→66% and final CTA click 4.7%→6.2%, strengthening the late funnel into Chicment. Early entry remains a follow-up challenge, but we confirmed that one message from ad problem → landing reason → result → CTA matters more than spiking CTR with shock hooks. Traffic → drop-off → hypothesis → content fix → retest became the decision loop.",
+      },
       cover: {
         src: "/project/chicment/mockup.png",
         alt: "Chicment PICKGAM interactive content mockup",
@@ -134,16 +149,25 @@ export const portfolioEn: Portfolio = {
       tools: "CapCut · KlingAI",
       period: "2026.06",
       icon: "/project/musinsa/icon.png",
-      situation:
-        "Musinsa’s ‘Mujinjang success AI film contest’ asked for a 5–30s AI ad announcing Mujinjang Black Friday. The hypothesis: a discount card alone won’t stop the scroll — season mood and brand tone must remain in short cuts. Street scenes shifting between clear and rainy weather, with repeating props like bikes and cones, aimed to read like a lookbook as much as a promo.",
-      actions: [
+      problem:
+        "Musinsa’s ‘Mujinjang success AI film contest’ asked for a 5–30s AI ad announcing Mujinjang Black Friday. A discount card alone rarely stops the scroll — short cuts still needed season mood and brand tone so hype and atmosphere could travel together.",
+      strategy:
+        "Treat the promo like a lookbook: keep season mood continuous by changing only weather and wardrobe at the same location, and link cuts with orange accents (bike, cones) aligned to the key visual and brand color (#FE4900).",
+      execution: [
         "Designed concept and cut list to brief rules (key visual ≥1×, 5–30s, AI-made)",
-        "Kept season mood continuous by changing only weather and wardrobe at the same location",
-        "Used orange accents (bike, cones) as visual links across cuts, aligned to key visual and brand color (#FE4900)",
-        "Generated and edited with KlingAI and CapCut into a finished Mujinjang promo AI film",
+        "Built street scenes with weather/wardrobe shifts and repeating props as visual bridges",
+        "Generated and edited with KlingAI and CapCut into one finished Mujinjang promo AI film",
       ],
-      result:
-        "Submitted one AI ad for Mujinjang Black Friday but was eliminated in the prelims. Wear-and-street mood landed, yet ‘Mujinjang’ and the offer weren’t readable in the opening seconds — weak fit with a hype/promo brief. Reflection: mood and promo message need separate layers; next time lead with event/benefit, then continue into mood cuts.",
+      closing: {
+        kind: "points",
+        label: "Key Takeaway",
+        items: [
+          "Cut design that keeps season mood and brand tone continuous in a short ad",
+          "Prop and accent color aligned to key visual and brand palette",
+          "Solo pipeline from concept to finished film via AI generate-and-edit",
+          "Next-work rule — stamp event/benefit early, then continue into mood cuts as separate message layers",
+        ],
+      },
       cover: {
         src: "/project/musinsa/mockup.png",
         alt: "Musinsa Mujinjang AI ad mockup",

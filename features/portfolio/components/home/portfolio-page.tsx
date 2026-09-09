@@ -2,7 +2,7 @@
 
 import { BentoCard, BentoGrid, ExternalLink, LocaleToggle, ThemeToggle } from "@/components/ui";
 import { getFeaturedProject } from "@/features/portfolio/lib";
-import { usePortfolio, useUi } from "@/features/portfolio/i18n";
+import { usePortfolio } from "@/features/portfolio/i18n";
 import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./projects/project-tile";
 import { ProjectsGridCell } from "./projects/projects-grid-cell";
@@ -131,7 +131,6 @@ function WorkHistoryTitle({ item }: { item: HistoryItem }) {
 
 export function PortfolioPage() {
   const portfolio = usePortfolio();
-  const ui = useUi();
   const featured = getFeaturedProject(portfolio);
 
   return (
@@ -142,16 +141,20 @@ export function PortfolioPage() {
           <BentoCard className="bento-intro">
             <h1 className="intro-title">
               {portfolio.intro.headline.split("\n").map((line) => (
-                <span key={line} className="intro-title__rest">
+                <span key={line} className="intro-title__line">
                   {line}
                 </span>
               ))}
-              <span>
-                <span className="intro-title__rest">{ui.introNamePrefix}</span>
-                {portfolio.contact.name}
-                <span className="intro-title__rest">{ui.introNameSuffix}</span>
-              </span>
             </h1>
+            <p className="intro-sub">{portfolio.intro.subhead}</p>
+            <p className="intro-process">
+              {portfolio.intro.process.map((step, index) => (
+                <span key={step} className="about-process__step">
+                  {index > 0 ? <ProcessArrow /> : null}
+                  {step}
+                </span>
+              ))}
+            </p>
           </BentoCard>
 
           {featured ? (
@@ -166,14 +169,6 @@ export function PortfolioPage() {
           <BentoCard className="bento-about">
             <div>
               <p className="eyebrow eyebrow--sm">👻 about.</p>
-              <p className="about-process">
-                {portfolio.intro.process.map((step, index) => (
-                  <span key={step} className="about-process__step">
-                    {index > 0 ? <ProcessArrow /> : null}
-                    {step}
-                  </span>
-                ))}
-              </p>
             </div>
             <div className="about-copy">
               <p className="about-closing">{portfolio.intro.closing}</p>

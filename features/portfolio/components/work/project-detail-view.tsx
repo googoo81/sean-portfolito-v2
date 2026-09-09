@@ -14,7 +14,8 @@ type ProjectDetailViewProps = {
 export function ProjectDetailBody({ project }: { project: Project }) {
   const carousel =
     project.galleryFormat === "carousel" ? (project.gallery ?? []) : [];
-  const showHero = carousel.length > 0 || Boolean(project.video);
+  const showHero =
+    carousel.length > 0 || Boolean(project.video) || Boolean(project.cover);
 
   return (
     <div className="projects-overlay__detail projects-overlay__article">

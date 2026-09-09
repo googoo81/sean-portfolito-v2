@@ -11,6 +11,18 @@ export type ProjectImage = {
 
 export type ProjectKind = "team" | "personal";
 
+/** Closing section: live metrics narrative, or planning takeaways without forced KPIs. */
+export type ProjectClosing =
+  | {
+      kind: "outcome";
+      body: string;
+    }
+  | {
+      kind: "points";
+      label?: "Project Point" | "Key Takeaway";
+      items: string[];
+    };
+
 export type Project = {
   slug: string;
   shortTitle: string;
@@ -19,9 +31,10 @@ export type Project = {
   meta: string;
   tools: string;
   period: string;
-  situation: string;
-  actions: string[];
-  result: string;
+  problem: string;
+  strategy: string;
+  execution: string[];
+  closing: ProjectClosing;
   links?: ProjectLink[];
   icon?: string;
   cover?: ProjectImage;

@@ -1011,11 +1011,62 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
   gap: 2rem;
 }
 
+.article__section {
+  scroll-margin-top: 1.25rem;
+}
+
+.article__section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+
+.article__step {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-label);
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.article__toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 1.15rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.article__toc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.article__toc-link:hover {
+  color: var(--foreground);
+}
+
+.article__toc-step {
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+}
+
 .article__gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   gap: 0.75rem;
-  margin-top: 0.5rem;
+  margin-top: 0.85rem;
 }
 
 .article__shot {
