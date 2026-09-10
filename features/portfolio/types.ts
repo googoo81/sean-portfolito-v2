@@ -12,15 +12,58 @@ export type ProjectImage = {
 export type ProjectKind = "team" | "personal";
 
 /** Closing section: live metrics narrative, or planning takeaways without forced KPIs. */
+export type ProjectMetric = {
+  label: string;
+  value: string;
+};
+
+export type ProjectChannel = {
+  name: string;
+  role: string;
+  items: string[];
+};
+
+export type ProjectCreative = {
+  label?: string;
+  lead?: string;
+  body?: string;
+  flow: string[];
+};
+
+export type ProjectMediaMixItem = {
+  channel: string;
+  share: string;
+  role: string;
+  notes?: string[];
+};
+
+export type ProjectMediaMix = {
+  label?: string;
+  budget: string;
+  rationale?: string;
+  items: ProjectMediaMixItem[];
+};
+
 export type ProjectClosing =
   | {
       kind: "outcome";
+      label?: "Outcome" | "Optimization";
       body: string;
+      before?: {
+        title: string;
+        metrics: ProjectMetric[];
+        insight?: string;
+      };
+      after?: {
+        title: string;
+        items: string[];
+      };
     }
   | {
       kind: "points";
       label?: "Project Point" | "Key Takeaway";
       items: string[];
+      body?: string;
     };
 
 export type Project = {
@@ -31,9 +74,28 @@ export type Project = {
   meta: string;
   tools: string;
   period: string;
+  /** Optional one-line context under the title. */
+  summary?: string;
+  problemLabel?: string;
   problem: string;
+  /** Optional pull-quote highlighting the core problem. */
+  problemLead?: string;
+  strategyLabel?: string;
   strategy: string;
+  /** Optional pull-quote highlighting the core strategy. */
+  strategyLead?: string;
+  /** Optional funnel steps shown as a visual flow. */
+  strategyFlow?: string[];
+  /** Optional supporting strategy bullets (target, content pillars, etc.). */
+  strategyPoints?: string[];
+  executionLabel?: string;
   execution: string[];
+  /** Optional per-channel strategy cards (e.g. SA / DA / Owned). */
+  channels?: ProjectChannel[];
+  /** Optional creative process section (e.g. Reel). */
+  creative?: ProjectCreative;
+  /** Optional media-mix allocation section. */
+  mediaMix?: ProjectMediaMix;
   closing: ProjectClosing;
   links?: ProjectLink[];
   icon?: string;

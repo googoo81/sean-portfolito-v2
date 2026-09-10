@@ -58,32 +58,121 @@ export const portfolioEn: Portfolio = {
     {
       slug: "bareway",
       shortTitle: "Bareway",
-      title: "A repurchase campaign designed with a ₩10M monthly media mix",
+      title:
+        "Made taste memorable in content, and designed repurchase across media touchpoints.",
       kind: "team",
-      meta: "Team project · Pre-launch plan | Role: content strategy · Reels/ad creatives · design",
+      meta: "Team project · Pre-launch plan | Role: market analysis · channel strategy · content production · media mix",
       tools: "Figma · CapCut · Generative AI",
       period: "2026.07",
       icon: "/project/variway/icon.png",
+      summary:
+        "A strategy-planning project structured solo — from market analysis to channel content and media mix. Repurchase touchpoints were split by channel role, and taste plus daily routine were translated into content.",
+      problemLabel: "Market Analysis",
+      problemLead:
+        "In a sea of similar ‘high-protein’ messages, we had to design a reason to come back.",
       problem:
-        "Even in a protein-shake market (~₩5.8T), competitors kept repeating taste, value, and nutrition specs. Bareway lacked a clear path from first purchase to brand recall and repurchase — the brief needed a content and media structure that answered “why drink again,” not only “what to buy.”",
+        "The protein-shake market overlaps heavily on messaging, and Variway’s USP and repurchase reason weren’t sharp enough. Competitor work across brands like Flymeal and Proteone showed a repeating pattern of specs and value claims. From that analysis we chose taste, daily routine, and repurchase situations over another ‘high-protein’ line — analysis → pattern → strategy.",
+      strategyLabel: "Strategy",
+      strategyLead:
+        "Split messages by the situations where someone needs a shake, then separate content strategy by media role.",
       strategy:
-        "For persona ‘Kim Bare’ (23, job-seeking marketer into fashion, home workouts, and body care), we chose mood and routine messaging over spec lists. Along first-buy → pause → repurchase, Meta owned remarketing, Kakao owned routine proximity, and Naver SA owned search/conversion. The plan assumed a ₩10M monthly mix that split “make them remember” vs “make them buy again” by channel.",
-      execution: [
-        "Compared USP and pricing across four competitors (Flymeal, EatTheFit, Kkobakkobab, Proteone) to map a taste × lifestyle gap",
-        "Produced one taste × fashion Instagram Reel plus Kakao Bizboard and Naver PowerLink creatives",
-        "Built the media-mix deck — Kakao Bizboard 70% (₩7M), Naver PowerLink 30% (₩1.5M × 2), Instagram Reels owned (paid 0%)",
-        "Locked assumed channel KPIs at the creative stage — Meta save/share, Naver CVR/CTR, Kakao CPA/UTM/scroll depth",
+        "Execution follows those situation axes into each channel: search for conversion, DA for re-awareness, owned for experiencing taste and mood.",
+      strategyPoints: [
+        "Commute and office-snack moments",
+        "Body care and diet routines",
+        "Resistance to processed protein taste",
+        "An experience so good they come back for the flavor",
       ],
+      executionLabel: "Channel Strategy",
+      execution: [],
+      channels: [
+        {
+          name: "Naver SA",
+          role: "Convert high-intent search users",
+          items: [
+            "Keyword analysis by search intent",
+            "Separate brand vs category keywords",
+            "Situational queries like ‘office snack’ and ‘commute protein’",
+            "Designed as the touchpoint that catches ready-to-buy demand",
+          ],
+        },
+        {
+          name: "Kakao Bizboard / DA",
+          role: "Re-aware users who aren’t actively searching",
+          items: [
+            "Short, intuitive messages on taste and daily situations",
+            "Focused on site visits and retargeting",
+            "Owns recall and return before search",
+          ],
+        },
+        {
+          name: "Instagram Owned",
+          role: "Let people experience brand mood and product use",
+          items: [
+            "Reel / Story–led formats",
+            "Content aimed at saves, shares, and store traffic",
+            "Owned touchpoint that builds brand experience without paid spend",
+          ],
+        },
+      ],
+      creative: {
+        label: "Reel Creative",
+        lead: "I analyzed brand mood solo, turned it into a concept, and produced the Reel.",
+        body: "Reel was prioritized over carousel so taste × fashion mood could read in a short film. The hero mockup and video above are that deliverable.",
+        flow: [
+          "Mood analysis",
+          "Core message",
+          "Film concept",
+          "Scene design",
+          "Final Reel production",
+        ],
+      },
+      mediaMix: {
+        label: "Media Mix",
+        budget: "Total budget ₩10M · 2-week plan",
+        rationale:
+          "We split ready-to-buy search demand from re-awareness demand that hasn’t searched yet. Paid budget sits on conversion and retargeting; mood and experience run on owned for efficiency plus brand feel.",
+        items: [
+          {
+            channel: "Kakao Bizboard",
+            share: "70%",
+            role: "Site visits and retargeting",
+            notes: [
+              "Re-remind taste for users not yet searching",
+              "Center paid budget on return and pre-conversion",
+            ],
+          },
+          {
+            channel: "Naver Powerlink",
+            share: "30%",
+            role: "Capture brand and category search demand",
+            notes: [
+              "Connect high-intent search to conversion",
+              "Shape inflow quality with situational and category keywords",
+            ],
+          },
+          {
+            channel: "Instagram Owned",
+            share: "0% paid",
+            role: "Operate content with no separate ad spend",
+            notes: [
+              "Reels and Stories for taste and routine mood",
+              "Run for saves, shares, and store traffic",
+            ],
+          },
+        ],
+      },
       closing: {
         kind: "points",
         label: "Project Point",
         items: [
-          "Repurchase strategy grounded in market analysis",
-          "Creative strategy matched to intent by channel",
-          "SA keyword structure",
-          "DA and owned content planning",
-          "Budget-based media mix design",
+          "Derived brand message direction from competitive market analysis",
+          "Structured SA keywords by search intent",
+          "Defined content roles for DA and owned media",
+          "Analyzed brand mood and produced the Reel myself",
+          "Designed a ₩10M-scale media mix",
         ],
+        body: "Market analysis → strategy → channels → content → media mix was designed as one flow. What this project is meant to show isn’t a forced performance number — it’s the ability to structure repurchase touchpoints end to end.",
       },
       cover: {
         src: "/project/variway/mockup.png",
@@ -102,27 +191,66 @@ export const portfolioEn: Portfolio = {
     {
       slug: "chicment",
       shortTitle: "Chicment",
-      title:
-        "Interactive content that turns vague taste into clear first-luxury criteria",
+      title: "Turned first-luxury anxiety into a taste-discovery experience.",
       kind: "team",
-      meta: "Team project · Instagram ads | Role: content strategy · interactive planning · ad & landing iteration",
+      meta: "Team project · Instagram ads | Role: content strategy · experience design · ad & landing iteration",
       tools: "GA4 · Meta Ads · Cursor",
       period: "2026.08",
       icon: "/project/chicment/icon.png",
+      summary:
+        "Women in their 20s–30s considering a first luxury purchase already see brand and price info — what they lack is a personal decision standard. Instead of dumping more information, we used interactive content to help them discover taste criteria, then connected the result to Chicment’s real-use reviews.",
+      problemLead:
+        "They find products appealing — but can’t explain why those products fit them.",
       problem:
-        "First-luxury shoppers in their 20s–30s can find brand and product info easily, but lack personal criteria for “is this right for me?” Chicment already held trusted wear-and-use reviews, yet a community-heavy structure and information volume raised the entry bar. The core gap: “I know what I like, but I can’t explain why.”",
+        "First-luxury beginners browse reviews across many channels, yet information is fragmented and often promotional, so confidence stays low. The issue wasn’t missing information — it was missing a personal selection standard.",
+      strategyLead:
+        "Don’t add more information. Help them discover their own taste criteria first.",
       strategy:
-        "Instead of one-way product recommendations, we built PICKGAM — a 30-second interactive test where users discover their own taste criteria through choice. The funnel was ad → taste test → result → Chicment real-use reviews, with message continuity from ad promise to landing reason-to-participate as the strategic spine.",
+        "The audience was women in their 20s–30s considering a first luxury buy. We designed a content path that hooks curiosity into the test, delivers a taste-discovery experience, then turns the result into a desire to check real reviews.",
+      strategyFlow: [
+        "Short-form ad",
+        "5-question interactive test",
+        "16 taste-type results",
+        "Chicment real-use review content",
+      ],
+      strategyPoints: [
+        "Enter the test through curiosity",
+        "Provide a taste-discovery experience",
+        "Convert the result page into desire for real reviews",
+      ],
       execution: [
-        "Planned and built the PICKGAM landing (five intuitive choices) and connected it to Instagram ads",
-        "Round 1: curiosity short-form reached 5.77% CTR, but 80% first-screen bounce and 4.7% final CTA exposed a bottleneck",
-        "Hypothesized that the first screen didn’t explain why to take the test now; reframed from ‘fun taste quiz’ to ‘reduce first-luxury failure’",
-        "Improved round-2 landing and creatives with question-led copy, problem framing, ‘check real reviews’ CTA, toned-down UI, and live participant proof",
-        "Compared round-2 splits — info creatives 5.77%→1.95% CTR vs curiosity 1.72%→4.67% — concluding ad–landing continuity beats hook intensity alone",
+        "Researched first-luxury purchase friction and framed the core problem as missing selection criteria",
+        "Planned PICKGAM — a 5-question interactive test with 16 result types",
+        "Designed and built the landing experience: ad → test → result → reviews",
+        "Planned Meta short-form creatives to drive test entry",
+        "Analyzed round-1 performance and identified pre-start drop-off as the main bottleneck",
+        "Improved first-screen copy, CTA, and targeting for round 2",
       ],
       closing: {
         kind: "outcome",
-        body: "Among users who started the test, CTA reach rose 26%→66% and final CTA click 4.7%→6.2%, strengthening the late funnel into Chicment. Early entry remains a follow-up challenge, but we confirmed that one message from ad problem → landing reason → result → CTA matters more than spiking CTR with shock hooks. Traffic → drop-off → hypothesis → content fix → retest became the decision loop.",
+        label: "Optimization",
+        before: {
+          title: "Before · Round 1",
+          metrics: [
+            { label: "Visits", value: "547" },
+            { label: "Test starts", value: "121" },
+            { label: "Drop-off before start", value: "~79%" },
+            { label: "CTA reach among starters", value: "31.4%" },
+          ],
+          insight:
+            "The bottleneck wasn’t only ad click — the landing first screen didn’t clearly explain why someone should take the test now.",
+        },
+        after: {
+          title: "After · Round 2 changes",
+          items: [
+            "Strengthened the ‘prevent first-luxury failure’ message",
+            "Added subcopy that states a reason to participate",
+            "Added social proof such as live participant count",
+            "Improved CTA copy",
+            "Reset targeting conditions",
+          ],
+        },
+        body: "We didn’t stop at ad CTR. Post-click behavior data revealed the bottleneck, then we redesigned message, CTA, and targeting. The point of this project isn’t a single final metric — it’s reading performance and shipping the next improvement.",
       },
       cover: {
         src: "/project/chicment/mockup.png",
