@@ -61,8 +61,19 @@ export function ProjectIndex({
             active={project.slug === activeSlug}
             href={onSelect ? undefined : `/work/${project.slug}`}
             onClick={onSelect ? () => onSelect(project) : undefined}
+            hasImage={Boolean(project.icon)}
           >
-            {project.shortTitle.slice(0, 2)}
+            {project.icon ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={project.icon}
+                alt=""
+                className="project-index__thumb"
+                draggable={false}
+              />
+            ) : (
+              project.shortTitle.slice(0, 2)
+            )}
           </IndexSlot>
         ))}
       </ul>
@@ -94,18 +105,24 @@ function IndexSlot({
   active = false,
   href,
   onClick,
+  hasImage = false,
   children,
 }: {
   label: string;
   active?: boolean;
   href?: string;
   onClick?: () => void;
+  hasImage?: boolean;
   children: ReactNode;
 }) {
   const slotRef = useRef<HTMLLIElement>(null);
   const showTimer = useRef(0);
   const [tip, setTip] = useState<TipState | null>(null);
-  const className = cn("project-index__item", active && "is-active");
+  const className = cn(
+    "project-index__item",
+    active && "is-active",
+    hasImage && "project-index__item--image",
+  );
   const icon = (
     <span className="project-index__icon" aria-hidden>
       {children}
