@@ -4,6 +4,7 @@ import type { Portfolio } from "@/features/portfolio/types";
 export const portfolioKo: Portfolio = {
   intro: {
     headline: "기획한 아이디어를\n직접 구현하는 마케터",
+    subhead: "전략에서 콘텐츠, 실행까지 한 흐름으로 설계합니다.",
     process: ["Strategy", "Content", "Execution"],
     closing:
       "분석에서 끝나는 것이 아니라 타깃과 채널에 맞는 콘텐츠가 실제 결과물로 이어지는 과정까지 직접 설계합니다.",

@@ -136,6 +136,7 @@ export type StackItem = {
 
 export type PortfolioIntro = {
   headline: string;
+  subhead: string;
   process: readonly string[];
   closing: string;
   pairs: readonly (readonly [string, string])[];

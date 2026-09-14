@@ -4,6 +4,7 @@ import type { Portfolio } from "@/features/portfolio/types";
 export const portfolioEn: Portfolio = {
   intro: {
     headline: "A marketer who builds\nthe ideas they plan",
+    subhead: "I design one flow from strategy through content to execution.",
     process: ["Strategy", "Content", "Execution"],
     closing:
       "I don’t stop at analysis — I design the full path from insight to content that fits the audience and channel, all the way to a finished deliverable.",
