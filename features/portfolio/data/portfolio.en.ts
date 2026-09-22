@@ -67,7 +67,7 @@ export const portfolioEn: Portfolio = {
       period: "2026.07",
       icon: "/project/variway/icon.png",
       summary:
-        "A strategy-planning project structured solo — from market analysis to channel content and media mix. Repurchase touchpoints were split by channel role, and taste plus daily routine were translated into content.",
+        "A strategy-planning project structured from market analysis to channel content and media mix. Repurchase touchpoints were split by channel role, and taste plus daily routine were translated into content.",
       problemLabel: "Market Analysis",
       problemLead:
         "In a sea of similar ‘high-protein’ messages, we had to design a reason to come back.",

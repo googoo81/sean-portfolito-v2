@@ -66,7 +66,7 @@ export const portfolioKo: Portfolio = {
       period: "2026.07",
       icon: "/project/variway/icon.png",
       summary:
-        "시장 분석부터 매체별 콘텐츠와 미디어믹스까지 혼자 구조화한 전략 기획 프로젝트입니다. 단백질 쉐이크의 재구매 접점을 채널 역할에 맞게 나누고, 맛과 일상 루틴을 콘텐츠로 옮겼습니다.",
+        "시장 분석부터 매체별 콘텐츠와 미디어믹스까지 구조화한 전략 기획 프로젝트입니다. 단백질 쉐이크의 재구매 접점을 채널 역할에 맞게 나누고, 맛과 일상 루틴을 콘텐츠로 옮겼습니다.",
       problemLabel: "Market Analysis",
       problemLead:
         "비슷한 ‘고단백’ 메시지 속에서, 다시 찾게 될 이유를 설계해야 했습니다.",
