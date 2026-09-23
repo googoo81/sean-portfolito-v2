@@ -56,7 +56,9 @@ export type ProjectClosing =
       };
       after?: {
         title: string;
-        items: string[];
+        metrics?: ProjectMetric[];
+        items?: string[];
+        insight?: string;
       };
     }
   | {

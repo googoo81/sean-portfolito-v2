@@ -236,20 +236,29 @@ export const portfolioEn: Portfolio = {
             { label: "Visits", value: "547" },
             { label: "Test starts", value: "121" },
             { label: "Drop-off before start", value: "~79%" },
-            { label: "CTA reach among starters", value: "31.4%" },
+            { label: "Test start → CTA", value: "23.9%" },
           ],
           insight:
             "The bottleneck wasn’t only ad click — the landing first screen didn’t clearly explain why someone should take the test now.",
         },
         after: {
-          title: "After · Round 2 changes",
-          items: [
-            "Strengthened the ‘prevent first-luxury failure’ message",
-            "Added subcopy that states a reason to participate",
-            "Added social proof such as live participant count",
-            "Improved CTA copy",
-            "Reset targeting conditions",
+          title: "After · Round 2 results",
+          metrics: [
+            {
+              label: "Scroll rate",
+              value: "78.2% → 85.7% (+7.5pp)",
+            },
+            {
+              label: "Test start → CTA",
+              value: "23.9% → 66.0% (+42.1pp)",
+            },
+            {
+              label: "Final CTA clicks",
+              value: "26 (4.7%) → 31 (6.2%)",
+            },
           ],
+          insight:
+            "Absolute traffic fell, but conversion efficiency rose — users who started the test were much more likely to finish through the CTA.",
         },
         body: "We didn’t stop at ad CTR. Post-click behavior data revealed the bottleneck, then we redesigned message, CTA, and targeting. The point of this project isn’t a single final metric — it’s reading performance and shipping the next improvement.",
       },

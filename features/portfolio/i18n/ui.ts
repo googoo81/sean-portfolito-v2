@@ -43,6 +43,8 @@ export type UiStrings = {
     back: string;
     forward: string;
     projectList: string;
+    escHintBefore: string;
+    escHintAfter: string;
   };
   notes: {
     titleAria: string;
@@ -115,6 +117,8 @@ export const uiStrings: Record<Locale, UiStrings> = {
       back: "뒤로",
       forward: "앞으로",
       projectList: "프로젝트 목록",
+      escHintBefore: "뒤로 가려면",
+      escHintAfter: "키를 누르세요",
     },
     notes: {
       titleAria: "메모 제목",
@@ -185,6 +189,8 @@ export const uiStrings: Record<Locale, UiStrings> = {
       back: "Back",
       forward: "Forward",
       projectList: "Project list",
+      escHintBefore: "Press",
+      escHintAfter: "to go back",
     },
     notes: {
       titleAria: "Note title",
