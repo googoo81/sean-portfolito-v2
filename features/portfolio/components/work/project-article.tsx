@@ -315,11 +315,26 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
                 {closing.after ? (
                   <div className="article__compare-card">
                     <p className="article__compare-label">{closing.after.title}</p>
-                    <ul className="article__actions">
-                      {closing.after.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
+                    {closing.after.metrics && closing.after.metrics.length > 0 ? (
+                      <dl className="article__metrics">
+                        {closing.after.metrics.map((metric) => (
+                          <div key={metric.label} className="article__metric">
+                            <dt>{metric.label}</dt>
+                            <dd>{metric.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    ) : null}
+                    {closing.after.items && closing.after.items.length > 0 ? (
+                      <ul className="article__actions">
+                        {closing.after.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    {closing.after.insight ? (
+                      <p className="article__insight">{closing.after.insight}</p>
+                    ) : null}
                   </div>
                 ) : null}
               </div>

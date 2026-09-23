@@ -1233,6 +1233,14 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
   color: var(--muted);
 }
 
+.article__metrics + .article__actions {
+  margin-top: 0.9rem;
+}
+
+.article__metrics + .article__insight {
+  margin-top: 0.9rem;
+}
+
 .article__channels,
 .article__mix {
   display: grid;

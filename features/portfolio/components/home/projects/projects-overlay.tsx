@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useUi } from "@/features/portfolio/i18n";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import { ProjectDetailBody } from "@/features/portfolio/components/work/project-detail-view";
 import { ProjectListBody } from "@/features/portfolio/components/work/project-list-view";
@@ -53,6 +54,13 @@ const WINDOW_ZOOM = {
 
 const WINDOW_RADIUS = 20;
 const shownWindow = { x: 0, y: 0, scale: 1 };
+const ESC_HINT_IN_S = 0.25;
+const ESC_HINT_HOLD_MS = 3000;
+const ESC_HINT_OUT_S = 0.5;
+const ESC_HINT_EASE_IN = [0, 0, 0.2, 1] as const;
+const ESC_HINT_EASE_OUT = [0.42, 0, 1, 1] as const;
+
+let escHintConsumed = false;
 
 export function ProjectsOverlay({
   open,
@@ -66,8 +74,10 @@ export function ProjectsOverlay({
 }: ProjectsOverlayProps) {
   const exitedRef = useRef(false);
   const closeStartedAtRef = useRef(0);
+  const ui = useUi();
   const skipOpenMotion = reducedMotion || skipEnter;
   const handleClose = useDebouncedCallback(onClose);
+  const [escHint, setEscHint] = useState(false);
   const {
     frame,
     dragging,
@@ -106,8 +116,21 @@ export function ProjectsOverlay({
   }, []);
 
   useEffect(() => {
+    if (!escHint) {
+      return;
+    }
+
+    const id = window.setTimeout(
+      () => setEscHint(false),
+      ESC_HINT_IN_S * 1000 + ESC_HINT_HOLD_MS,
+    );
+    return () => window.clearTimeout(id);
+  }, [escHint]);
+
+  useEffect(() => {
     if (!open) {
       setSettled(false);
+      setEscHint(false);
       document.documentElement.removeAttribute("data-projects-settled");
       return;
     }
@@ -117,6 +140,10 @@ export function ProjectsOverlay({
       setSettled(true);
       setContentReady(true);
       document.documentElement.setAttribute("data-projects-settled", "");
+      if (!escHintConsumed) {
+        escHintConsumed = true;
+        setEscHint(true);
+      }
     }, delay);
 
     return () => window.clearTimeout(id);
@@ -319,6 +346,37 @@ export function ProjectsOverlay({
                 )}
               </ProjectsSplitShell>
             </div>
+            <AnimatePresence>
+              {escHint ? (
+                <motion.p
+                  className="projects-overlay__esc-hint"
+                  role="status"
+                  initial={{ opacity: 0, x: "-50%", y: -36 }}
+                  animate={{
+                    opacity: 1,
+                    x: "-50%",
+                    y: 0,
+                    transition: {
+                      duration: ESC_HINT_IN_S,
+                      ease: ESC_HINT_EASE_IN,
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: "-50%",
+                    y: -24,
+                    transition: {
+                      duration: ESC_HINT_OUT_S,
+                      ease: ESC_HINT_EASE_OUT,
+                    },
+                  }}
+                >
+                  <span>{ui.chrome.escHintBefore}</span>
+                  <kbd className="projects-overlay__esc-key">esc</kbd>
+                  <span>{ui.chrome.escHintAfter}</span>
+                </motion.p>
+              ) : null}
+            </AnimatePresence>
           </motion.div>
         ) : null}
       </motion.div>
