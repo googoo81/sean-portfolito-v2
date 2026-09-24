@@ -94,7 +94,8 @@ export type Project = {
   /** Optional one-line context under the title. */
   summary?: string;
   problemLabel?: string;
-  problem: string;
+  /** Omit to hide the problem section. */
+  problem?: string;
   /** Optional pull-quote highlighting the core problem. */
   problemLead?: string;
   strategyLabel?: string;

@@ -258,30 +258,28 @@ export const portfolioEn: Portfolio = {
     {
       slug: "musinsa",
       shortTitle: "Musinsa",
-      title: "AI ad film for Mujinjang Black Friday momentum",
+      title: "Made one street film so every season stays with Musinsa.",
       kind: "personal",
       meta: "Personal project (contest) · Eliminated in prelims | Role: concept · AI film direction · edit",
-      tools: "CapCut · KlingAI",
+      tools: "GPT · KlingAI · CapCut",
       period: "2026.06",
       icon: "/project/musinsa/icon.png",
-      problem:
-        "Musinsa’s ‘Mujinjang success AI film contest’ asked for a 5–30s AI ad announcing Mujinjang Black Friday. A discount card alone rarely stops the scroll — short cuts still needed season mood and brand tone so hype and atmosphere could travel together.",
+      summary:
+        "Announces how cheap Mujinjang is, with summer’s feeling and orange tone, made to stay on Reels.",
+      strategyLabel: "Concept",
+      strategyLead: "The flow follows summer’s seasonal feeling.",
       strategy:
-        "Treat the promo like a lookbook: keep season mood continuous by changing only weather and wardrobe at the same location, and link cuts with orange accents (bike, cones) aligned to the key visual and brand color (#FE4900).",
+        "It moves from early-summer green, to a monsoon umbrella, to harsh midsummer noon, to late-summer dusk, and the fashion changes to match that seasonal feeling.\nThe bike, the cone, and the opening orange keep the brand tone.\nChanging season and fashion on one street was made with AI.\nGPT made the start and end frames. Kling generated several 3-second clips, then CapCut joined them and finished the film.",
+      executionLabel: "Film",
       execution: [
-        "Designed concept and cut list to brief rules (key visual ≥1×, 5–30s, AI-made)",
-        "Built street scenes with weather/wardrobe shifts and repeating props as visual bridges",
-        "Generated and edited with KlingAI and CapCut into one finished Mujinjang promo AI film",
+        "Opening line: ‘Any season, with Musinsa.’",
+        "End card: ‘Mujinjang’ · 26 Summer Black Friday · ‘Up to 80% off’",
       ],
       closing: {
         kind: "points",
         label: "Key Takeaway",
-        items: [
-          "Cut design that keeps season mood and brand tone continuous in a short ad",
-          "Prop and accent color aligned to key visual and brand palette",
-          "Solo pipeline from concept to finished film via AI generate-and-edit",
-          "Next-work rule — stamp event/benefit early, then continue into mood cuts as separate message layers",
-        ],
+        items: [],
+        body: "The offer sits on the last card. Next time, Mujinjang comes first, then the season cuts.",
       },
       cover: {
         src: "/project/musinsa/mockup.png",

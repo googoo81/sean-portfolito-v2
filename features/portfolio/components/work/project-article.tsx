@@ -41,6 +41,10 @@ function closingNavLabel(project: Project) {
   return project.closing.label ?? "Outcome";
 }
 
+function showProblem(project: Project) {
+  return Boolean(project.problemLead || project.problem);
+}
+
 function showClosing(project: Project) {
   const closing = project.closing;
   if (closing.kind === "points") {
@@ -69,14 +73,19 @@ function buildNav(project: Project): NavItem[] {
       });
     }
 
-    items.push({ id: "problem", label: project.problemLabel ?? "Problem" });
+    if (showProblem(project)) {
+      items.push({ id: "problem", label: project.problemLabel ?? "Problem" });
+    }
     return items;
   }
 
-  const items: NavItem[] = [
-    { id: "problem", label: project.problemLabel ?? "Problem" },
-    { id: "strategy", label: project.strategyLabel ?? "Strategy" },
-  ];
+  const items: NavItem[] = [];
+
+  if (showProblem(project)) {
+    items.push({ id: "problem", label: project.problemLabel ?? "Problem" });
+  }
+
+  items.push({ id: "strategy", label: project.strategyLabel ?? "Strategy" });
 
   if (project.channels?.length || project.execution.length > 0) {
     items.push({
@@ -205,16 +214,18 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </div>
       ) : null}
 
-      <ArticleSection
-        id="problem"
-        step={stepOf("problem")}
-        label={project.problemLabel ?? "Problem"}
-      >
-        {project.problemLead ? (
-          <p className="article__lead">{project.problemLead}</p>
-        ) : null}
-        <Prose>{project.problem}</Prose>
-      </ArticleSection>
+      {showProblem(project) ? (
+        <ArticleSection
+          id="problem"
+          step={stepOf("problem")}
+          label={project.problemLabel ?? "Problem"}
+        >
+          {project.problemLead ? (
+            <p className="article__lead">{project.problemLead}</p>
+          ) : null}
+          {project.problem ? <Prose>{project.problem}</Prose> : null}
+        </ArticleSection>
+      ) : null}
 
       <ArticleSection
         id="strategy"
