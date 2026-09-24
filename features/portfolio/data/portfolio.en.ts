@@ -194,79 +194,89 @@ export const portfolioEn: Portfolio = {
       shortTitle: "Chicment",
       title: "Turned first-luxury anxiety into a taste-discovery experience.",
       kind: "team",
-      meta: "Team project · Instagram ads | Role: content strategy · experience design · ad & landing iteration",
+      meta: "Team project (6) · Meta ads | Role: landing page planning, design & build · Meta ad setup · GA4 integration & analysis",
       tools: "GA4 · Meta Ads · Cursor",
-      period: "2026.08",
+      period: "2026.08–09",
+      reading: "result-first",
+      result: "To reviews 26.6% → 67.4%",
       icon: "/project/chicment/icon.png",
       summary:
-        "Women in their 20s–30s considering a first luxury purchase already see brand and price info — what they lack is a personal decision standard. Instead of dumping more information, we used interactive content to help them discover taste criteria, then connected the result to Chicment’s real-use reviews.",
+        "A 5-question test helped people find taste criteria, then the result led to Chicment’s real-use reviews.",
       problemLead:
         "They find products appealing — but can’t explain why those products fit them.",
       problem:
-        "First-luxury beginners browse reviews across many channels, yet information is fragmented and often promotional, so confidence stays low. The issue wasn’t missing information — it was missing a personal selection standard.",
+        "First-luxury beginners can compare products and prices. What they lack is a personal selection standard.",
       strategyLead:
         "Don’t add more information. Help them discover their own taste criteria first.",
       strategy:
-        "The audience was women in their 20s–30s considering a first luxury buy. We designed a content path that hooks curiosity into the test, delivers a taste-discovery experience, then turns the result into a desire to check real reviews.",
+        "The audience was women in their 20s–30s facing a first luxury purchase.",
       strategyFlow: [
         "Short-form ad",
         "5-question interactive test",
         "16 taste-type results",
         "Chicment real-use review content",
       ],
-      strategyPoints: [
-        "Enter the test through curiosity",
-        "Provide a taste-discovery experience",
-        "Convert the result page into desire for real reviews",
+      strategyPoints: [],
+      execution: [],
+      channels: [
+        {
+          name: "Landing page",
+          role: "Owned · what changed in round 2",
+          items: [
+            "Headline: ‘just for fun’ → ‘Avoid a first-luxury mistake!’",
+            "Live ‘N people took this test’ on the first screen",
+            "CTA: ‘Chicment’s real reviews’ → ‘See honest reviews’",
+          ],
+        },
+        {
+          name: "Meta ads · GA4",
+          role: "Owned · setup & analysis",
+          items: [
+            "Round-1 spend was ₩86,501 on creative 1 and ₩5,849 on creative 2\nThe weaker one was stopped early. GA4 measured visit → start → reviews",
+            "About 78% of round-1 response was ages 25–34\nRound 2 narrowed to women 24–32",
+          ],
+        },
       ],
-      execution: [
-        "Researched first-luxury purchase friction and framed the core problem as missing selection criteria",
-        "Planned PICKGAM — a 5-question interactive test with 16 result types",
-        "Designed and built the landing experience: ad → test → result → reviews",
-        "Planned Meta short-form creatives to drive test entry",
-        "Analyzed round-1 performance and identified pre-start drop-off as the main bottleneck",
-        "Improved first-screen copy, CTA, and targeting for round 2",
-      ],
+      mediaMix: {
+        label: "Ad Test",
+        budget: "₩250K total · Round 1 ₩100K · Round 2 ₩150K",
+        rationale:
+          "In round 2, short-form A got heavier and explanatory, and clicks fell.\nShort-form B, whose promise of avoiding a first-luxury mistake matched the landing, gained clicks.\nTotal visits stayed nearly flat, 535 to 527.",
+        items: [
+          {
+            channel: "Short-form A",
+            share: "CTR 5.77% → 1.95%",
+            role: "Efficiency fell",
+            notes: ["CPC ₩167 → ₩403 · landing views 501 → 14"],
+          },
+          {
+            channel: "Short-form B",
+            share: "CTR 1.72% → 4.67%",
+            role: "Efficiency rose",
+            notes: ["Impressions 699 → 11,934 · landing views 7 → 497"],
+          },
+        ],
+      },
       closing: {
         kind: "outcome",
         label: "Optimization",
-        before: {
-          title: "Before · Round 1",
-          metrics: [
-            { label: "Visits", value: "547" },
-            { label: "Test starts", value: "121" },
-            { label: "Drop-off before start", value: "~79%" },
-            { label: "Test start → CTA", value: "23.9%" },
+        comparison: {
+          beforeLabel: "Round 1 · 8.20–8.24",
+          afterLabel: "Round 2 · 9.1–9.3",
+          rows: [
+            { label: "Visit", before: 535, after: 527 },
+            { label: "Test start", before: 94, after: 46 },
+            { label: "To reviews", before: 25, after: 31 },
           ],
-          insight:
-            "The bottleneck wasn’t only ad click — the landing first screen didn’t clearly explain why someone should take the test now.",
         },
-        after: {
-          title: "After · Round 2 results",
-          metrics: [
-            {
-              label: "Scroll rate",
-              value: "78.2% → 85.7% (+7.5pp)",
-            },
-            {
-              label: "Test start → CTA",
-              value: "23.9% → 66.0% (+42.1pp)",
-            },
-            {
-              label: "Final CTA clicks",
-              value: "26 (4.7%) → 31 (6.2%)",
-            },
-          ],
-          insight:
-            "Absolute traffic fell, but conversion efficiency rose — users who started the test were much more likely to finish through the CTA.",
-        },
-        body: "We didn’t stop at ad CTR. Post-click behavior data revealed the bottleneck, then we redesigned message, CTA, and targeting. The point of this project isn’t a single final metric — it’s reading performance and shipping the next improvement.",
+        body: "The share of starters who reached reviews rose from 26.6% to 67.4%, and mid-test drop-off fell from 69 people to 15.\nPre-start drop-off grew from 82.4% to 91.3% — the first-screen barrier was not solved.",
       },
       cover: {
         src: "/project/chicment/mockup.png",
         alt: "Chicment PICKGAM interactive content mockup",
         fit: "contain",
       },
+      detailHero: false,
       links: [
         {
           label: "PICKGAM landing — luxury taste test",

@@ -44,11 +44,26 @@ export type ProjectMediaMix = {
   items: ProjectMediaMixItem[];
 };
 
+export type ProjectComparison = {
+  beforeLabel: string;
+  afterLabel: string;
+  /** Suffix shown in the tooltip, such as 명. */
+  unit?: string;
+  rows: {
+    label: string;
+    before: number;
+    after: number;
+  }[];
+};
+
 export type ProjectClosing =
   | {
       kind: "outcome";
       label?: "Outcome" | "Optimization";
       body: string;
+      comparison?: ProjectComparison;
+      /** Forward plan that sits under the result, outside the pull-quote. */
+      next?: string;
       before?: {
         title: string;
         metrics: ProjectMetric[];
@@ -100,8 +115,14 @@ export type Project = {
   mediaMix?: ProjectMediaMix;
   closing: ProjectClosing;
   links?: ProjectLink[];
+  /** Result-first case page. Other projects keep the process order. */
+  reading?: "result-first";
+  /** One-line outcome shown on project cards. */
+  result?: string;
   icon?: string;
   cover?: ProjectImage;
+  /** When false, the detail page skips the cover hero. Cards still use it. */
+  detailHero?: boolean;
   video?: string;
   videoFormat?: "reels";
   gallery?: ProjectImage[];

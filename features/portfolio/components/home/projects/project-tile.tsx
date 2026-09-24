@@ -47,6 +47,9 @@ export function ProjectTile({ project, className }: ProjectTileProps) {
         <div className="project-tile__caption">
           <p className="project-tile__kicker">{project.period}</p>
           <p className="project-tile__title">{project.shortTitle}</p>
+          {project.result ? (
+            <p className="project-tile__result">{project.result}</p>
+          ) : null}
         </div>
       </button>
     </BentoCard>

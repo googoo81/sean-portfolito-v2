@@ -1,0 +1,336 @@
+/* Utilities the vendored Bklit chart uses. Scoped so they do not restyle the portfolio. */
+
+.bklit-chart {
+  --chart-1: color-mix(in srgb, var(--foreground) 38%, transparent);
+  --chart-2: var(--foreground);
+  --chart-3: var(--muted);
+  --chart-4: var(--faint);
+  --chart-5: var(--soft);
+  --chart-background: var(--surface);
+  --chart-foreground: var(--muted);
+  --chart-foreground-muted: var(--faint);
+  --chart-line-primary: var(--chart-1);
+  --chart-line-secondary: var(--chart-2);
+  --chart-crosshair: var(--muted);
+  --chart-grid: var(--line);
+  --chart-brush-border: var(--line);
+  --chart-label: var(--muted);
+  --chart-tooltip-background: var(--surface);
+  --chart-tooltip-foreground: var(--foreground);
+  --chart-tooltip-muted: var(--muted);
+  --chart-indicator-color: var(--foreground);
+  --chart-indicator-secondary-color: var(--background);
+  --chart-marker-background: var(--soft);
+  --chart-marker-border: var(--line);
+  --chart-marker-foreground: var(--foreground);
+  --chart-marker-badge-background: var(--foreground);
+  --chart-marker-badge-foreground: var(--background);
+  --chart-segment-background: var(--soft);
+  --chart-segment-line: var(--line);
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  color: var(--foreground);
+  font-family: inherit;
+}
+
+.bklit-chart.relative,
+.bklit-chart .relative {
+  position: relative;
+}
+
+.bklit-chart.w-full,
+.bklit-chart .w-full {
+  width: 100%;
+}
+
+.bklit-chart.overflow-visible,
+.bklit-chart .overflow-visible {
+  overflow: visible;
+}
+
+.bklit-chart .overflow-hidden {
+  overflow: hidden;
+}
+
+.bklit-chart .absolute {
+  position: absolute;
+}
+
+.bklit-chart .pointer-events-none {
+  pointer-events: none;
+}
+
+.bklit-chart .inset-0 {
+  inset: 0;
+}
+
+.bklit-chart .top-0 {
+  top: 0;
+}
+
+.bklit-chart .bottom-0 {
+  bottom: 0;
+}
+
+.bklit-chart .right-0 {
+  right: 0;
+}
+
+.bklit-chart .z-50 {
+  z-index: 50;
+}
+
+.bklit-chart .flex {
+  display: flex;
+}
+
+.bklit-chart .flex-col {
+  flex-direction: column;
+}
+
+.bklit-chart .items-center {
+  align-items: center;
+}
+
+.bklit-chart .justify-end {
+  justify-content: flex-end;
+}
+
+.bklit-chart .justify-center {
+  justify-content: center;
+}
+
+.bklit-chart .justify-between {
+  justify-content: space-between;
+}
+
+.bklit-chart .shrink-0 {
+  flex-shrink: 0;
+}
+
+.bklit-chart .gap-1 {
+  gap: 0.25rem;
+}
+
+.bklit-chart .gap-2 {
+  gap: 0.5rem;
+}
+
+.bklit-chart .gap-4 {
+  gap: 1rem;
+}
+
+.bklit-chart .whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.bklit-chart .truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: none;
+}
+
+.bklit-chart .text-left {
+  text-align: left;
+}
+
+.bklit-chart .text-right {
+  text-align: right;
+}
+
+.bklit-chart .text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.bklit-chart .text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.bklit-chart .font-medium {
+  font-weight: 500;
+}
+
+.bklit-chart .tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.bklit-chart .text-chart-label {
+  color: var(--chart-label);
+}
+
+.bklit-chart .text-chart-tooltip-foreground {
+  color: var(--chart-tooltip-foreground);
+}
+
+.bklit-chart .text-chart-tooltip-muted {
+  color: var(--chart-tooltip-muted);
+}
+
+.bklit-chart .text-white {
+  color: var(--chart-tooltip-foreground);
+}
+
+.bklit-chart .px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.bklit-chart .px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.bklit-chart .py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.bklit-chart .py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.bklit-chart .pr-2 {
+  padding-right: 0.5rem;
+}
+
+.bklit-chart .mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.bklit-chart .mt-2 {
+  margin-top: 0.5rem;
+}
+
+.bklit-chart .space-y-1\.5 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.375rem;
+}
+
+.bklit-chart .h-2\.5 {
+  height: 0.625rem;
+}
+
+.bklit-chart .w-2\.5 {
+  width: 0.625rem;
+}
+
+.bklit-chart .h-6 {
+  height: 1.5rem;
+}
+
+.bklit-chart .min-w-\[140px\] {
+  min-width: 140px;
+}
+
+.bklit-chart .rounded-full {
+  border-radius: 999px;
+}
+
+.bklit-chart .rounded-lg {
+  border-radius: 0.75rem;
+}
+
+.bklit-chart .bg-zinc-900,
+.bklit-chart .bg-chart-tooltip-background {
+  background: var(--chart-tooltip-background);
+}
+
+.bklit-chart .shadow-lg {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.bklit-chart .transition-opacity {
+  transition-property: opacity;
+}
+
+.bklit-chart .duration-200 {
+  transition-duration: 200ms;
+}
+
+.bklit-chart .ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.bklit-chart .h-full {
+  height: 100%;
+}
+
+.bklit-chart .w-full {
+  width: 100%;
+}
+
+.bklit-chart .flex-1 {
+  flex: 1;
+}
+
+.bklit-chart .select-none {
+  user-select: none;
+}
+
+.bklit-chart .cursor-pointer {
+  cursor: pointer;
+}
+
+.bklit-chart .items-start {
+  align-items: flex-start;
+}
+
+.bklit-chart .items-end {
+  align-items: flex-end;
+}
+
+.bklit-chart .justify-start {
+  justify-content: flex-start;
+}
+
+.bklit-chart .font-semibold {
+  font-weight: 600;
+}
+
+.bklit-chart .font-bold {
+  font-weight: 700;
+}
+
+.bklit-chart .text-foreground {
+  color: var(--foreground);
+}
+
+.bklit-chart .text-muted-foreground {
+  color: var(--muted);
+}
+
+.bklit-chart .bg-foreground {
+  background: var(--foreground);
+}
+
+.bklit-chart .text-background {
+  color: var(--background);
+}
+
+.bklit-chart .shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+.bklit-chart .pb-1 {
+  padding-bottom: 0.25rem;
+}
+
+.bklit-chart .pt-1 {
+  padding-top: 0.25rem;
+}
+
+.bklit-chart .pl-2 {
+  padding-left: 0.5rem;
+}
+
+.bklit-chart .h-\[16\%\] {
+  height: 16%;
+}
+
+.bklit-chart .w-\[16\%\] {
+  width: 16%;
+}

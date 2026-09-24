@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { ExternalLink, Prose } from "@/components/ui";
 import type { Project, ProjectImage } from "@/features/portfolio/types";
+import { OptimizationChart } from "@/features/portfolio/components/work/optimization-chart";
 
 type ProjectArticleProps = {
   project: Project;
@@ -41,6 +42,29 @@ function closingNavLabel(project: Project) {
 }
 
 function buildNav(project: Project): NavItem[] {
+  if (project.reading === "result-first") {
+    const items: NavItem[] = [
+      { id: "closing", label: closingNavLabel(project) },
+    ];
+
+    if (project.channels?.length || project.execution.length > 0) {
+      items.push({
+        id: "execution",
+        label: project.executionLabel ?? "Execution",
+      });
+    }
+
+    if (project.mediaMix) {
+      items.push({
+        id: "media-mix",
+        label: project.mediaMix.label ?? "Media Mix",
+      });
+    }
+
+    items.push({ id: "problem", label: project.problemLabel ?? "Problem" });
+    return items;
+  }
+
   const items: NavItem[] = [
     { id: "problem", label: project.problemLabel ?? "Problem" },
     { id: "strategy", label: project.strategyLabel ?? "Strategy" },
@@ -115,8 +139,18 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
   const stepOf = (id: string) =>
     String(nav.findIndex((item) => item.id === id) + 1).padStart(2, "0");
 
+  const linkItems =
+    project.reading === "result-first" ? (project.links ?? []) : outbound;
+  const showDeck = project.reading !== "result-first";
+
   return (
-    <div className="article">
+    <div
+      className={
+        project.reading === "result-first"
+          ? "article article--result-first"
+          : "article"
+      }
+    >
       <header>
         <h1 className="article__title">{project.title}</h1>
         {project.summary ? (
@@ -145,11 +179,11 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </nav>
       </header>
 
-      {outbound.length > 0 ? (
-        <div>
+      {linkItems.length > 0 ? (
+        <div className="article__links-block">
           <h2 className="article__heading">Links</h2>
           <ul className="article__links">
-            {outbound.map((link) => (
+            {linkItems.map((link) => (
               <li key={link.href}>
                 <ExternalLink href={encodeURI(link.href)} className="article__link">
                   {link.label}
@@ -296,6 +330,9 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
       >
         {closing.kind === "outcome" ? (
           <div className="article__outcome">
+            {closing.comparison ? (
+              <OptimizationChart comparison={closing.comparison} />
+            ) : null}
             {closing.before ? (
               <div className="article__compare">
                 <div className="article__compare-card">
@@ -340,6 +377,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
               </div>
             ) : null}
             <Prose className="article__result">{closing.body}</Prose>
+            {closing.next ? <Prose>{closing.next}</Prose> : null}
           </div>
         ) : (
           <div className="article__outcome">
@@ -355,8 +393,8 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         )}
       </ArticleSection>
 
-      {pdfs.length > 0 ? (
-        <div>
+      {showDeck && pdfs.length > 0 ? (
+        <div className="article__deck">
           <h2 className="article__heading">Deck</h2>
           {pdfs.map((pdf) => (
             <div key={pdf.href} className="article__pdf-block">
