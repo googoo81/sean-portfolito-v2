@@ -59,122 +59,89 @@ export const portfolioEn: Portfolio = {
     {
       slug: "bareway",
       shortTitle: "Bareway",
-      title:
-        "Made taste memorable in content, and designed repurchase across media touchpoints.",
+      title: "Made a flavor-and-outfit Reel so the taste would be remembered again.",
       kind: "team",
-      meta: "Team project · Pre-launch plan | Role: market analysis · channel strategy · content production · media mix",
+      meta: "Team project (5) · Pre-launch plan | Role: Reel production",
       tools: "Figma · CapCut · Generative AI",
       period: "2026.07",
       icon: "/project/variway/icon.png",
       summary:
-        "A strategy-planning project structured from market analysis to channel content and media mix. Repurchase touchpoints were split by channel role, and taste plus daily routine were translated into content.",
+        "A two-week plan to be remembered for taste, then chosen again for a pre-work meal and for search.",
       problemLabel: "Market Analysis",
       problemLead:
-        "In a sea of similar ‘high-protein’ messages, we had to design a reason to come back.",
+        "Discount-led messages left buyers with no reason to remember the brand.",
       problem:
-        "The protein-shake market overlaps heavily on messaging, and Variway’s USP and repurchase reason weren’t sharp enough. Competitor work across brands like Flymeal and Proteone showed a repeating pattern of specs and value claims. From that analysis we chose taste, daily routine, and repurchase situations over another ‘high-protein’ line — analysis → pattern → strategy.",
+        "In a market where Flymeal and Proteone talk in specs and discounts, Bareway had no clear reason to be bought again.",
       strategyLabel: "Strategy",
-      strategyLead:
-        "Split messages by the situations where someone needs a shake, then separate content strategy by media role.",
+      strategyLead: "Remembered for taste, chosen again as a routine.",
       strategy:
-        "Execution follows those situation axes into each channel: search for conversion, DA for re-awareness, owned for experiencing taste and mood.",
-      strategyPoints: [
-        "Commute and office-snack moments",
-        "Body care and diet routines",
-        "Resistance to processed protein taste",
-        "An experience so good they come back for the flavor",
-      ],
+        "Instagram shows the taste again, Kakao proposes a meal before work, and Naver connects search to purchase.",
+      strategyPoints: [],
       executionLabel: "Channel Strategy",
       execution: [],
       channels: [
         {
-          name: "Naver SA",
-          role: "Convert high-intent search users",
-          items: [
-            "Keyword analysis by search intent",
-            "Separate brand vs category keywords",
-            "Situational queries like ‘office snack’ and ‘commute protein’",
-            "Designed as the touchpoint that catches ready-to-buy demand",
-          ],
-        },
-        {
-          name: "Kakao Bizboard / DA",
-          role: "Re-aware users who aren’t actively searching",
-          items: [
-            "Short, intuitive messages on taste and daily situations",
-            "Focused on site visits and retargeting",
-            "Owns recall and return before search",
-          ],
-        },
-        {
           name: "Instagram Owned",
-          role: "Let people experience brand mood and product use",
+          role: "Make taste and the package memorable again",
           items: [
-            "Reel / Story–led formats",
-            "Content aimed at saves, shares, and store traffic",
-            "Owned touchpoint that builds brand experience without paid spend",
+            "Reel ‘Outfit edits by flavor.zip’",
+            "Match package color to a fashion look, and suggest another flavor",
+          ],
+        },
+        {
+          name: "Kakao Bizboard",
+          role: "Offer a new reason: one meal before work",
+          items: [
+            "‘Craving something sweet before work?’",
+            "‘A light daily protein’",
+          ],
+        },
+        {
+          name: "Naver Powerlink",
+          role: "Connect search to the product page and purchase",
+          items: [
+            "‘High-fiber protein shake’",
+            "‘A Bareway shake that stays good to the last sip’",
           ],
         },
       ],
       creative: {
         label: "Reel Creative",
-        lead: "I analyzed brand mood solo, turned it into a concept, and produced the Reel.",
-        body: "Reel was prioritized over carousel so taste × fashion mood could read in a short film. The hero mockup and video above are that deliverable.",
-        flow: [
-          "Mood analysis",
-          "Core message",
-          "Film concept",
-          "Scene design",
-          "Final Reel production",
-        ],
+        lead: "Produced the Reel ‘Outfit edits by flavor.zip’.",
+        body: "It was made not to look like a protein ad. Package colors match fashion looks, so choosing a taste feels like choosing an outfit.\nIt brings back a flavor they already tried, then leads to one they have not.\nFrames stack from strawberry to matcha, chocolate, and coffee, and the outfit cut enters over the pouch.",
       },
       mediaMix: {
         label: "Media Mix",
-        budget: "Total budget ₩10M · 2-week plan",
+        budget: "2 weeks · ₩10M",
         rationale:
-          "We split ready-to-buy search demand from re-awareness demand that hasn’t searched yet. Paid budget sits on conversion and retargeting; mood and experience run on owned for efficiency plus brand feel.",
+          "Taste recall runs with no ad spend. Paid budget goes to the pre-work moment and to search conversion.",
         items: [
           {
             channel: "Kakao Bizboard",
             share: "70%",
-            role: "Site visits and retargeting",
-            notes: [
-              "Re-remind taste for users not yet searching",
-              "Center paid budget on return and pre-conversion",
-            ],
+            role: "Reach people who already had a touchpoint",
+            notes: ["₩7M · site visitors and channel friends"],
           },
           {
             channel: "Naver Powerlink",
             share: "30%",
-            role: "Capture brand and category search demand",
-            notes: [
-              "Connect high-intent search to conversion",
-              "Shape inflow quality with situational and category keywords",
-            ],
+            role: "Connect search to purchase",
+            notes: ["₩3M · two creatives, 15% each"],
           },
           {
             channel: "Instagram Owned",
             share: "0% paid",
-            role: "Operate content with no separate ad spend",
-            notes: [
-              "Reels and Stories for taste and routine mood",
-              "Run for saves, shares, and store traffic",
-            ],
+            role: "Remind followers of the taste",
+            notes: ["₩0 · flavor-and-outfit Reel"],
           },
         ],
       },
       closing: {
         kind: "points",
         label: "Project Point",
-        items: [
-          "Derived brand message direction from competitive market analysis",
-          "Structured SA keywords by search intent",
-          "Defined content roles for DA and owned media",
-          "Analyzed brand mood and produced the Reel myself",
-          "Designed a ₩10M-scale media mix",
-        ],
-        body: "Market analysis → strategy → channels → content → media mix was designed as one flow. What this project is meant to show isn’t a forced performance number — it’s the ability to structure repurchase touchpoints end to end.",
+        items: [],
       },
+      deck: false,
       cover: {
         src: "/project/variway/mockup.png",
         alt: "Bareway Instagram Reels mockup",
@@ -283,7 +250,7 @@ export const portfolioEn: Portfolio = {
           href: "https://loving44.dothome.co.kr/",
         },
         {
-          label: "Chicment New Customer Acquisition Project",
+          label: "Project presentation (PDF)",
           href: "/project/chicment/ppt.en.pdf",
         },
       ],

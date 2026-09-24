@@ -27,7 +27,7 @@ export type ProjectCreative = {
   label?: string;
   lead?: string;
   body?: string;
-  flow: string[];
+  flow?: string[];
 };
 
 export type ProjectMediaMixItem = {
@@ -115,6 +115,8 @@ export type Project = {
   mediaMix?: ProjectMediaMix;
   closing: ProjectClosing;
   links?: ProjectLink[];
+  /** When false, a PDF link stays in the link list and is not embedded. */
+  deck?: boolean;
   /** Result-first case page. Other projects keep the process order. */
   reading?: "result-first";
   /** One-line outcome shown on project cards. */

@@ -41,6 +41,14 @@ function closingNavLabel(project: Project) {
   return project.closing.label ?? "Outcome";
 }
 
+function showClosing(project: Project) {
+  const closing = project.closing;
+  if (closing.kind === "points") {
+    return closing.items.length > 0 || Boolean(closing.body);
+  }
+  return true;
+}
+
 function buildNav(project: Project): NavItem[] {
   if (project.reading === "result-first") {
     const items: NavItem[] = [
@@ -91,7 +99,9 @@ function buildNav(project: Project): NavItem[] {
     });
   }
 
-  items.push({ id: "closing", label: closingNavLabel(project) });
+  if (showClosing(project)) {
+    items.push({ id: "closing", label: closingNavLabel(project) });
+  }
   return items;
 }
 
@@ -139,16 +149,17 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
   const stepOf = (id: string) =>
     String(nav.findIndex((item) => item.id === id) + 1).padStart(2, "0");
 
-  const linkItems =
-    project.reading === "result-first" ? (project.links ?? []) : outbound;
-  const showDeck = project.reading !== "result-first";
+  const showDeck = project.reading !== "result-first" && project.deck !== false;
+  const linkItems = showDeck ? outbound : (project.links ?? []);
 
   return (
     <div
       className={
         project.reading === "result-first"
           ? "article article--result-first"
-          : "article"
+          : project.deck === false
+            ? "article article--links-last"
+            : "article"
       }
     >
       <header>
@@ -282,13 +293,15 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
             <p className="article__lead">{project.creative.lead}</p>
           ) : null}
           {project.creative.body ? <Prose>{project.creative.body}</Prose> : null}
-          <ol className="article__flow">
-            {project.creative.flow.map((step) => (
-              <li key={step} className="article__flow-item">
-                {step}
-              </li>
-            ))}
-          </ol>
+          {project.creative.flow && project.creative.flow.length > 0 ? (
+            <ol className="article__flow">
+              {project.creative.flow.map((step) => (
+                <li key={step} className="article__flow-item">
+                  {step}
+                </li>
+              ))}
+            </ol>
+          ) : null}
         </ArticleSection>
       ) : null}
 
@@ -323,6 +336,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </ArticleSection>
       ) : null}
 
+      {showClosing(project) ? (
       <ArticleSection
         id="closing"
         step={stepOf("closing")}
@@ -381,17 +395,20 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           </div>
         ) : (
           <div className="article__outcome">
-            <ul className="article__actions">
-              {closing.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            {closing.items.length > 0 ? (
+              <ul className="article__actions">
+                {closing.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
             {closing.body ? (
               <Prose className="article__result">{closing.body}</Prose>
             ) : null}
           </div>
         )}
       </ArticleSection>
+      ) : null}
 
       {showDeck && pdfs.length > 0 ? (
         <div className="article__deck">
