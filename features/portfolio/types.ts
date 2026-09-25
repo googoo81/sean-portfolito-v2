@@ -122,6 +122,15 @@ export type Project = {
   reading?: "result-first";
   /** One-line outcome shown on project cards. */
   result?: string;
+  /** Featured card only. Compact cards keep `result`. */
+  featuredStat?: {
+    lead: string;
+    label: string;
+    beforeName: string;
+    afterName: string;
+    before: string;
+    after: string;
+  };
   icon?: string;
   cover?: ProjectImage;
   /** When false, the detail page skips the cover hero. Cards still use it. */

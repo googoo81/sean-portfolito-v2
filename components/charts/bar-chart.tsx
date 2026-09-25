@@ -87,6 +87,8 @@ export interface BarChartProps {
   stackGap?: number;
   /** When set, tooltip Y positions snap to the top square center (shape variant). */
   squareSnap?: { squareGap: number; groupGap?: number; fit?: boolean };
+  /** Fixed upper bound for the value axis. Skips the default max×1.1 scale. */
+  valueMax?: number;
   /** Child components (Bar, Grid, ChartTooltip, etc.). Optional — omit for a
    * pure `status="loading"` skeleton. */
   children?: ReactNode;
@@ -163,6 +165,7 @@ interface ChartInnerProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
   onPhaseChange?: (phase: ChartPhase) => void;
   status: ChartStatus;
+  valueMax?: number;
 }
 
 function ChartInner(props: ChartInnerProps) {
@@ -193,6 +196,7 @@ const ChartCore = memo(function ChartCore({
   containerRef,
   onPhaseChange,
   status,
+  valueMax,
 }: ChartInnerProps) {
   const { tooltipData, setTooltipData, scheduleTooltip, clearTooltip } =
     useScheduledTooltip<TooltipData>();
@@ -285,10 +289,10 @@ const ChartCore = memo(function ChartCore({
     const range = isHorizontal ? [0, innerWidth] : [innerHeight, 0];
     return scaleLinear({
       range,
-      domain: [0, maxValue * 1.1],
-      nice: true,
+      domain: [0, valueMax ?? maxValue * 1.1],
+      nice: valueMax == null,
     });
-  }, [innerWidth, innerHeight, maxValue, isHorizontal]);
+  }, [innerWidth, innerHeight, maxValue, isHorizontal, valueMax]);
 
   const yScales = useMemo(() => {
     if (isHorizontal) {
@@ -688,6 +692,7 @@ export function BarChart({
   children,
   onPhaseChange,
   status = "ready",
+  valueMax,
 }: BarChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const margin = { ...DEFAULT_MARGIN, ...marginProp };
@@ -717,6 +722,7 @@ export function BarChart({
             stacked={stacked}
             stackGap={stackGap}
             status={status}
+            valueMax={valueMax}
             width={width}
             xDataKey={xDataKey}
           >

@@ -25,7 +25,7 @@ type ArrowLinkButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export function ArrowLink(props: ArrowLinkAnchorProps | ArrowLinkButtonProps) {
-  if (props.href) {
+  if (typeof props.href === "string") {
     const { href, children, className } = props;
 
     return (

@@ -59,7 +59,8 @@ export const portfolioEn: Portfolio = {
     {
       slug: "bareway",
       shortTitle: "Bareway",
-      title: "Made a flavor-and-outfit Reel so the taste would be remembered again.",
+      title:
+        "Made a flavor-and-outfit Reel so the taste would be remembered again.",
       kind: "team",
       meta: "Team project (5) · Pre-launch plan | Role: Reel production",
       tools: "Figma · CapCut · Generative AI",
@@ -166,6 +167,14 @@ export const portfolioEn: Portfolio = {
       period: "2026.08–09",
       reading: "result-first",
       result: "To reviews 26.6% → 67.4%",
+      featuredStat: {
+        lead: "Test starts fell.",
+        label: "Final CTA rate",
+        beforeName: "1st",
+        afterName: "2nd",
+        before: "26.6%",
+        after: "67.4%",
+      },
       icon: "/project/chicment/icon.png",
       summary:
         "A 5-question test helped people find taste criteria, then the result led to Chicment’s real-use reviews.",

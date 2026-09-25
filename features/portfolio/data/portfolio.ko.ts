@@ -91,10 +91,7 @@ export const portfolioKo: Portfolio = {
         {
           name: "Kakao Bizboard",
           role: "출근 전 한 끼라는 새 이유를 제안",
-          items: [
-            "‘출근 전 단 게 땡긴다면?’",
-            "‘가볍게 챙기는 데일리 프로틴’",
-          ],
+          items: ["‘출근 전 단 게 땡긴다면?’", "‘가볍게 챙기는 데일리 프로틴’"],
         },
         {
           name: "Naver Powerlink",
@@ -166,17 +163,23 @@ export const portfolioKo: Portfolio = {
       period: "2026.08–09",
       reading: "result-first",
       result: "후기 이동 26.6% → 67.4%",
+      featuredStat: {
+        lead: "테스트 시작은 줄었습니다.",
+        label: "최종 CTA 전환율",
+        beforeName: "1차",
+        afterName: "2차",
+        before: "26.6%",
+        after: "67.4%",
+      },
       icon: "/project/chicment/icon.png",
       summary:
         "5문항 테스트로 취향 기준을 발견하게 하고, 결과에서 시크먼트 실사용 후기로 연결했습니다.",
-      problemLead:
-        "끌리는 제품은 있지만, 왜 나에게 맞는지 설명하기 어렵다.",
+      problemLead: "끌리는 제품은 있지만, 왜 나에게 맞는지 설명하기 어렵다.",
       problem:
         "2030 명품 입문층은 상품과 가격은 비교할 수 있지만, 자신에게 맞는 선택 기준이 없었습니다.",
       strategyLead:
         "정보를 더 주는 대신, 자신의 취향 기준을 먼저 발견하게 한다.",
-      strategy:
-        "타깃은 첫 명품을 앞둔 2030 여성입니다.",
+      strategy: "타깃은 첫 명품을 앞둔 2030 여성입니다.",
       strategyFlow: [
         "숏폼 광고",
         "5문항 인터랙티브 테스트",

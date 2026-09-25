@@ -245,6 +245,7 @@ html[data-lite-motion="true"] .bento-projects--cue .bento-projects__go-icons svg
 }
 
 .bento-featured {
+  container: featured / inline-size;
   cursor: pointer;
   transform-origin: center;
   transition:
