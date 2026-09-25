@@ -221,7 +221,7 @@ const ChartCore = memo(function ChartCore({
       }
       return String(value ?? "");
     },
-    [xDataKey]
+    [xDataKey],
   );
 
   // For compatibility with ChartContext, provide a Date-based xAccessor
@@ -233,7 +233,7 @@ const ChartCore = memo(function ChartCore({
       }
       return new Date();
     },
-    [xDataKey]
+    [xDataKey],
   );
 
   // Category scale (band) - for the categorical axis
@@ -355,7 +355,7 @@ const ChartCore = memo(function ChartCore({
   // Pre-compute labels for ticker animation
   const dateLabels = useMemo(
     () => data.map((d) => categoryAccessor(d)),
-    [data, categoryAccessor]
+    [data, categoryAccessor],
   );
 
   // Create a fake time scale for compatibility with ChartContext
@@ -543,7 +543,7 @@ const ChartCore = memo(function ChartCore({
       primaryYScale,
       squareSnap,
       innerHeight,
-    ]
+    ],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -570,7 +570,7 @@ const ChartCore = memo(function ChartCore({
       postOverlayChildren.push(resolvedChild);
     } else if (isClipExcludedComponent(resolvedChild)) {
       clipExcludedChildren.push(
-        isChartClipPassthrough(child.type) ? resolvedChild : child
+        isChartClipPassthrough(child.type) ? resolvedChild : child,
       );
     } else if (isUnderlayComponent(resolvedChild)) {
       underlayChildren.push(resolvedChild);
@@ -581,7 +581,7 @@ const ChartCore = memo(function ChartCore({
 
   const referenceAreas = useMemo(
     () => extractReferenceAreaConfigs(children),
-    [children]
+    [children],
   );
 
   const contextValue = {

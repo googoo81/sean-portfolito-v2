@@ -923,7 +923,9 @@ html[data-lite-motion="true"]
 html[data-reduced-motion="true"] .project-tile__open,
 html[data-lite-motion="true"] .project-tile__open,
 html[data-reduced-motion="true"] .project-tile:hover .project-tile__open,
-html[data-reduced-motion="true"] .project-tile:focus-visible .project-tile__open,
+html[data-reduced-motion="true"]
+  .project-tile:focus-visible
+  .project-tile__open,
 html[data-lite-motion="true"] .project-tile:hover .project-tile__open,
 html[data-lite-motion="true"] .project-tile:focus-visible .project-tile__open {
   transition: none;
@@ -939,9 +941,34 @@ html[data-lite-motion="true"] .project-tile:focus-visible .project-tile__open {
   color: var(--project-caption-meta);
 }
 
+.project-tile__stat-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.project-tile__stat-head .project-tile__stat-label {
+  margin: 0;
+}
+
+.project-tile__stat-value {
+  font-size: clamp(2.25rem, 7cqi, 3.25rem);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  font-variant-numeric: tabular-nums;
+  color: #fd763f;
+}
+
 .project-tile--chart {
   flex-direction: column;
   justify-content: center;
+  transition: background-color 240ms ease;
+}
+
+.project-tile--chart:hover,
+.project-tile--chart:focus-visible {
+  background: var(--soft-hover);
 }
 
 .project-tile--chart .project-tile__copy {

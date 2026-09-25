@@ -17,11 +17,21 @@ type ProjectTileProps = {
   className?: string;
 };
 
+function multiplierOf(before: string, after: string) {
+  const from = Number.parseFloat(before);
+  const to = Number.parseFloat(after);
+  if (!Number.isFinite(from) || !Number.isFinite(to) || from <= 0) {
+    return null;
+  }
+  return `${(to / from).toFixed(1)}×`;
+}
+
 export function ProjectTile({ project, className }: ProjectTileProps) {
   const ui = useUi();
   const cardRef = useRef<HTMLButtonElement>(null);
   const { open, openProjects } = useProjectsSession();
   const stat = project.featuredStat;
+  const multiplier = stat ? multiplierOf(stat.before, stat.after) : null;
   const openLabel = stat
     ? `${ui.openProjectAria(project.shortTitle)}. ${stat.lead} ${stat.label} ${stat.before} → ${stat.after}`
     : ui.openProjectAria(project.shortTitle);
@@ -67,7 +77,12 @@ export function ProjectTile({ project, className }: ProjectTileProps) {
         </div>
         {stat ? (
           <div className="project-tile__chart">
-            <p className="project-tile__stat-label">{stat.label}</p>
+            <div className="project-tile__stat-head">
+              <p className="project-tile__stat-label">{stat.label}</p>
+              {multiplier ? (
+                <p className="project-tile__stat-value">{multiplier}</p>
+              ) : null}
+            </div>
             <FeaturedRateChart stat={stat} />
           </div>
         ) : (

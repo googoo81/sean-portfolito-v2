@@ -24,7 +24,7 @@ export function FeaturedRateChart({ stat }: { stat: FeaturedStat }) {
       <BarChart
         animationDuration={800}
         aspectRatio="3.2 / 1"
-        barGap={0.28}
+        barGap={0.4}
         className="bklit-chart project-tile__bklit"
         data={[
           { name: stat.beforeName, rate: before },
@@ -41,7 +41,7 @@ export function FeaturedRateChart({ stat }: { stat: FeaturedStat }) {
           fadedOpacity={1}
           fill="color-mix(in srgb, var(--foreground) 28%, transparent)"
           fillAt={(index) => (index === 1 ? "#fd763f" : undefined)}
-          lineCap={8}
+          lineCap={4}
         />
         <BarYAxis />
       </BarChart>
