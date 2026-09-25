@@ -6,7 +6,7 @@ import { getThemeInitScript } from "@/lib/theme";
 import "./globals.css";
 
 const suit = localFont({
-  src: "../public/fonts/SUIT-Variable-ttf/SUIT-Variable.ttf",
+  src: "./fonts/SUIT-Variable.woff2",
   variable: "--font-suit",
   display: "swap",
   weight: "100 900",

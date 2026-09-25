@@ -10,28 +10,13 @@ import {
   useProjectsSession,
 } from "./projects-session";
 import { readProjectsOrigin } from "./projects-origin";
+import { GoArrow } from "./go-arrow";
 
 const OPENED_STORAGE_KEY = "projects-opened";
 
 type ProjectsGridCellProps = {
   className?: string;
 };
-
-function GoArrow() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7 17 17 7" />
-      <path d="M9 7h8v8" />
-    </svg>
-  );
-}
 
 function hasOpenedProjects() {
   try {

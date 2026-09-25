@@ -11,6 +11,7 @@
 @import "../features/portfolio/components/home/skills-tile.css";
 @import "../features/portfolio/components/home/projects/projects-overlay.css";
 @import "../features/portfolio/components/work/projects-window.css";
+@import "../features/portfolio/components/home/projects/project-tile.css";
 @import "../features/portfolio/components/shared/device-mockup/device-mockup.css";
 @import "../features/portfolio/components/home/stack/notes-overlay.css";
 

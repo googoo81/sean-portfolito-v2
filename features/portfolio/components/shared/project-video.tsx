@@ -151,7 +151,7 @@ export function ProjectVideo({
         muted={muted}
         loop
         playsInline
-        preload={interactive ? "auto" : "metadata"}
+        preload="metadata"
         aria-label={label}
         onClick={interactive ? togglePlay : undefined}
       />

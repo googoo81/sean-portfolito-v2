@@ -144,11 +144,11 @@ export const portfolioEn: Portfolio = {
       },
       deck: false,
       cover: {
-        src: "/project/variway/mockup.png",
+        src: "/project/variway/mockup.webp",
         alt: "Bareway Instagram Reels mockup",
         fit: "contain",
       },
-      video: "/project/variway/main.mov",
+      video: "/project/variway/main.mp4",
       videoFormat: "reels",
       links: [
         {
@@ -248,7 +248,7 @@ export const portfolioEn: Portfolio = {
         body: "The share of starters who reached reviews rose from 26.6% to 67.4%, and mid-test drop-off fell from 69 people to 15.\nPre-start drop-off grew from 82.4% to 91.3% — the first-screen barrier was not solved.",
       },
       cover: {
-        src: "/project/chicment/mockup.png",
+        src: "/project/chicment/mockup.webp",
         alt: "Chicment PICKGAM interactive content mockup",
         fit: "contain",
       },
@@ -302,11 +302,11 @@ export const portfolioEn: Portfolio = {
         },
       ],
       cover: {
-        src: "/project/musinsa/mockup.png",
+        src: "/project/musinsa/mockup.webp",
         alt: "Musinsa Mujinjang AI ad mockup",
         fit: "contain",
       },
-      video: "/project/musinsa/main.mov",
+      video: "/project/musinsa/main.mp4",
       videoFormat: "reels",
     },
   ],

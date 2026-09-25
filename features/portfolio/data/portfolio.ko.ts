@@ -140,11 +140,11 @@ export const portfolioKo: Portfolio = {
       },
       deck: false,
       cover: {
-        src: "/project/variway/mockup.png",
+        src: "/project/variway/mockup.webp",
         alt: "배리웨이 인스타그램 릴스 목업",
         fit: "contain",
       },
-      video: "/project/variway/main.mov",
+      video: "/project/variway/main.mp4",
       videoFormat: "reels",
       links: [
         {
@@ -243,7 +243,7 @@ export const portfolioKo: Portfolio = {
         body: "시작한 사람이 후기까지 가는 비율은 26.6%에서 67.4%로 올랐고, 테스트 중간 이탈은 69명에서 15명으로 줄었습니다.\n시작 전 이탈은 82.4%에서 91.3%로 커져, 첫 화면의 진입 장벽은 풀지 못했습니다.",
       },
       cover: {
-        src: "/project/chicment/mockup.png",
+        src: "/project/chicment/mockup.webp",
         alt: "시크먼트 PICKGAM 인터랙티브 콘텐츠 목업",
         fit: "contain",
       },
@@ -297,11 +297,11 @@ export const portfolioKo: Portfolio = {
         },
       ],
       cover: {
-        src: "/project/musinsa/mockup.png",
+        src: "/project/musinsa/mockup.webp",
         alt: "무신사 무진장 AI 광고 영상 목업",
         fit: "contain",
       },
-      video: "/project/musinsa/main.mov",
+      video: "/project/musinsa/main.mp4",
       videoFormat: "reels",
     },
   ],
