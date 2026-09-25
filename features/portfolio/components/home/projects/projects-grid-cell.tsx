@@ -76,7 +76,7 @@ export function ProjectsGridCell({ className }: ProjectsGridCellProps) {
       return;
     }
 
-    const startId = window.setTimeout(() => setCue(true), 5000);
+    const startId = window.setTimeout(() => setCue(true), 3000);
 
     return () => {
       window.clearTimeout(startId);

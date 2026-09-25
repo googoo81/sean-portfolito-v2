@@ -185,6 +185,13 @@
 }
 
 @media (hover: hover) {
+  .bento-projects--cue:hover,
+  .bento-projects--cue:hover .bento-projects__go,
+  .bento-projects--cue:hover .bento-projects__go-icons svg:first-child,
+  .bento-projects--cue:hover .bento-projects__go-icons svg:last-child {
+    animation: none;
+  }
+
   .bento-projects:hover .bento-projects__go {
     scale: 1.16;
     background: var(--foreground);
