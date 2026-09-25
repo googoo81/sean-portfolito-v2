@@ -9,8 +9,11 @@ import {
 import { cn, toTelHref } from "@/lib/format";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
+import { trackPortfolioEvent } from "@/components/analytics/track";
 import { useUi } from "@/features/portfolio/i18n";
 import type { PortfolioContact } from "@/features/portfolio/types";
+
+type ContactMethod = "linkedin" | "phone" | "email";
 
 type SocialLink = {
   href: string;
@@ -20,7 +23,15 @@ type SocialLink = {
   copyLabel: string;
   openLabel: string;
   external?: boolean;
+  contactMethod?: ContactMethod;
 };
+
+function trackContact(method: ContactMethod, action: "open" | "copy") {
+  trackPortfolioEvent("contact_click", {
+    contact_method: method,
+    contact_action: action,
+  });
+}
 
 function SocialGlyph({ src }: { src: string }) {
   return (
@@ -116,6 +127,7 @@ export function SocialTile({
       copyLabel: ui.social.linkedinCopy,
       openLabel: ui.social.linkedinOpen,
       external: true,
+      contactMethod: "linkedin",
     },
     {
       href: toTelHref(phone),
@@ -124,6 +136,7 @@ export function SocialTile({
       copyValue: phone,
       copyLabel: ui.social.phoneCopy,
       openLabel: ui.social.phoneOpen,
+      contactMethod: "phone",
     },
     {
       href: `mailto:${email}`,
@@ -132,6 +145,7 @@ export function SocialTile({
       copyValue: email,
       copyLabel: ui.social.emailCopy,
       openLabel: ui.social.emailOpen,
+      contactMethod: "email",
     },
   ];
 
@@ -157,6 +171,9 @@ export function SocialTile({
               aria-label={copied ? "copied!" : link.copyLabel}
               onClick={(event) => {
                 event.currentTarget.blur();
+                if (link.contactMethod) {
+                  trackContact(link.contactMethod, "copy");
+                }
                 handleCopy(link.icon, link.copyValue);
               }}
             >
@@ -175,6 +192,9 @@ export function SocialTile({
               className={cn("social-chip__action", "social-chip__action--open")}
               onClick={(event) => {
                 event.currentTarget.blur();
+                if (link.contactMethod) {
+                  trackContact(link.contactMethod, "open");
+                }
               }}
               {...(link.external
                 ? { target: "_blank", rel: "noopener noreferrer" }

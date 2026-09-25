@@ -1,6 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { trackPortfolioEvent } from "@/components/analytics/track";
 import { ArrowLink, Prose } from "@/components/ui";
 import type { Project, ProjectImage } from "@/features/portfolio/types";
 import { OptimizationChart } from "@/features/portfolio/components/work/optimization-chart";
@@ -114,6 +115,23 @@ function buildNav(project: Project): NavItem[] {
   return items;
 }
 
+function scrollParent(element: HTMLElement | null) {
+  let node = element?.parentElement ?? null;
+
+  while (node) {
+    const { overflowY } = getComputedStyle(node);
+    if (
+      /(auto|scroll)/.test(overflowY) &&
+      node.scrollHeight > node.clientHeight + 1
+    ) {
+      return node;
+    }
+    node = node.parentElement;
+  }
+
+  return null;
+}
+
 function scrollToSection(id: string) {
   const target = document.getElementById(id);
   if (!target) {
@@ -148,6 +166,7 @@ function ArticleSection({
 }
 
 export function ProjectArticle({ project }: ProjectArticleProps) {
+  const articleRef = useRef<HTMLDivElement>(null);
   const stills = stillsOf(project);
   const pdfs = pdfLinksOf(project);
   const outbound = outboundLinksOf(project);
@@ -161,8 +180,55 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
   const showDeck = project.reading !== "result-first" && project.deck !== false;
   const linkItems = showDeck ? outbound : (project.links ?? []);
 
+  useEffect(() => {
+    trackPortfolioEvent("project_open", {
+      project_name: project.shortTitle,
+      project_slug: project.slug,
+    });
+
+    const article = articleRef.current;
+    if (!article) {
+      return;
+    }
+
+    const seen = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            continue;
+          }
+
+          const section = entry.target.closest(".article__section");
+          const sectionId = section?.id;
+          if (!section || !sectionId || seen.has(sectionId)) {
+            continue;
+          }
+
+          seen.add(sectionId);
+          const sectionName =
+            section.querySelector(".article__heading")?.textContent ?? sectionId;
+          trackPortfolioEvent("section_view", {
+            project_name: project.shortTitle,
+            project_slug: project.slug,
+            section_name: sectionName,
+            section_id: sectionId,
+          });
+        }
+      },
+      { root: scrollParent(article), threshold: 0.6 },
+    );
+
+    article
+      .querySelectorAll(".article__section-head")
+      .forEach((head) => observer.observe(head));
+
+    return () => observer.disconnect();
+  }, [project.shortTitle, project.slug]);
+
   return (
     <div
+      ref={articleRef}
       className={
         project.reading === "result-first"
           ? "article article--result-first"
