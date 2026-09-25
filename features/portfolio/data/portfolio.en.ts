@@ -17,7 +17,7 @@ export const portfolioEn: Portfolio = {
     name: "Hyeonwoo Song",
     phone: "010-9052-4780",
     email: "officialhyeanwoo@gmail.com",
-    github: "https://github.com/googoo81",
+    github: "https://github.com/googoo81/sean-portfolito-v2",
     linkedin:
       "https://www.linkedin.com/in/%ED%98%84%EC%9A%B0-%EC%86%A1-a058b528a/",
   },
