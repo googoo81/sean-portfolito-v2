@@ -23,6 +23,8 @@ jobs:
 
       - name: Build
         run: yarn build
+        env:
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
 
       - name: Deploy to Dothome
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

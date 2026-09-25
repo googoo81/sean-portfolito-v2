@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { SiteAnalytics } from "@/components/analytics/site-analytics";
 import { MotionPreference } from "@/components/ui";
 import { getLocaleInitScript } from "@/lib/locale";
 import { getThemeInitScript } from "@/lib/theme";
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <MotionPreference />
         {children}
+        <SiteAnalytics />
       </body>
     </html>
   );
