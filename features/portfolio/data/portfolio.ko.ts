@@ -270,18 +270,29 @@ export const portfolioKo: Portfolio = {
       strategyLabel: "Concept",
       strategyLead: "여름의 계절감으로, 흐름을 잡았습니다.",
       strategy:
-        "초여름의 푸른 잎, 장마의 우산, 한여름의 한낮, 늦여름의 노을 순으로 이어지게 하고, 계절감에 맞게 패션을 바꿨습니다.\n자전거·콘과 오프닝의 찐한 주황으로 브랜드 톤을 남겼습니다.\n한 거리에서 계절과 패션을 바꾸는 컷은 AI로 만들었습니다.\nGPT로 시작·끝 프레임을 만들고, Kling에서 3초 영상을 여러 개 생성한 뒤 CapCut에서 잇고 후가공해 한 편으로 완성했습니다.",
+        "초여름의 푸른 잎, 장마의 우산, 한여름의 한낮, 늦여름의 노을 순으로 이어지게 하고, 계절감에 맞게 패션을 바꿨습니다.\n오프닝은 무신사 키비주얼과 같은 톤으로 ‘어떤 계절도, 무신사와 함께.’ 텍스트 애니메이션을 넣었습니다.\n자전거·콘의 찐한 주황으로 그 톤을 거리 컷에 남겼습니다.\n한 거리에서 계절과 패션을 바꾸는 컷은 AI로 만들었습니다.",
       executionLabel: "Film",
       execution: [
         "오프닝 ‘어떤 계절도, 무신사와 함께.’",
-        "엔딩 ‘무진장’ · 26 Summer Black Friday · ‘역대급 할인 최대 80%’",
+        "엔딩 무신사 키비주얼 · ‘무진장’ · 26 Summer Black Friday · ‘역대급 할인 최대 80%’",
       ],
+      creative: {
+        label: "Production",
+        body: "GPT로 시작·끝 프레임을 만들고, Kling에서 3초 영상을 여러 개 생성한 뒤 CapCut에서 잇고 후가공해 한 편으로 완성했습니다.",
+      },
       closing: {
         kind: "points",
         label: "Key Takeaway",
         items: [],
-        body: "혜택은 마지막 카드에 두었습니다. 다음에는 무진장을 먼저 보여주고, 계절 컷을 뒤에 두겠습니다.",
+        body: "무진장 문구로 열지 않았습니다.\n여름으로 열고, 키비주얼은 마지막에 두었습니다.",
       },
+      deck: false,
+      links: [
+        {
+          label: "유튜브 쇼츠",
+          href: "https://www.youtube.com/shorts/DldJFvz1tWQ",
+        },
+      ],
       cover: {
         src: "/project/musinsa/mockup.png",
         alt: "무신사 무진장 AI 광고 영상 목업",

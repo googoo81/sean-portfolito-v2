@@ -1,6 +1,6 @@
 "use client";
 
-import { BentoCard, BentoGrid, ExternalLink, LocaleToggle, ThemeToggle } from "@/components/ui";
+import { ArrowLink, BentoCard, BentoGrid, LocaleToggle, ThemeToggle } from "@/components/ui";
 import { getFeaturedProject } from "@/features/portfolio/lib";
 import { usePortfolio } from "@/features/portfolio/i18n";
 import { ProfileTile } from "./profile-tile";
@@ -54,9 +54,7 @@ function HistoryLinkedTitle({
 
   if (projectsFilter) {
     return (
-      <button
-        type="button"
-        className="bento-history__link"
+      <ArrowLink
         onClick={() => {
           openProjects({
             origin: restoreProjectsOrigin("cell"),
@@ -64,19 +62,14 @@ function HistoryLinkedTitle({
           });
         }}
       >
-        <span className="bento-history__link-text">{label}</span>
-        <span className="bento-history__link-mark" aria-hidden>
-          ↗
-        </span>
-      </button>
+        {label}
+      </ArrowLink>
     );
   }
 
   if (href && isNotionUrl(href)) {
     return (
-      <button
-        type="button"
-        className="bento-history__link"
+      <ArrowLink
         onClick={(event) => {
           const bounds = event.currentTarget.getBoundingClientRect();
           openNotion({
@@ -91,23 +84,13 @@ function HistoryLinkedTitle({
           });
         }}
       >
-        <span className="bento-history__link-text">{label}</span>
-        <span className="bento-history__link-mark" aria-hidden>
-          ↗
-        </span>
-      </button>
+        {label}
+      </ArrowLink>
     );
   }
 
   if (href) {
-    return (
-      <ExternalLink href={href} className="bento-history__link">
-        <span className="bento-history__link-text">{label}</span>
-        <span className="bento-history__link-mark" aria-hidden>
-          ↗
-        </span>
-      </ExternalLink>
-    );
+    return <ArrowLink href={href}>{label}</ArrowLink>;
   }
 
   return label;

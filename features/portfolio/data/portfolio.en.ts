@@ -269,18 +269,29 @@ export const portfolioEn: Portfolio = {
       strategyLabel: "Concept",
       strategyLead: "The flow follows summer’s seasonal feeling.",
       strategy:
-        "It moves from early-summer green, to a monsoon umbrella, to harsh midsummer noon, to late-summer dusk, and the fashion changes to match that seasonal feeling.\nThe bike, the cone, and the opening orange keep the brand tone.\nChanging season and fashion on one street was made with AI.\nGPT made the start and end frames. Kling generated several 3-second clips, then CapCut joined them and finished the film.",
+        "It moves from early-summer green, to a monsoon umbrella, to harsh midsummer noon, to late-summer dusk, and the fashion changes to match that seasonal feeling.\nThe opening is a text animation, ‘Any season, with Musinsa.’, in the same tone as Musinsa’s key visual.\nThe bike and the cone carry that orange into the street cuts.\nChanging season and fashion on one street was made with AI.",
       executionLabel: "Film",
       execution: [
         "Opening line: ‘Any season, with Musinsa.’",
-        "End card: ‘Mujinjang’ · 26 Summer Black Friday · ‘Up to 80% off’",
+        "End card: Musinsa key visual · ‘Mujinjang’ · 26 Summer Black Friday · ‘Up to 80% off’",
       ],
+      creative: {
+        label: "Production",
+        body: "GPT made the start and end frames. Kling generated several 3-second clips, then CapCut joined them and finished the film.",
+      },
       closing: {
         kind: "points",
         label: "Key Takeaway",
         items: [],
-        body: "The offer sits on the last card. Next time, Mujinjang comes first, then the season cuts.",
+        body: "It does not open on the Mujinjang line.\nSummer opens the film, and the key visual is last.",
       },
+      deck: false,
+      links: [
+        {
+          label: "YouTube Shorts",
+          href: "https://www.youtube.com/shorts/DldJFvz1tWQ",
+        },
+      ],
       cover: {
         src: "/project/musinsa/mockup.png",
         alt: "Musinsa Mujinjang AI ad mockup",

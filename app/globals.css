@@ -1,6 +1,7 @@
 @import "./styles/reset.css";
 @import "./styles/theme.css";
 @import "./styles/chrome.css";
+@import "../components/ui/arrow-link.css";
 @import "./styles/bento.css";
 @import "../components/ui/theme-toggle.css";
 @import "../components/ui/locale-toggle.css";

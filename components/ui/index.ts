@@ -1,3 +1,4 @@
+export { ArrowLink } from "./arrow-link";
 export { BentoCard, BentoGrid } from "./bento";
 export { ExternalLink } from "./external-link";
 export { LocaleToggle } from "./locale-toggle";

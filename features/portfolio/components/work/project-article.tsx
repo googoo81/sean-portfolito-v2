@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ExternalLink, Prose } from "@/components/ui";
+import { ArrowLink, Prose } from "@/components/ui";
 import type { Project, ProjectImage } from "@/features/portfolio/types";
 import { OptimizationChart } from "@/features/portfolio/components/work/optimization-chart";
 
@@ -205,9 +205,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           <ul className="article__links">
             {linkItems.map((link) => (
               <li key={link.href}>
-                <ExternalLink href={encodeURI(link.href)} className="article__link">
-                  {link.label}
-                </ExternalLink>
+                <ArrowLink href={encodeURI(link.href)}>{link.label}</ArrowLink>
               </li>
             ))}
           </ul>
@@ -432,9 +430,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
                 className="article__pdf-frame"
               />
               <div className="article__pdf-footer">
-                <ExternalLink href={encodeURI(pdf.href)} className="article__link">
-                  {pdf.label} ↗
-                </ExternalLink>
+                <ArrowLink href={encodeURI(pdf.href)}>{pdf.label}</ArrowLink>
               </div>
             </div>
           ))}

@@ -1466,18 +1466,15 @@ html[data-lite-motion="true"] .project-tile:focus-visible .device-mockup {
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.15rem;
 }
 
-.article__link {
-  font-size: 0.875rem;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: var(--faint);
-}
-
-.article__link:hover {
-  text-decoration-color: var(--foreground);
+.article__links .arrow-link,
+.article__pdf-footer .arrow-link {
+  font-size: var(--fs-title);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-tight);
+  line-height: 1.35;
 }
 
 .article__pdf-block {
