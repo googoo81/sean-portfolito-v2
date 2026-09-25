@@ -914,6 +914,13 @@ html[data-lite-motion="true"]
   height: 0.85rem;
 }
 
+.project-tile__open--chip {
+  position: absolute;
+  top: 1.05rem;
+  right: 1.1rem;
+  z-index: 1;
+}
+
 .project-tile:hover .project-tile__open,
 .project-tile:focus-visible .project-tile__open {
   color: var(--foreground);
@@ -943,12 +950,39 @@ html[data-lite-motion="true"] .project-tile:focus-visible .project-tile__open {
 
 .project-tile__stat-head {
   display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.project-tile__stat-copy {
+  display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 0.2rem;
 }
 
+.project-tile__stat-lead {
+  max-width: 11rem;
+  margin: 0 0 0.2rem;
+  text-align: right;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  line-height: 1.4;
+  word-break: keep-all;
+  color: var(--project-caption-meta);
+}
+
 .project-tile__stat-head .project-tile__stat-label {
   margin: 0;
+}
+
+.project-tile__stat-figure {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-tile__stat-value {
@@ -958,6 +992,51 @@ html[data-lite-motion="true"] .project-tile:focus-visible .project-tile__open {
   letter-spacing: var(--ls-tight);
   font-variant-numeric: tabular-nums;
   color: #fd763f;
+}
+
+.project-tile__stat-multiple {
+  font-size: var(--fs-title);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: #fd763f;
+}
+
+.project-tile__chart-plot {
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-tile--chart:hover .project-tile__stat-figure,
+.project-tile--chart:focus-visible .project-tile__stat-figure,
+.project-tile--chart:hover .project-tile__chart-plot,
+.project-tile--chart:focus-visible .project-tile__chart-plot {
+  transform: translateY(-3px);
+}
+
+html[data-reduced-motion="true"] .project-tile__stat-figure,
+html[data-lite-motion="true"] .project-tile__stat-figure,
+html[data-reduced-motion="true"] .project-tile__chart-plot,
+html[data-lite-motion="true"] .project-tile__chart-plot,
+html[data-reduced-motion="true"] .project-tile--chart:hover .project-tile__stat-figure,
+html[data-reduced-motion="true"]
+  .project-tile--chart:focus-visible
+  .project-tile__stat-figure,
+html[data-lite-motion="true"] .project-tile--chart:hover .project-tile__stat-figure,
+html[data-lite-motion="true"]
+  .project-tile--chart:focus-visible
+  .project-tile__stat-figure,
+html[data-reduced-motion="true"] .project-tile--chart:hover .project-tile__chart-plot,
+html[data-reduced-motion="true"]
+  .project-tile--chart:focus-visible
+  .project-tile__chart-plot,
+html[data-lite-motion="true"] .project-tile--chart:hover .project-tile__chart-plot,
+html[data-lite-motion="true"]
+  .project-tile--chart:focus-visible
+  .project-tile__chart-plot {
+  transition: none;
+  transform: none;
 }
 
 .project-tile--chart {
@@ -973,6 +1052,7 @@ html[data-lite-motion="true"] .project-tile:focus-visible .project-tile__open {
 
 .project-tile--chart .project-tile__copy {
   flex: none;
+  padding-right: 4.2rem;
   padding-bottom: 0;
 }
 
@@ -982,6 +1062,19 @@ html[data-lite-motion="true"] .project-tile:focus-visible .project-tile__open {
   flex-direction: column;
   gap: 0.85rem;
   padding: 1.15rem 1.4rem 1.35rem;
+}
+
+@container featured (max-width: 16rem) {
+  .project-tile__stat-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-tile__stat-lead {
+    max-width: none;
+    margin: 0;
+    text-align: left;
+  }
 }
 
 @container featured (min-width: 32rem) {

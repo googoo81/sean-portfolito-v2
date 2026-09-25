@@ -23,7 +23,42 @@ function multiplierOf(before: string, after: string) {
   if (!Number.isFinite(from) || !Number.isFinite(to) || from <= 0) {
     return null;
   }
-  return `${(to / from).toFixed(1)}×`;
+  return (to / from).toFixed(1);
+}
+
+function GoArrow() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M7 17 17 7" />
+      <path d="M9 7h8v8" />
+    </svg>
+  );
+}
+
+function OpenMark({ chip = false }: { chip?: boolean }) {
+  if (chip) {
+    return (
+      <span className="project-tile__open--chip bento-projects__go" aria-hidden="true">
+        <span className="bento-projects__go-icons">
+          <GoArrow />
+          <GoArrow />
+        </span>
+      </span>
+    );
+  }
+
+  return (
+    <span className="project-tile__open" aria-hidden="true">
+      <GoArrow />
+    </span>
+  );
 }
 
 export function ProjectTile({ project, className }: ProjectTileProps) {
@@ -60,28 +95,25 @@ export function ProjectTile({ project, className }: ProjectTileProps) {
           <p className="project-tile__kicker">{project.period}</p>
           <p className="project-tile__title">
             {project.shortTitle}
-            <span className="project-tile__open" aria-hidden="true">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M7 17 17 7" />
-                <path d="M9 7h8v8" />
-              </svg>
-            </span>
+            {stat ? null : <OpenMark />}
           </p>
         </div>
+        {stat ? <OpenMark chip /> : null}
         {stat ? (
           <div className="project-tile__chart">
             <div className="project-tile__stat-head">
-              <p className="project-tile__stat-label">{stat.label}</p>
-              {multiplier ? (
-                <p className="project-tile__stat-value">{multiplier}</p>
-              ) : null}
+              <div className="project-tile__stat-copy">
+                <p className="project-tile__stat-label">{stat.label}</p>
+                <div className="project-tile__stat-figure">
+                  <p className="project-tile__stat-value">{stat.after}</p>
+                  {multiplier ? (
+                    <p className="project-tile__stat-multiple">
+                      {ui.rateFold(multiplier)}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <p className="project-tile__stat-lead">{stat.lead}</p>
             </div>
             <FeaturedRateChart stat={stat} />
           </div>
