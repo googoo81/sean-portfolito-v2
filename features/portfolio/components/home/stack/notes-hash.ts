@@ -1,3 +1,5 @@
+import { currentHistoryState } from "../overlay-history";
+
 const HASH_ROOT = "stack";
 const SESSION_KEY = "__notesOverlay";
 
@@ -5,11 +7,6 @@ let notesPushed = false;
 
 function notesUrl(hash: string) {
   return `${window.location.pathname}${window.location.search}${hash}`;
-}
-
-function currentState(): Record<string, unknown> {
-  const state = window.history.state;
-  return state && typeof state === "object" ? { ...state } : {};
 }
 
 export function parseNotesHash(): string | undefined {
@@ -31,7 +28,7 @@ export function writeNotesHash(itemId: string) {
     return;
   }
 
-  const state = currentState();
+  const state = currentHistoryState();
   const url = notesUrl(hash);
   if (isNotesHash()) {
     history.replaceState({ ...state, [SESSION_KEY]: 1 }, "", url);
@@ -57,7 +54,7 @@ export function closeNotesHistory() {
 }
 
 export function syncNotesSession() {
-  notesPushed = Boolean(currentState()[SESSION_KEY]);
+  notesPushed = Boolean(currentHistoryState()[SESSION_KEY]);
 }
 
 export function clearNotesHash() {
@@ -66,7 +63,7 @@ export function clearNotesHash() {
     return;
   }
 
-  const state = currentState();
+  const state = currentHistoryState();
   delete state[SESSION_KEY];
   notesPushed = false;
   history.replaceState(state, "", notesUrl(""));

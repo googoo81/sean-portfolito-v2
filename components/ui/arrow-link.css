@@ -1,0 +1,83 @@
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28em;
+  width: max-content;
+  max-width: 100%;
+  margin: -0.2rem -0.4rem;
+  padding: 0.2rem 0.4rem;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.arrow-link__text {
+  flex: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--foreground) 42%, transparent);
+  word-break: keep-all;
+  transition: text-decoration-color 160ms ease;
+}
+
+.arrow-link:hover,
+.arrow-link:focus-visible {
+  color: var(--foreground);
+  background: var(--soft-hover);
+  opacity: 1;
+}
+
+.arrow-link:hover .arrow-link__text,
+.arrow-link:focus-visible .arrow-link__text {
+  text-decoration-color: var(--foreground);
+}
+
+.arrow-link:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+.arrow-link__mark {
+  display: inline-block;
+  flex-shrink: 0;
+  font-size: 0.78em;
+  line-height: 1;
+  color: var(--muted);
+  opacity: 0.85;
+  transform: translate(0, 0);
+  transition:
+    color 160ms ease,
+    opacity 160ms ease,
+    transform 180ms ease;
+}
+
+.arrow-link:hover .arrow-link__mark,
+.arrow-link:focus-visible .arrow-link__mark {
+  color: var(--foreground);
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+html[data-reduced-motion="true"] .arrow-link,
+html[data-lite-motion="true"] .arrow-link,
+html[data-reduced-motion="true"] .arrow-link__mark,
+html[data-lite-motion="true"] .arrow-link__mark {
+  transition: none;
+}
+
+html[data-reduced-motion="true"] .arrow-link:hover .arrow-link__mark,
+html[data-reduced-motion="true"] .arrow-link:focus-visible .arrow-link__mark,
+html[data-lite-motion="true"] .arrow-link:hover .arrow-link__mark,
+html[data-lite-motion="true"] .arrow-link:focus-visible .arrow-link__mark {
+  transform: none;
+}

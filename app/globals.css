@@ -1,6 +1,7 @@
 @import "./styles/reset.css";
 @import "./styles/theme.css";
 @import "./styles/chrome.css";
+@import "../components/ui/arrow-link.css";
 @import "./styles/bento.css";
 @import "../components/ui/theme-toggle.css";
 @import "../components/ui/locale-toggle.css";
@@ -10,6 +11,7 @@
 @import "../features/portfolio/components/home/skills-tile.css";
 @import "../features/portfolio/components/home/projects/projects-overlay.css";
 @import "../features/portfolio/components/work/projects-window.css";
+@import "../features/portfolio/components/home/projects/project-tile.css";
 @import "../features/portfolio/components/shared/device-mockup/device-mockup.css";
 @import "../features/portfolio/components/home/stack/notes-overlay.css";
 

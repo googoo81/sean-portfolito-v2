@@ -1,8 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ExternalLink, Prose } from "@/components/ui";
+import { ArrowLink, Prose } from "@/components/ui";
 import type { Project, ProjectImage } from "@/features/portfolio/types";
+import { OptimizationChart } from "@/features/portfolio/components/work/optimization-chart";
 
 type ProjectArticleProps = {
   project: Project;
@@ -40,11 +41,51 @@ function closingNavLabel(project: Project) {
   return project.closing.label ?? "Outcome";
 }
 
+function showProblem(project: Project) {
+  return Boolean(project.problemLead || project.problem);
+}
+
+function showClosing(project: Project) {
+  const closing = project.closing;
+  if (closing.kind === "points") {
+    return closing.items.length > 0 || Boolean(closing.body);
+  }
+  return true;
+}
+
 function buildNav(project: Project): NavItem[] {
-  const items: NavItem[] = [
-    { id: "problem", label: project.problemLabel ?? "Problem" },
-    { id: "strategy", label: project.strategyLabel ?? "Strategy" },
-  ];
+  if (project.reading === "result-first") {
+    const items: NavItem[] = [
+      { id: "closing", label: closingNavLabel(project) },
+    ];
+
+    if (project.channels?.length || project.execution.length > 0) {
+      items.push({
+        id: "execution",
+        label: project.executionLabel ?? "Execution",
+      });
+    }
+
+    if (project.mediaMix) {
+      items.push({
+        id: "media-mix",
+        label: project.mediaMix.label ?? "Media Mix",
+      });
+    }
+
+    if (showProblem(project)) {
+      items.push({ id: "problem", label: project.problemLabel ?? "Problem" });
+    }
+    return items;
+  }
+
+  const items: NavItem[] = [];
+
+  if (showProblem(project)) {
+    items.push({ id: "problem", label: project.problemLabel ?? "Problem" });
+  }
+
+  items.push({ id: "strategy", label: project.strategyLabel ?? "Strategy" });
 
   if (project.channels?.length || project.execution.length > 0) {
     items.push({
@@ -67,7 +108,9 @@ function buildNav(project: Project): NavItem[] {
     });
   }
 
-  items.push({ id: "closing", label: closingNavLabel(project) });
+  if (showClosing(project)) {
+    items.push({ id: "closing", label: closingNavLabel(project) });
+  }
   return items;
 }
 
@@ -115,8 +158,19 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
   const stepOf = (id: string) =>
     String(nav.findIndex((item) => item.id === id) + 1).padStart(2, "0");
 
+  const showDeck = project.reading !== "result-first" && project.deck !== false;
+  const linkItems = showDeck ? outbound : (project.links ?? []);
+
   return (
-    <div className="article">
+    <div
+      className={
+        project.reading === "result-first"
+          ? "article article--result-first"
+          : project.deck === false
+            ? "article article--links-last"
+            : "article"
+      }
+    >
       <header>
         <h1 className="article__title">{project.title}</h1>
         {project.summary ? (
@@ -145,31 +199,31 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </nav>
       </header>
 
-      {outbound.length > 0 ? (
-        <div>
+      {linkItems.length > 0 ? (
+        <div className="article__links-block">
           <h2 className="article__heading">Links</h2>
           <ul className="article__links">
-            {outbound.map((link) => (
+            {linkItems.map((link) => (
               <li key={link.href}>
-                <ExternalLink href={encodeURI(link.href)} className="article__link">
-                  {link.label}
-                </ExternalLink>
+                <ArrowLink href={encodeURI(link.href)}>{link.label}</ArrowLink>
               </li>
             ))}
           </ul>
         </div>
       ) : null}
 
-      <ArticleSection
-        id="problem"
-        step={stepOf("problem")}
-        label={project.problemLabel ?? "Problem"}
-      >
-        {project.problemLead ? (
-          <p className="article__lead">{project.problemLead}</p>
-        ) : null}
-        <Prose>{project.problem}</Prose>
-      </ArticleSection>
+      {showProblem(project) ? (
+        <ArticleSection
+          id="problem"
+          step={stepOf("problem")}
+          label={project.problemLabel ?? "Problem"}
+        >
+          {project.problemLead ? (
+            <p className="article__lead">{project.problemLead}</p>
+          ) : null}
+          {project.problem ? <Prose>{project.problem}</Prose> : null}
+        </ArticleSection>
+      ) : null}
 
       <ArticleSection
         id="strategy"
@@ -248,13 +302,15 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
             <p className="article__lead">{project.creative.lead}</p>
           ) : null}
           {project.creative.body ? <Prose>{project.creative.body}</Prose> : null}
-          <ol className="article__flow">
-            {project.creative.flow.map((step) => (
-              <li key={step} className="article__flow-item">
-                {step}
-              </li>
-            ))}
-          </ol>
+          {project.creative.flow && project.creative.flow.length > 0 ? (
+            <ol className="article__flow">
+              {project.creative.flow.map((step) => (
+                <li key={step} className="article__flow-item">
+                  {step}
+                </li>
+              ))}
+            </ol>
+          ) : null}
         </ArticleSection>
       ) : null}
 
@@ -289,6 +345,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </ArticleSection>
       ) : null}
 
+      {showClosing(project) ? (
       <ArticleSection
         id="closing"
         step={stepOf("closing")}
@@ -296,6 +353,9 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
       >
         {closing.kind === "outcome" ? (
           <div className="article__outcome">
+            {closing.comparison ? (
+              <OptimizationChart comparison={closing.comparison} />
+            ) : null}
             {closing.before ? (
               <div className="article__compare">
                 <div className="article__compare-card">
@@ -340,23 +400,27 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
               </div>
             ) : null}
             <Prose className="article__result">{closing.body}</Prose>
+            {closing.next ? <Prose>{closing.next}</Prose> : null}
           </div>
         ) : (
           <div className="article__outcome">
-            <ul className="article__actions">
-              {closing.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            {closing.items.length > 0 ? (
+              <ul className="article__actions">
+                {closing.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
             {closing.body ? (
               <Prose className="article__result">{closing.body}</Prose>
             ) : null}
           </div>
         )}
       </ArticleSection>
+      ) : null}
 
-      {pdfs.length > 0 ? (
-        <div>
+      {showDeck && pdfs.length > 0 ? (
+        <div className="article__deck">
           <h2 className="article__heading">Deck</h2>
           {pdfs.map((pdf) => (
             <div key={pdf.href} className="article__pdf-block">
@@ -366,9 +430,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
                 className="article__pdf-frame"
               />
               <div className="article__pdf-footer">
-                <ExternalLink href={encodeURI(pdf.href)} className="article__link">
-                  {pdf.label} ↗
-                </ExternalLink>
+                <ArrowLink href={encodeURI(pdf.href)}>{pdf.label}</ArrowLink>
               </div>
             </div>
           ))}

@@ -56,6 +56,13 @@ export function ProjectVideo({
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
 
+    setPlaying(!video.paused);
+    if (video.duration) {
+      setDuration(video.duration);
+      setCurrent(video.currentTime);
+      setProgress(video.currentTime / video.duration);
+    }
+
     video.addEventListener("timeupdate", onTime);
     video.addEventListener("loadedmetadata", onMeta);
     video.addEventListener("durationchange", onMeta);
@@ -133,6 +140,7 @@ export function ProjectVideo({
       className={cn(
         "project-video",
         interactive && "project-video--interactive",
+        interactive && !playing && "project-video--paused",
         className,
       )}
     >
@@ -217,7 +225,7 @@ export function ProjectVideo({
               />
             </div>
             <span className="project-video__time" aria-hidden="true">
-              {formatTime(duration)}
+              {duration > 0 ? formatTime(duration) : ""}
             </span>
           </div>
         </>

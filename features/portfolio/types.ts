@@ -27,7 +27,7 @@ export type ProjectCreative = {
   label?: string;
   lead?: string;
   body?: string;
-  flow: string[];
+  flow?: string[];
 };
 
 export type ProjectMediaMixItem = {
@@ -44,11 +44,26 @@ export type ProjectMediaMix = {
   items: ProjectMediaMixItem[];
 };
 
+export type ProjectComparison = {
+  beforeLabel: string;
+  afterLabel: string;
+  /** Suffix shown in the tooltip, such as 명. */
+  unit?: string;
+  rows: {
+    label: string;
+    before: number;
+    after: number;
+  }[];
+};
+
 export type ProjectClosing =
   | {
       kind: "outcome";
       label?: "Outcome" | "Optimization";
       body: string;
+      comparison?: ProjectComparison;
+      /** Forward plan that sits under the result, outside the pull-quote. */
+      next?: string;
       before?: {
         title: string;
         metrics: ProjectMetric[];
@@ -79,7 +94,8 @@ export type Project = {
   /** Optional one-line context under the title. */
   summary?: string;
   problemLabel?: string;
-  problem: string;
+  /** Omit to hide the problem section. */
+  problem?: string;
   /** Optional pull-quote highlighting the core problem. */
   problemLead?: string;
   strategyLabel?: string;
@@ -100,8 +116,25 @@ export type Project = {
   mediaMix?: ProjectMediaMix;
   closing: ProjectClosing;
   links?: ProjectLink[];
+  /** When false, a PDF link stays in the link list and is not embedded. */
+  deck?: boolean;
+  /** Result-first case page. Other projects keep the process order. */
+  reading?: "result-first";
+  /** One-line outcome shown on project cards. */
+  result?: string;
+  /** Featured card only. Compact cards keep `result`. */
+  featuredStat?: {
+    lead: string;
+    label: string;
+    beforeName: string;
+    afterName: string;
+    before: string;
+    after: string;
+  };
   icon?: string;
   cover?: ProjectImage;
+  /** When false, the detail page skips the cover hero. Cards still use it. */
+  detailHero?: boolean;
   video?: string;
   videoFormat?: "reels";
   gallery?: ProjectImage[];

@@ -60,127 +60,95 @@ export const portfolioEn: Portfolio = {
       slug: "bareway",
       shortTitle: "Bareway",
       title:
-        "Made taste memorable in content, and designed repurchase across media touchpoints.",
+        "Made a flavor-and-outfit Reel so the taste would be remembered again.",
       kind: "team",
-      meta: "Team project · Pre-launch plan | Role: market analysis · channel strategy · content production · media mix",
+      meta: "Team project (5) · Pre-launch plan | Role: Reel production",
       tools: "Figma · CapCut · Generative AI",
       period: "2026.07",
       icon: "/project/variway/icon.png",
       summary:
-        "A strategy-planning project structured from market analysis to channel content and media mix. Repurchase touchpoints were split by channel role, and taste plus daily routine were translated into content.",
+        "A two-week plan to be remembered for taste, then chosen again for a pre-work meal and for search.",
       problemLabel: "Market Analysis",
       problemLead:
-        "In a sea of similar ‘high-protein’ messages, we had to design a reason to come back.",
+        "Discount-led messages left buyers with no reason to remember the brand.",
       problem:
-        "The protein-shake market overlaps heavily on messaging, and Variway’s USP and repurchase reason weren’t sharp enough. Competitor work across brands like Flymeal and Proteone showed a repeating pattern of specs and value claims. From that analysis we chose taste, daily routine, and repurchase situations over another ‘high-protein’ line — analysis → pattern → strategy.",
+        "In a market where Flymeal and Proteone talk in specs and discounts, Bareway had no clear reason to be bought again.",
       strategyLabel: "Strategy",
-      strategyLead:
-        "Split messages by the situations where someone needs a shake, then separate content strategy by media role.",
+      strategyLead: "Remembered for taste, chosen again as a routine.",
       strategy:
-        "Execution follows those situation axes into each channel: search for conversion, DA for re-awareness, owned for experiencing taste and mood.",
-      strategyPoints: [
-        "Commute and office-snack moments",
-        "Body care and diet routines",
-        "Resistance to processed protein taste",
-        "An experience so good they come back for the flavor",
-      ],
+        "Instagram shows the taste again, Kakao proposes a meal before work, and Naver connects search to purchase.",
+      strategyPoints: [],
       executionLabel: "Channel Strategy",
       execution: [],
       channels: [
         {
-          name: "Naver SA",
-          role: "Convert high-intent search users",
-          items: [
-            "Keyword analysis by search intent",
-            "Separate brand vs category keywords",
-            "Situational queries like ‘office snack’ and ‘commute protein’",
-            "Designed as the touchpoint that catches ready-to-buy demand",
-          ],
-        },
-        {
-          name: "Kakao Bizboard / DA",
-          role: "Re-aware users who aren’t actively searching",
-          items: [
-            "Short, intuitive messages on taste and daily situations",
-            "Focused on site visits and retargeting",
-            "Owns recall and return before search",
-          ],
-        },
-        {
           name: "Instagram Owned",
-          role: "Let people experience brand mood and product use",
+          role: "Make taste and the package memorable again",
           items: [
-            "Reel / Story–led formats",
-            "Content aimed at saves, shares, and store traffic",
-            "Owned touchpoint that builds brand experience without paid spend",
+            "Reel ‘Outfit edits by flavor.zip’",
+            "Match package color to a fashion look, and suggest another flavor",
+          ],
+        },
+        {
+          name: "Kakao Bizboard",
+          role: "Offer a new reason: one meal before work",
+          items: [
+            "‘Craving something sweet before work?’",
+            "‘A light daily protein’",
+          ],
+        },
+        {
+          name: "Naver Powerlink",
+          role: "Connect search to the product page and purchase",
+          items: [
+            "‘High-fiber protein shake’",
+            "‘A Bareway shake that stays good to the last sip’",
           ],
         },
       ],
       creative: {
         label: "Reel Creative",
-        lead: "I analyzed brand mood solo, turned it into a concept, and produced the Reel.",
-        body: "Reel was prioritized over carousel so taste × fashion mood could read in a short film. The hero mockup and video above are that deliverable.",
-        flow: [
-          "Mood analysis",
-          "Core message",
-          "Film concept",
-          "Scene design",
-          "Final Reel production",
-        ],
+        lead: "Produced the Reel ‘Outfit edits by flavor.zip’.",
+        body: "It was made not to look like a protein ad. Package colors match fashion looks, so choosing a taste feels like choosing an outfit.\nIt brings back a flavor they already tried, then leads to one they have not.\nFrames stack from strawberry to matcha, chocolate, and coffee, and the outfit cut enters over the pouch.",
       },
       mediaMix: {
         label: "Media Mix",
-        budget: "Total budget ₩10M · 2-week plan",
+        budget: "2 weeks · ₩10M",
         rationale:
-          "We split ready-to-buy search demand from re-awareness demand that hasn’t searched yet. Paid budget sits on conversion and retargeting; mood and experience run on owned for efficiency plus brand feel.",
+          "Taste recall runs with no ad spend. Paid budget goes to the pre-work moment and to search conversion.",
         items: [
           {
             channel: "Kakao Bizboard",
             share: "70%",
-            role: "Site visits and retargeting",
-            notes: [
-              "Re-remind taste for users not yet searching",
-              "Center paid budget on return and pre-conversion",
-            ],
+            role: "Reach people who already had a touchpoint",
+            notes: ["₩7M · site visitors and channel friends"],
           },
           {
             channel: "Naver Powerlink",
             share: "30%",
-            role: "Capture brand and category search demand",
-            notes: [
-              "Connect high-intent search to conversion",
-              "Shape inflow quality with situational and category keywords",
-            ],
+            role: "Connect search to purchase",
+            notes: ["₩3M · two creatives, 15% each"],
           },
           {
             channel: "Instagram Owned",
             share: "0% paid",
-            role: "Operate content with no separate ad spend",
-            notes: [
-              "Reels and Stories for taste and routine mood",
-              "Run for saves, shares, and store traffic",
-            ],
+            role: "Remind followers of the taste",
+            notes: ["₩0 · flavor-and-outfit Reel"],
           },
         ],
       },
       closing: {
         kind: "points",
         label: "Project Point",
-        items: [
-          "Derived brand message direction from competitive market analysis",
-          "Structured SA keywords by search intent",
-          "Defined content roles for DA and owned media",
-          "Analyzed brand mood and produced the Reel myself",
-          "Designed a ₩10M-scale media mix",
-        ],
-        body: "Market analysis → strategy → channels → content → media mix was designed as one flow. What this project is meant to show isn’t a forced performance number — it’s the ability to structure repurchase touchpoints end to end.",
+        items: [],
       },
+      deck: false,
       cover: {
-        src: "/project/variway/mockup.png",
+        src: "/project/variway/mockup.webp",
         alt: "Bareway Instagram Reels mockup",
         fit: "contain",
       },
-      video: "/project/variway/main.mov",
+      video: "/project/variway/main.mp4",
       videoFormat: "reels",
       links: [
         {
@@ -194,86 +162,104 @@ export const portfolioEn: Portfolio = {
       shortTitle: "Chicment",
       title: "Turned first-luxury anxiety into a taste-discovery experience.",
       kind: "team",
-      meta: "Team project · Instagram ads | Role: content strategy · experience design · ad & landing iteration",
+      meta: "Team project (6) · Meta ads | Role: landing page planning, design & build · Meta ad setup · GA4 integration & analysis",
       tools: "GA4 · Meta Ads · Cursor",
-      period: "2026.08",
+      period: "2026.08–09",
+      reading: "result-first",
+      result: "To reviews 26.6% → 67.4%",
+      featuredStat: {
+        lead: "Test starts fell.",
+        label: "Final CTA rate",
+        beforeName: "1st",
+        afterName: "2nd",
+        before: "26.6%",
+        after: "67.4%",
+      },
       icon: "/project/chicment/icon.png",
       summary:
-        "Women in their 20s–30s considering a first luxury purchase already see brand and price info — what they lack is a personal decision standard. Instead of dumping more information, we used interactive content to help them discover taste criteria, then connected the result to Chicment’s real-use reviews.",
+        "A 5-question test helped people find taste criteria, then the result led to Chicment’s real-use reviews.",
       problemLead:
         "They find products appealing — but can’t explain why those products fit them.",
       problem:
-        "First-luxury beginners browse reviews across many channels, yet information is fragmented and often promotional, so confidence stays low. The issue wasn’t missing information — it was missing a personal selection standard.",
+        "First-luxury beginners can compare products and prices. What they lack is a personal selection standard.",
       strategyLead:
         "Don’t add more information. Help them discover their own taste criteria first.",
       strategy:
-        "The audience was women in their 20s–30s considering a first luxury buy. We designed a content path that hooks curiosity into the test, delivers a taste-discovery experience, then turns the result into a desire to check real reviews.",
+        "The audience was women in their 20s–30s facing a first luxury purchase.",
       strategyFlow: [
         "Short-form ad",
         "5-question interactive test",
         "16 taste-type results",
         "Chicment real-use review content",
       ],
-      strategyPoints: [
-        "Enter the test through curiosity",
-        "Provide a taste-discovery experience",
-        "Convert the result page into desire for real reviews",
+      strategyPoints: [],
+      execution: [],
+      channels: [
+        {
+          name: "Landing page",
+          role: "Owned · what changed in round 2",
+          items: [
+            "Headline: ‘just for fun’ → ‘Avoid a first-luxury mistake!’",
+            "Live ‘N people took this test’ on the first screen",
+            "CTA: ‘Chicment’s real reviews’ → ‘See honest reviews’",
+          ],
+        },
+        {
+          name: "Meta ads · GA4",
+          role: "Owned · setup & analysis",
+          items: [
+            "Round-1 spend was ₩86,501 on creative 1 and ₩5,849 on creative 2\nThe weaker one was stopped early. GA4 measured visit → start → reviews",
+            "About 78% of round-1 response was ages 25–34\nRound 2 narrowed to women 24–32",
+          ],
+        },
       ],
-      execution: [
-        "Researched first-luxury purchase friction and framed the core problem as missing selection criteria",
-        "Planned PICKGAM — a 5-question interactive test with 16 result types",
-        "Designed and built the landing experience: ad → test → result → reviews",
-        "Planned Meta short-form creatives to drive test entry",
-        "Analyzed round-1 performance and identified pre-start drop-off as the main bottleneck",
-        "Improved first-screen copy, CTA, and targeting for round 2",
-      ],
+      mediaMix: {
+        label: "Ad Test",
+        budget: "₩250K total · Round 1 ₩100K · Round 2 ₩150K",
+        rationale:
+          "In round 2, short-form A got heavier and explanatory, and clicks fell.\nShort-form B, whose promise of avoiding a first-luxury mistake matched the landing, gained clicks.\nTotal visits stayed nearly flat, 535 to 527.",
+        items: [
+          {
+            channel: "Short-form A",
+            share: "CTR 5.77% → 1.95%",
+            role: "Efficiency fell",
+            notes: ["CPC ₩167 → ₩403 · landing views 501 → 14"],
+          },
+          {
+            channel: "Short-form B",
+            share: "CTR 1.72% → 4.67%",
+            role: "Efficiency rose",
+            notes: ["Impressions 699 → 11,934 · landing views 7 → 497"],
+          },
+        ],
+      },
       closing: {
         kind: "outcome",
         label: "Optimization",
-        before: {
-          title: "Before · Round 1",
-          metrics: [
-            { label: "Visits", value: "547" },
-            { label: "Test starts", value: "121" },
-            { label: "Drop-off before start", value: "~79%" },
-            { label: "Test start → CTA", value: "23.9%" },
+        comparison: {
+          beforeLabel: "Round 1 · 8.20–8.24",
+          afterLabel: "Round 2 · 9.1–9.3",
+          rows: [
+            { label: "Visit", before: 535, after: 527 },
+            { label: "Test start", before: 94, after: 46 },
+            { label: "To reviews", before: 25, after: 31 },
           ],
-          insight:
-            "The bottleneck wasn’t only ad click — the landing first screen didn’t clearly explain why someone should take the test now.",
         },
-        after: {
-          title: "After · Round 2 results",
-          metrics: [
-            {
-              label: "Scroll rate",
-              value: "78.2% → 85.7% (+7.5pp)",
-            },
-            {
-              label: "Test start → CTA",
-              value: "23.9% → 66.0% (+42.1pp)",
-            },
-            {
-              label: "Final CTA clicks",
-              value: "26 (4.7%) → 31 (6.2%)",
-            },
-          ],
-          insight:
-            "Absolute traffic fell, but conversion efficiency rose — users who started the test were much more likely to finish through the CTA.",
-        },
-        body: "We didn’t stop at ad CTR. Post-click behavior data revealed the bottleneck, then we redesigned message, CTA, and targeting. The point of this project isn’t a single final metric — it’s reading performance and shipping the next improvement.",
+        body: "The share of starters who reached reviews rose from 26.6% to 67.4%, and mid-test drop-off fell from 69 people to 15.\nPre-start drop-off grew from 82.4% to 91.3% — the first-screen barrier was not solved.",
       },
       cover: {
-        src: "/project/chicment/mockup.png",
+        src: "/project/chicment/mockup.webp",
         alt: "Chicment PICKGAM interactive content mockup",
         fit: "contain",
       },
+      detailHero: false,
       links: [
         {
           label: "PICKGAM landing — luxury taste test",
           href: "https://loving44.dothome.co.kr/",
         },
         {
-          label: "Chicment New Customer Acquisition Project",
+          label: "Project presentation (PDF)",
           href: "/project/chicment/ppt.en.pdf",
         },
       ],
@@ -281,37 +267,46 @@ export const portfolioEn: Portfolio = {
     {
       slug: "musinsa",
       shortTitle: "Musinsa",
-      title: "AI ad film for Mujinjang Black Friday momentum",
+      title: "Made one street film so every season stays with Musinsa.",
       kind: "personal",
       meta: "Personal project (contest) · Eliminated in prelims | Role: concept · AI film direction · edit",
-      tools: "CapCut · KlingAI",
+      tools: "GPT · KlingAI · CapCut",
       period: "2026.06",
       icon: "/project/musinsa/icon.png",
-      problem:
-        "Musinsa’s ‘Mujinjang success AI film contest’ asked for a 5–30s AI ad announcing Mujinjang Black Friday. A discount card alone rarely stops the scroll — short cuts still needed season mood and brand tone so hype and atmosphere could travel together.",
+      summary:
+        "Announces how cheap Mujinjang is, with summer’s feeling and orange tone, made to stay on Reels.",
+      strategyLabel: "Concept",
+      strategyLead: "The flow follows summer’s seasonal feeling.",
       strategy:
-        "Treat the promo like a lookbook: keep season mood continuous by changing only weather and wardrobe at the same location, and link cuts with orange accents (bike, cones) aligned to the key visual and brand color (#FE4900).",
+        "It moves from early-summer green, to a monsoon umbrella, to harsh midsummer noon, to late-summer dusk, and the fashion changes to match that seasonal feeling.\nThe opening is a text animation, ‘Any season, with Musinsa.’, in the same tone as Musinsa’s key visual.\nThe bike and the cone carry that orange into the street cuts.\nChanging season and fashion on one street was made with AI.",
+      executionLabel: "Film",
       execution: [
-        "Designed concept and cut list to brief rules (key visual ≥1×, 5–30s, AI-made)",
-        "Built street scenes with weather/wardrobe shifts and repeating props as visual bridges",
-        "Generated and edited with KlingAI and CapCut into one finished Mujinjang promo AI film",
+        "Opening line: ‘Any season, with Musinsa.’",
+        "End card: Musinsa key visual · ‘Mujinjang’ · 26 Summer Black Friday · ‘Up to 80% off’",
       ],
+      creative: {
+        label: "Production",
+        body: "GPT made the start and end frames. Kling generated several 3-second clips, then CapCut joined them and finished the film.",
+      },
       closing: {
         kind: "points",
         label: "Key Takeaway",
-        items: [
-          "Cut design that keeps season mood and brand tone continuous in a short ad",
-          "Prop and accent color aligned to key visual and brand palette",
-          "Solo pipeline from concept to finished film via AI generate-and-edit",
-          "Next-work rule — stamp event/benefit early, then continue into mood cuts as separate message layers",
-        ],
+        items: [],
+        body: "It does not open on the Mujinjang line.\nSummer opens the film, and the key visual is last.",
       },
+      deck: false,
+      links: [
+        {
+          label: "YouTube Shorts",
+          href: "https://www.youtube.com/shorts/DldJFvz1tWQ",
+        },
+      ],
       cover: {
-        src: "/project/musinsa/mockup.png",
+        src: "/project/musinsa/mockup.webp",
         alt: "Musinsa Mujinjang AI ad mockup",
         fit: "contain",
       },
-      video: "/project/musinsa/main.mov",
+      video: "/project/musinsa/main.mp4",
       videoFormat: "reels",
     },
   ],

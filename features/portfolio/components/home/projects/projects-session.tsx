@@ -82,27 +82,6 @@ export function ProjectsSessionProvider({
   }, []);
 
   useEffect(() => {
-    const idleWindow = window as Window & {
-      requestIdleCallback?: (
-        callback: IdleRequestCallback,
-        options?: IdleRequestOptions,
-      ) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-
-    if (typeof idleWindow.requestIdleCallback === "function") {
-      const idleId = idleWindow.requestIdleCallback(
-        () => prefetchProjectsOverlay(),
-        { timeout: 1500 },
-      );
-      return () => idleWindow.cancelIdleCallback?.(idleId);
-    }
-
-    const timeoutId = window.setTimeout(() => prefetchProjectsOverlay(), 400);
-    return () => window.clearTimeout(timeoutId);
-  }, []);
-
-  useEffect(() => {
     const frame = requestAnimationFrame(() => {
       if (!isProjectsHash()) {
         return;

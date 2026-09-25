@@ -59,6 +59,9 @@
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   color: var(--muted);
+  white-space: pre-line;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .external-link {

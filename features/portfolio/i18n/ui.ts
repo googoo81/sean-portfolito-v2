@@ -7,6 +7,7 @@ export type UiStrings = {
   stackToolsAria: string;
   allProjectsAria: string;
   openProjectAria: (title: string) => string;
+  rateFold: (value: string) => string;
   profilePhotoAria: (name: string) => string;
   themeToggleAria: string;
   themeToggleSr: string;
@@ -81,6 +82,7 @@ export const uiStrings: Record<Locale, UiStrings> = {
     stackToolsAria: "사용 도구",
     allProjectsAria: "모든 프로젝트",
     openProjectAria: (title) => `${title} 열기`,
+    rateFold: (value) => `${value}배`,
     profilePhotoAria: (name) => `${name} 프로필 사진`,
     themeToggleAria: "테마 전환",
     themeToggleSr: "흑백 테마 전환",
@@ -153,6 +155,7 @@ export const uiStrings: Record<Locale, UiStrings> = {
     stackToolsAria: "Tools I use",
     allProjectsAria: "All projects",
     openProjectAria: (title) => `Open ${title}`,
+    rateFold: (value) => `${value}×`,
     profilePhotoAria: (name) => `Profile photo of ${name}`,
     themeToggleAria: "Toggle theme",
     themeToggleSr: "Toggle light and dark theme",

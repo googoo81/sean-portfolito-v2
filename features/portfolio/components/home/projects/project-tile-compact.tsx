@@ -31,6 +31,9 @@ export function ProjectTileCompact({
           ) : null}
         </p>
         <p className="project-tile-compact__title">{project.shortTitle}</p>
+        {project.result ? (
+          <p className="project-tile-compact__result">{project.result}</p>
+        ) : null}
       </div>
     </>
   );
