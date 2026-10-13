@@ -57,8 +57,8 @@ export const portfolioEn: Portfolio = {
   ],
   projects: [
     {
-      slug: "bareway",
-      shortTitle: "Bareway",
+      slug: "variway",
+      shortTitle: "Variway",
       title:
         "Made a flavor-and-outfit Reel so the taste would be remembered again.",
       kind: "team",
@@ -67,12 +67,12 @@ export const portfolioEn: Portfolio = {
       period: "2026.07",
       icon: "/project/variway/icon.png",
       summary:
-        "A two-week plan to be remembered for taste, then chosen again for a pre-work meal and for search.",
+        "A five-person team assignment from Naebaeum Camp. The subject is Variway, a protein shake brand, and the work is a plan made before it went live.",
       problemLabel: "Market Analysis",
       problemLead:
         "Discount-led messages left buyers with no reason to remember the brand.",
       problem:
-        "In a market where Flymeal and Proteone talk in specs and discounts, Bareway had no clear reason to be bought again.",
+        "In a market where Flymeal and Proteone talk in specs and discounts, Variway had no clear reason to be bought again.",
       strategyLabel: "Strategy",
       strategyLead: "Remembered for taste, chosen again as a routine.",
       strategy:
@@ -102,7 +102,7 @@ export const portfolioEn: Portfolio = {
           role: "Connect search to the product page and purchase",
           items: [
             "‘High-fiber protein shake’",
-            "‘A Bareway shake that stays good to the last sip’",
+            "‘A Variway shake that stays good to the last sip’",
           ],
         },
       ],
@@ -145,7 +145,7 @@ export const portfolioEn: Portfolio = {
       deck: false,
       cover: {
         src: "/project/variway/mockup.webp",
-        alt: "Bareway Instagram Reels mockup",
+        alt: "Variway Instagram Reels mockup",
         fit: "contain",
       },
       video: "/project/variway/main.mp4",
@@ -177,7 +177,7 @@ export const portfolioEn: Portfolio = {
       },
       icon: "/project/chicment/icon.png",
       summary:
-        "A 5-question test helped people find taste criteria, then the result led to Chicment’s real-use reviews.",
+        "A six-person team assignment from Naebaeum Camp. It is a taste test for people buying their first luxury item, and the team ran Meta ads.",
       problemLead:
         "They find products appealing — but can’t explain why those products fit them.",
       problem:
@@ -274,7 +274,7 @@ export const portfolioEn: Portfolio = {
       period: "2026.06",
       icon: "/project/musinsa/icon.png",
       summary:
-        "Announces how cheap Mujinjang is, with summer’s feeling and orange tone, made to stay on Reels.",
+        "A personal entry for a contest. I made a Musinsa summer-sale film, from the concept through the edit.",
       strategyLabel: "Concept",
       strategyLead: "The flow follows summer’s seasonal feeling.",
       strategy:

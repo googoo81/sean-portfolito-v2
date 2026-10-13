@@ -57,7 +57,7 @@ export const portfolioKo: Portfolio = {
   ],
   projects: [
     {
-      slug: "bareway",
+      slug: "variway",
       shortTitle: "배리웨이",
       title: "맛별 코디로, 다시 떠올릴 맛을 릴스로 만들었습니다.",
       kind: "team",
@@ -66,7 +66,7 @@ export const portfolioKo: Portfolio = {
       period: "2026.07",
       icon: "/project/variway/icon.png",
       summary:
-        "맛으로 다시 기억하고, 출근 전 한 끼와 검색으로 다시 선택하게 한 2주 기획안입니다.",
+        "내일배움캠프에서 진행한 5인 팀 과제입니다. 대상은 단백질 쉐이크 브랜드 배리웨이이고, 운영 전에 만든 기획안입니다.",
       problemLabel: "Market Analysis",
       problemLead:
         "할인 메시지 속에서, 산 사람이 다시 떠올릴 이유가 없었습니다.",
@@ -173,7 +173,7 @@ export const portfolioKo: Portfolio = {
       },
       icon: "/project/chicment/icon.png",
       summary:
-        "5문항 테스트로 취향 기준을 발견하게 하고, 결과에서 시크먼트 실사용 후기로 연결했습니다.",
+        "내일배움캠프에서 진행한 6인 팀 과제입니다. 첫 명품 구매를 앞둔 사람을 위한 취향 테스트이고, Meta 광고까지 집행했습니다.",
       problemLead: "끌리는 제품은 있지만, 왜 나에게 맞는지 설명하기 어렵다.",
       problem:
         "2030 명품 입문층은 상품과 가격은 비교할 수 있지만, 자신에게 맞는 선택 기준이 없었습니다.",
@@ -269,7 +269,7 @@ export const portfolioKo: Portfolio = {
       period: "2026.06",
       icon: "/project/musinsa/icon.png",
       summary:
-        "‘무진장 싸다’를 알리되, 여름 계절감과 주황 톤으로 릴스에 남길 영상을 만들었습니다.",
+        "공모전에 낸 개인 작업입니다. 무신사 여름 세일 영상을 콘셉트부터 편집까지 만들었습니다.",
       strategyLabel: "Concept",
       strategyLead: "여름의 계절감으로, 흐름을 잡았습니다.",
       strategy:

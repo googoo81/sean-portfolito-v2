@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { NotionTab } from "./notion-tabs";
 
 type NotionTabBarProps = {
@@ -8,6 +9,31 @@ type NotionTabBarProps = {
   ariaLabel: string;
   onSelect: (tab: NotionTab) => void;
 };
+
+function TabIcon({ tab }: { tab: NotionTab }) {
+  const [failed, setFailed] = useState(false);
+
+  if (!tab.iconUrl || failed) {
+    return (
+      <span
+        className="notion-overlay__tab-icon notion-overlay__tab-icon--fallback"
+        aria-hidden
+      >
+        {tab.title.slice(0, 1)}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      className="notion-overlay__tab-icon"
+      src={tab.iconUrl}
+      alt=""
+      draggable={false}
+      onError={() => setFailed(true)}
+    />
+  );
+}
 
 export function NotionTabBar({
   tabs,
@@ -47,18 +73,7 @@ export function NotionTabBar({
               }
             }}
           >
-            {tab.iconUrl ? (
-              <img
-                className="notion-overlay__tab-icon"
-                src={tab.iconUrl}
-                alt=""
-                draggable={false}
-              />
-            ) : (
-              <span className="notion-overlay__tab-icon notion-overlay__tab-icon--fallback" aria-hidden>
-                {tab.title.slice(0, 1)}
-              </span>
-            )}
+            <TabIcon tab={tab} />
             <span className="notion-overlay__tab-label">{tab.title}</span>
           </button>
         );

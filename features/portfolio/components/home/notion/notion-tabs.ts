@@ -1,3 +1,5 @@
+import { defaultMapImageUrl } from "notion-utils";
+import type { Block } from "notion-types";
 import { isNotionUrl, notionPageIdFromUrl, notionStaticPath } from "@/lib/notion";
 import type { Portfolio } from "@/features/portfolio/types";
 
@@ -65,15 +67,10 @@ type NotionRecordMap = {
     string,
     {
       value?: {
-        value?: {
-          type?: string;
-          properties?: { title?: string[][] };
-          format?: { page_icon?: string };
-        };
+        value?: Block;
       };
     }
   >;
-  signed_urls?: Record<string, string>;
 };
 
 export async function loadNotionTabMeta(
@@ -95,10 +92,9 @@ export async function loadNotionTabMeta(
 
   const title = page?.properties?.title?.[0]?.[0]?.trim();
   const iconKey = page?.format?.page_icon;
+  // Prefer Notion's image proxy over cached signed_urls (those expire).
   const iconUrl =
-    iconKey && map.signed_urls?.[iconKey]
-      ? map.signed_urls[iconKey]
-      : undefined;
+    iconKey && page ? defaultMapImageUrl(iconKey, page) : undefined;
 
   return {
     ...(title ? { title } : {}),
