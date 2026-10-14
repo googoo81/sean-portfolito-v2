@@ -3,6 +3,7 @@
 import { ArrowLink, BentoCard, BentoGrid, LocaleToggle, ThemeToggle } from "@/components/ui";
 import { getFeaturedProject } from "@/features/portfolio/lib";
 import { usePortfolio } from "@/features/portfolio/i18n";
+import { PdfPortfolioCell } from "./pdf-portfolio-cell";
 import { ProfileTile } from "./profile-tile";
 import { ProjectTile } from "./projects/project-tile";
 import { ProjectsGridCell } from "./projects/projects-grid-cell";
@@ -209,6 +210,11 @@ export function PortfolioPage() {
                 ))}
               </ul>
             </BentoCard>
+
+            <PdfPortfolioCell
+              className="bento-pdf"
+              href={portfolio.contact.pdf}
+            />
           </div>
 
           <div className="bento-bottom">

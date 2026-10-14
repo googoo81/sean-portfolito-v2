@@ -26,6 +26,11 @@ export type UiStrings = {
     emailCopy: string;
     emailOpen: string;
   };
+  pdfPortfolio: {
+    title: string;
+    action: string;
+    open: string;
+  };
   projectFilter: {
     all: string;
     team: string;
@@ -101,6 +106,11 @@ export const uiStrings: Record<Locale, UiStrings> = {
       emailCopy: "이메일 주소 복사",
       emailOpen: "이메일 보내기",
     },
+    pdfPortfolio: {
+      title: "PDF 포트폴리오",
+      action: "보러가기",
+      open: "PDF 포트폴리오 보러가기",
+    },
     projectFilter: {
       all: "전체",
       team: "팀스파르타",
@@ -173,6 +183,11 @@ export const uiStrings: Record<Locale, UiStrings> = {
       phoneOpen: "Call",
       emailCopy: "Copy email address",
       emailOpen: "Send email",
+    },
+    pdfPortfolio: {
+      title: "PDF portfolio",
+      action: "View",
+      open: "View PDF portfolio",
     },
     projectFilter: {
       all: "All",

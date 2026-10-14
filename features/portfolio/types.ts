@@ -183,6 +183,7 @@ export type PortfolioContact = {
   email: string;
   github: string;
   linkedin: string;
+  pdf: string;
 };
 
 export type SkillItem = {

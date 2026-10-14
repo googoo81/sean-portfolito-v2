@@ -20,6 +20,7 @@ export const portfolioEn: Portfolio = {
     github: "https://github.com/googoo81/sean-portfolito-v2",
     linkedin:
       "https://www.linkedin.com/in/%ED%98%84%EC%9A%B0-%EC%86%A1-a058b528a/",
+    pdf: "https://drive.google.com/file/d/1FUoPXnRuTpsHcSlQFty3Ham0V4VVVpi0/view?usp=sharing",
   },
   stack: getStackItems("en"),
   featuredSlug: "chicment",

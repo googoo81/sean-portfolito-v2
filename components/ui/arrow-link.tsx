@@ -17,6 +17,7 @@ type ArrowLinkAnchorProps = {
   href: string;
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 };
 
 type ArrowLinkButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -26,10 +27,14 @@ type ArrowLinkButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function ArrowLink(props: ArrowLinkAnchorProps | ArrowLinkButtonProps) {
   if (typeof props.href === "string") {
-    const { href, children, className } = props;
+    const { href, children, className, onClick } = props;
 
     return (
-      <ExternalLink href={href} className={cn("arrow-link", className)}>
+      <ExternalLink
+        href={href}
+        className={cn("arrow-link", className)}
+        onClick={onClick}
+      >
         <ArrowLinkBody>{children}</ArrowLinkBody>
       </ExternalLink>
     );

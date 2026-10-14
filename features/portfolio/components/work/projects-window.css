@@ -815,6 +815,8 @@ html[data-lite-motion="true"]
   gap: 1rem;
   padding: 1.25rem;
   border-radius: inherit;
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
